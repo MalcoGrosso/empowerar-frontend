@@ -29,6 +29,7 @@
     "@emotion/styled": "^11.13.0",
     "@fontsource-variable/dm-sans": "^5.0.7",
     "@fontsource/barlow": "^5.0.14",
+    "@formspree/react": "^2.5.1",
     "@iconify/react": "^5.0.2",
     "@mui/lab": "^5.0.0-alpha.173",
     "@mui/material": "^5.16.7",
