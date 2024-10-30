@@ -1,17 +1,20 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import axios from 'axios';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
-
 import { useRouter } from 'src/routes/hooks';
-
 import { Iconify } from 'src/components/iconify';
+import api from '../../config/axiosClient';
+
+interface TokenPayload {
+  exp: number; // Timestamp de expiración del token
+}
 
 // ----------------------------------------------------------------------
 
@@ -19,10 +22,39 @@ export function SignInView() {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState<string>('florencia.perez@example.com');
+  const [password, setPassword] = useState<string>('123');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSignIn = useCallback(() => {
-    router.push('/');
+  // Verificar si el usuario ya está autenticado y redirigirlo al dashboard
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Redirigir al dashboard directamente si hay un token
+      router.push('/dashboard');
+    }
   }, [router]);
+
+  const handleSignIn = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await api.post('/login', { email, password });
+      const { token } = response.data;
+
+      // Guardar el token en localStorage
+      localStorage.setItem('token', token);
+
+      // Redirigir al dashboard
+      router.push('/dashboard');
+    } catch (axiosError: any) {
+      setError('Error al iniciar sesión. Verifica tus credenciales.');
+    } finally {
+      setLoading(false);
+    }
+  }, [email, password, router]);
 
   const renderForm = (
     <Box display="flex" flexDirection="column" alignItems="flex-end">
@@ -30,20 +62,18 @@ export function SignInView() {
         fullWidth
         name="email"
         label="Email address"
-        defaultValue="hello@gmail.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         InputLabelProps={{ shrink: true }}
         sx={{ mb: 3 }}
       />
-
-      <Link variant="body2" color="inherit" sx={{ mb: 1.5 }}>
-        Forgot password?
-      </Link>
 
       <TextField
         fullWidth
         name="password"
         label="Password"
-        defaultValue="@demo1234"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         InputLabelProps={{ shrink: true }}
         type={showPassword ? 'text' : 'password'}
         InputProps={{
@@ -65,9 +95,12 @@ export function SignInView() {
         color="inherit"
         variant="contained"
         onClick={handleSignIn}
+        loading={loading}
       >
         Sign in
       </LoadingButton>
+
+      {error && <Typography color="error" variant="body2">{error}</Typography>}
     </Box>
   );
 
@@ -84,27 +117,6 @@ export function SignInView() {
       </Box>
 
       {renderForm}
-
-      <Divider sx={{ my: 3, '&::before, &::after': { borderTopStyle: 'dashed' } }}>
-        <Typography
-          variant="overline"
-          sx={{ color: 'text.secondary', fontWeight: 'fontWeightMedium' }}
-        >
-          OR
-        </Typography>
-      </Divider>
-
-      <Box gap={1} display="flex" justifyContent="center">
-        <IconButton color="inherit">
-          <Iconify icon="logos:google-icon" />
-        </IconButton>
-        <IconButton color="inherit">
-          <Iconify icon="eva:github-fill" />
-        </IconButton>
-        <IconButton color="inherit">
-          <Iconify icon="ri:twitter-x-fill" />
-        </IconButton>
-      </Box>
     </>
   );
 }

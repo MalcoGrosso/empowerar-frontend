@@ -24,7 +24,7 @@ import {
 import { useUsers, UserProps } from '../../../context/UserProvider';
 import { UserModal } from './UserModal';
 
-export function UserView() {
+export function ProyectosView() {
   const { users, fetchUsers, deleteUser } = useUsers();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
