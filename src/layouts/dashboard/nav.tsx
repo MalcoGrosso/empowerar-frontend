@@ -12,7 +12,7 @@ import { usePathname } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
 import { varAlpha } from 'src/theme/styles';
-
+import Typography from '@mui/material/Typography';
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
 
@@ -20,6 +20,7 @@ import { NavUpgrade } from '../components/nav-upgrade';
 import { WorkspacesPopover } from '../components/workspaces-popover';
 
 import type { WorkspacesPopoverProps } from '../components/workspaces-popover';
+
 
 // ----------------------------------------------------------------------
 
@@ -119,11 +120,16 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
 
   return (
     <>
-      <Logo />
+      <Box display="flex" alignItems="center"> {/* Contenedor flex para el logo y el texto */}
+        <Logo sx={{ my: 2 }} />
+        <Typography variant="h6" sx={{ ml: 1 }}> {/* Texto al lado del logo */}
+          empowerar
+        </Typography>
+      </Box>
 
       {slots?.topArea}
 
-      <WorkspacesPopover data={workspaces} sx={{ my: 2 }} />
+      
 
       <Scrollbar fillContent>
         <Box component="nav" display="flex" flex="1 1 auto" flexDirection="column" sx={sx}>
@@ -176,7 +182,6 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
 
       {slots?.bottomArea}
 
-      <NavUpgrade />
     </>
   );
 }

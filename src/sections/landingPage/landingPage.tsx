@@ -212,7 +212,7 @@ export function LandingPage() {
               ? 'Una plataforma de código abierto para el financiamiento regenerativo de comunidades vulnerables'
               : 'An open-source platform for the regenerative financing of vulnerable communities'}
           </Typography>
-          <Button  variant="contained" color="primary">
+          <Button href="/sign-in" variant="contained" color="primary">
             {content.buttonText}
           </Button>
         </Box>

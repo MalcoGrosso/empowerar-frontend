@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import App from './app';
 import { LanguageProvider } from './context/LanguageProvider';
+import { AlertProvider } from './context/AlertProvider';
 
 // ----------------------------------------------------------------------
 
@@ -15,9 +16,11 @@ root.render(
     <HelmetProvider>
       <BrowserRouter>
         <Suspense>
+          <AlertProvider>
           <LanguageProvider>
           <App />
           </LanguageProvider>
+          </AlertProvider>
         </Suspense>
       </BrowserRouter>
     </HelmetProvider>

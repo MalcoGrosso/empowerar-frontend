@@ -7,7 +7,8 @@ import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgr
 import { varAlpha } from 'src/theme/styles';
 import { AuthLayout } from 'src/layouts/auth';
 import { DashboardLayout } from 'src/layouts/dashboard';
-
+import RoleProtectedRoute from 'src/components/RoleProtectedRoute'; // Importar el componente
+import { UserProvider } from 'src/context/UserProvider';
 
 // ----------------------------------------------------------------------
 
@@ -17,7 +18,8 @@ export const UserPage = lazy(() => import('src/pages/user'));
 export const SignInPage = lazy(() => import('src/pages/sign-in'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
-export const LandingPage = lazy(() => import('src/pages/landingPage'))
+export const LandingPage = lazy(() => import('src/pages/landingPage'));
+export const ProyectoPage = lazy(() => import('src/pages/proyectos'));
 
 
 // ----------------------------------------------------------------------
@@ -37,33 +39,6 @@ const renderFallback = (
 
 export function Router() {
   return useRoutes([
-    // {
-    //   element: (
-    //     <DashboardLayout>
-    //       <Suspense fallback={renderFallback}>
-    //         <Outlet />
-    //       </Suspense>
-    //     </DashboardLayout>
-    //   ),
-    //   children: [
-    //     { element: <HomePage />, index: true },
-    //     { path: 'user', element: <UserPage /> },
-    //     { path: 'products', element: <ProductsPage /> },
-    //     { path: 'blog', element: <BlogPage /> },
-    //   ],
-    // },
-    // {
-    //   path: 'sign-in',
-    //   element: (
-    //     <AuthLayout>
-    //       <SignInPage />
-    //     </AuthLayout>
-    //   ),
-    // },
-    // {
-    //   path: '404',
-    //   element: <Page404 />,
-    // },
     {
       path: 'landing',
       element: <LandingPage />,
@@ -72,16 +47,60 @@ export function Router() {
       path: '*',
       element: <Navigate to="/landing" replace />,
     },
-    
-    //  {
-    //    path: 'sign-in',
-    //    element: (
-    //      <AuthLayout>
-    //        <SignInPage />
-    //      </AuthLayout>
-    //    ),
-    // },
-    
-    
+    {
+      path: 'sign-in',
+      element: (
+        <AuthLayout>
+          <SignInPage />
+        </AuthLayout>
+      ),
+    },
+    {
+      path: 'dashboard',
+      element: (
+        <RoleProtectedRoute allowedRoles={['administrador', 'usuario']}> {/* Roles permitidos */}
+          <DashboardLayout>
+            <Suspense fallback={renderFallback}>
+              <Outlet />
+            </Suspense>
+          </DashboardLayout>
+        </RoleProtectedRoute>
+      ),
+      children: [
+        { element: <HomePage />, index: true },
+        { path: 'user', element:(
+          
+          <RoleProtectedRoute allowedRoles={['administrador']}>
+            <UserProvider>
+                <UserPage /> 
+            </UserProvider>
+            
+          </RoleProtectedRoute>
+        
+        
+        
+        )
+        },
+        { path: 'proyectos', element:(
+          
+          <RoleProtectedRoute allowedRoles={['administrador']}>
+            <UserProvider>
+                <ProyectoPage /> 
+            </UserProvider>
+            
+          </RoleProtectedRoute>
+        
+        
+        
+        )
+        },
+        { path: 'products', element: <ProductsPage /> },
+        { path: 'blog', element: <BlogPage /> },
+      ],
+    },
+    {
+      path: '404',
+      element: <Page404 />, // Página de acceso no autorizado
+    },
   ]);
 }
