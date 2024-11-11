@@ -22,7 +22,7 @@ export function SignInView() {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState<string>('florencia.perez@example.com');
+  const [dni, setDni] = useState<string>('44589635');  // Cambiar 'email' por 'dni'
   const [password, setPassword] = useState<string>('123');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -41,7 +41,7 @@ export function SignInView() {
     setError(null);
 
     try {
-      const response = await api.post('/login', { email, password });
+      const response = await api.post('/login', { dni, password });  // Cambiar 'email' por 'dni'
       const { token } = response.data;
 
       // Guardar el token en localStorage
@@ -54,16 +54,16 @@ export function SignInView() {
     } finally {
       setLoading(false);
     }
-  }, [email, password, router]);
+  }, [dni, password, router]);  // Cambiar 'email' por 'dni'
 
   const renderForm = (
     <Box display="flex" flexDirection="column" alignItems="flex-end">
       <TextField
         fullWidth
-        name="email"
-        label="Email address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        name="dni"
+        label="DNI"  // Cambiar etiqueta de 'Email' a 'DNI'
+        value={dni}  // Cambiar 'email' por 'dni'
+        onChange={(e) => setDni(e.target.value)}  // Cambiar 'email' por 'dni'
         InputLabelProps={{ shrink: true }}
         sx={{ mb: 3 }}
       />
@@ -97,7 +97,7 @@ export function SignInView() {
         onClick={handleSignIn}
         loading={loading}
       >
-        Sign in
+        Iniciar Sesion
       </LoadingButton>
 
       {error && <Typography color="error" variant="body2">{error}</Typography>}
@@ -107,13 +107,7 @@ export function SignInView() {
   return (
     <>
       <Box gap={1.5} display="flex" flexDirection="column" alignItems="center" sx={{ mb: 5 }}>
-        <Typography variant="h5">Sign in</Typography>
-        <Typography variant="body2" color="text.secondary">
-          Don’t have an account?
-          <Link variant="subtitle2" sx={{ ml: 0.5 }}>
-            Get started
-          </Link>
-        </Typography>
+        <Typography variant="h5">Iniciar Sesion</Typography>
       </Box>
 
       {renderForm}

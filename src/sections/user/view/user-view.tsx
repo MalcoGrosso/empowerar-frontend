@@ -65,6 +65,7 @@ export function UserView() {
     if (selectedUser) {
       setUserToEdit(selectedUser);
       setIsModalOpen(true);
+      handleMenuClose();
     }
   };
 
