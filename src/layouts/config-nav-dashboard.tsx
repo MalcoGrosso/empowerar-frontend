@@ -9,12 +9,12 @@ const icon = (name: string) => (
 
 export const navData = [
   {
-    title: 'Dashboard',
+    title: 'Menu Principal',
     path: '/dashboard',
     icon: icon('ic-analytics'),
   },
   {
-    title: 'User',
+    title: 'Usuarios',
     path: '/dashboard/user',
     icon: icon('ic-user'),
   },
@@ -23,21 +23,21 @@ export const navData = [
     path: '/dashboard/Proyectos',
     icon: icon('ic-user'),
   },
-  {
-    title: 'Product',
-    path: '/dashboard/products',
-    icon: icon('ic-cart'),
-    info: (
-      <Label color="error" variant="inverted">
-        +3
-      </Label>
-    ),
-  },
-  {
-    title: 'Blog',
-    path: '/dashboard/blog',
-    icon: icon('ic-blog'),
-  },
+  // {
+  //   title: 'Product',
+  //   path: '/dashboard/products',
+  //   icon: icon('ic-cart'),
+  //   info: (
+  //     <Label color="error" variant="inverted">
+  //       +3
+  //     </Label>
+  //   ),
+  // },
+  // {
+  //   title: 'Blog',
+  //   path: '/dashboard/blog',
+  //   icon: icon('ic-blog'),
+  // },
   {
     title: 'Sign in',
     path: '/sign-in',

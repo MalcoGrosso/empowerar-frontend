@@ -2,13 +2,7 @@ import React, { useState } from 'react';
 import {
   Box,
   Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TablePagination,
+  Grid,
   Typography,
   Button,
   Toolbar,
@@ -21,92 +15,83 @@ import {
   Snackbar,
   Alert,
 } from '@mui/material';
-import { useUsers, UserProps } from '../../../context/UserProvider';
-import { UserModal } from './UserModal';
+import { useNavigate } from 'react-router-dom';
+import { useProyectos, ProyectoProps } from '../../../context/ProyectosProvider';
+import { ProyectosModal } from './proyectosModal';
 
 export function ProyectosView() {
-  const { users, fetchUsers, deleteUser } = useUsers();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const { proyectos, fetchProyectos, deleteProyecto } = useProyectos();
+  const navigate = useNavigate();
   const [filter, setFilter] = useState('');
-  const [filterType, setFilterType] = useState('name');
+  const [filterType, setFilterType] = useState('nombre');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [selectedUser, setSelectedUser] = useState<UserProps | null>(null);
+  const [selectedProyecto, setSelectedProyecto] = useState<ProyectoProps | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userToEdit, setUserToEdit] = useState<UserProps | null>(null);
+  const [proyectoToEdit, setProyectoToEdit] = useState<ProyectoProps | null>(null);
   const [alert, setAlert] = useState<{ severity: 'success' | 'error'; message: string } | null>(null);
   const [snackOpen, setSnackOpen] = useState(false);
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPageAll = () => {
-    setRowsPerPage(users.length);
-    setPage(0);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>, user: UserProps) => {
+  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>, proyecto: ProyectoProps) => {
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
-    setSelectedUser(user);
+    setSelectedProyecto(proyecto);
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    setSelectedUser(null);
+    setSelectedProyecto(null);
   };
 
   const handleEdit = () => {
-    if (selectedUser) {
-      setUserToEdit(selectedUser);
+    if (selectedProyecto) {
+      setProyectoToEdit(selectedProyecto);
       setIsModalOpen(true);
+      handleMenuClose();
     }
   };
 
   const handleDelete = async () => {
-    if (selectedUser) {
-      await deleteUser(selectedUser.id);
-      setAlert({ severity: 'success', message: `Usuario ${selectedUser.firstName} ${selectedUser.lastName} eliminado.` });
+    if (selectedProyecto) {
+      await deleteProyecto(selectedProyecto.id);
+      setAlert({ severity: 'success', message: `Proyecto "${selectedProyecto.nombre}" eliminado.` });
       setSnackOpen(true);
+      fetchProyectos();
       handleMenuClose();
-      fetchUsers();
     }
   };
 
   const handleOpenModal = () => {
-    setUserToEdit(null);
+    setProyectoToEdit(null);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setUserToEdit(null);
+    setProyectoToEdit(null);
   };
 
   const handleSnackClose = () => {
     setSnackOpen(false);
   };
 
-  const filteredUsers = users.filter(user => {
-    const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
+  const handleProjectClick = (proyecto: ProyectoProps) => {
+    navigate(`detalles/${proyecto.id}`); // Navega a la vista de detalle del proyecto
+  };
+
+  const filteredProyectos = proyectos.filter(proyecto => {
     const searchValue = filter.toLowerCase();
 
     switch (filterType) {
-      case 'name':
-        return fullName.includes(searchValue);
-      case 'email':
-        return user.email.toLowerCase().includes(searchValue);
-      case 'dni':
-        return user.dni.toLowerCase().includes(searchValue);
-      case 'direccion':
-        return user.direccion.toLowerCase().includes(searchValue);
-      case 'role':
-        return user.role.toLowerCase().includes(searchValue);
+      case 'nombre':
+        return proyecto.nombre.toLowerCase().includes(searchValue);
+      case 'descripcion':
+        return proyecto.descripcion.toLowerCase().includes(searchValue);
+      case 'provincia':
+        return proyecto.provincia.toLowerCase().includes(searchValue);
+      case 'localidad':
+        return proyecto.localidad.toLowerCase().includes(searchValue);
+      case 'alias_pago':
+        return proyecto.alias_pago.toLowerCase().includes(searchValue);
       default:
         return true;
     }
@@ -121,7 +106,7 @@ export function ProyectosView() {
         }}
       >
         <Typography variant="h4" flexGrow={1}>
-          Usuarios
+          Proyectos
         </Typography>
         <Box
           sx={{
@@ -139,11 +124,11 @@ export function ProyectosView() {
               onChange={(event) => setFilterType(event.target.value)}
               label="Filtrar por"
             >
-              <MenuItem value="name">Nombre</MenuItem>
-              <MenuItem value="email">Correo</MenuItem>
-              <MenuItem value="dni">DNI</MenuItem>
-              <MenuItem value="direccion">Dirección</MenuItem>
-              <MenuItem value="role">Rol</MenuItem>
+              <MenuItem value="nombre">Nombre</MenuItem>
+              <MenuItem value="descripcion">Descripción</MenuItem>
+              <MenuItem value="provincia">Provincia</MenuItem>
+              <MenuItem value="localidad">Localidad</MenuItem>
+              <MenuItem value="alias_pago">Alias de Pago</MenuItem>
             </Select>
           </FormControl>
           <TextField
@@ -154,79 +139,53 @@ export function ProyectosView() {
             sx={{ width: { xs: '100%', sm: '200px' } }}
           />
           <Button variant="contained" color="primary" onClick={handleOpenModal}>
-            Nuevo usuario
+            Nuevo Proyecto
           </Button>
         </Box>
       </Toolbar>
 
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Nombre</TableCell>
-              <TableCell>Correo</TableCell>
-              <TableCell>DNI</TableCell>
-              <TableCell>Dirección</TableCell>
-              <TableCell>Rol</TableCell>
-              <TableCell align="center">Estado</TableCell>
-              <TableCell align="right">Acciones</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => (
-              <TableRow key={user.id} hover>
-                <TableCell>{`${user.firstName} ${user.lastName}`}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.dni}</TableCell>
-                <TableCell>{user.direccion}</TableCell>
-                <TableCell>{user.role}</TableCell>
-                <TableCell align="center">{user.estado ? 'Activo' : 'Inactivo'}</TableCell>
-                <TableCell align="right">
-                  <Button variant="text" onClick={(event) => handleMenuClick(event, user)}>
+      <Grid container spacing={3}>
+        {filteredProyectos.length === 0 ? (
+          <Typography variant="body1" align="center" sx={{ width: '100%' }}>
+            No se encontraron proyectos
+          </Typography>
+        ) : (
+          filteredProyectos.map((proyecto) => (
+            <Grid item xs={12} sm={6} md={4} key={proyecto.id}>
+              <Card sx={{ padding: 2, cursor: 'pointer', '&:hover': { boxShadow: 3 } }}>
+                <Box onClick={() => handleProjectClick(proyecto)} sx={{ cursor: 'pointer' }}>
+                  <Typography variant="h6">{proyecto.nombre}</Typography>
+                  <Typography variant="body2">{proyecto.descripcion}</Typography>
+                  <Typography variant="body2">Provincia: {proyecto.provincia}</Typography>
+                  <Typography variant="body2">Localidad: {proyecto.localidad}</Typography>
+                  <Typography variant="body2">Alias de Pago: {proyecto.alias_pago}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
+                  <Button
+                    variant="text"
+                    onClick={(event) => handleMenuClick(event, proyecto)}
+                  >
                     ...
                   </Button>
                   <Menu
                     anchorEl={anchorEl}
-                    open={Boolean(anchorEl) && selectedUser?.id === user.id}
+                    open={Boolean(anchorEl) && selectedProyecto?.id === proyecto.id}
                     onClose={handleMenuClose}
                   >
                     <MenuItem onClick={handleEdit}>Editar</MenuItem>
                     <MenuItem onClick={handleDelete}>Eliminar</MenuItem>
                   </Menu>
-                </TableCell>
-              </TableRow>
-            ))}
-            {filteredUsers.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={7} align="center">
-                  No se encontraron usuarios
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                </Box>
+              </Card>
+            </Grid>
+          ))
+        )}
+      </Grid>
 
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]} 
-        component="div"
-        count={filteredUsers.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        labelRowsPerPage={
-          <>
-            Filas por Página:
-            <Button onClick={handleChangeRowsPerPageAll}>Todos</Button>
-          </>
-        }
-      />
-
-      <UserModal 
+      <ProyectosModal 
         open={isModalOpen} 
         onClose={handleCloseModal} 
-        userToEdit={userToEdit} 
+        proyectoToEdit={proyectoToEdit} 
       />
 
       <Snackbar open={snackOpen} autoHideDuration={6000} onClose={handleSnackClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>

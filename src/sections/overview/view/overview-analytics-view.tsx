@@ -1,4 +1,5 @@
 import Grid from '@mui/material/Unstable_Grid2';
+import { useAuth } from 'src/hooks/useAuth'; // Importa tu hook personalizado
 import Typography from '@mui/material/Typography';
 
 import { _tasks, _posts, _timeline } from 'src/_mock';
@@ -14,16 +15,20 @@ import { AnalyticsTrafficBySite } from '../analytics-traffic-by-site';
 import { AnalyticsCurrentSubject } from '../analytics-current-subject';
 import { AnalyticsConversionRates } from '../analytics-conversion-rates';
 
+
 // ----------------------------------------------------------------------
 
 export function OverviewAnalyticsView() {
+
+  const { firstName, lastName } = useAuth();
+
   return (
     <DashboardContent maxWidth="xl">
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
-        Hi, Welcome back 👋
+      Hola, {firstName} {lastName}  👋
       </Typography>
-
-      <Grid container spacing={3}>
+    
+       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
             title="Weekly sales"
@@ -158,7 +163,7 @@ export function OverviewAnalyticsView() {
         <Grid xs={12} md={6} lg={8}>
           <AnalyticsTasks title="Tasks" list={_tasks} />
         </Grid>
-      </Grid>
+      </Grid> 
     </DashboardContent>
   );
 }

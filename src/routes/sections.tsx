@@ -9,6 +9,7 @@ import { AuthLayout } from 'src/layouts/auth';
 import { DashboardLayout } from 'src/layouts/dashboard';
 import RoleProtectedRoute from 'src/components/RoleProtectedRoute'; // Importar el componente
 import { UserProvider } from 'src/context/UserProvider';
+import { ProyectosProvider } from 'src/context/ProyectosProvider';
 
 // ----------------------------------------------------------------------
 
@@ -20,6 +21,7 @@ export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 export const LandingPage = lazy(() => import('src/pages/landingPage'));
 export const ProyectoPage = lazy(() => import('src/pages/proyectos'));
+export const ProyectosVistaDetalle = lazy(() => import('src/pages/proyectosVistaDetalle')); // Importar el nuevo componente
 
 
 // ----------------------------------------------------------------------
@@ -68,31 +70,37 @@ export function Router() {
       ),
       children: [
         { element: <HomePage />, index: true },
-        { path: 'user', element:(
-          
-          <RoleProtectedRoute allowedRoles={['administrador']}>
-            <UserProvider>
+        { 
+          path: 'user', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador']}>
+              <UserProvider>
                 <UserPage /> 
-            </UserProvider>
-            
-          </RoleProtectedRoute>
-        
-        
-        
-        )
+              </UserProvider>
+            </RoleProtectedRoute>
+          )
         },
-        { path: 'proyectos', element:(
-          
-          <RoleProtectedRoute allowedRoles={['administrador']}>
-            <UserProvider>
+        { 
+          path: 'proyectos', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador']}>
+              <ProyectosProvider>
                 <ProyectoPage /> 
-            </UserProvider>
-            
-          </RoleProtectedRoute>
-        
-        
-        
-        )
+              </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'proyectos/detalles/:id',  // Ruta para los detalles del proyecto
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador']}>
+              <ProyectosProvider>
+                <Suspense fallback={renderFallback}>
+                  <ProyectosVistaDetalle />  {/* Componente para mostrar detalles del proyecto */}
+                </Suspense>
+              </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
         },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
