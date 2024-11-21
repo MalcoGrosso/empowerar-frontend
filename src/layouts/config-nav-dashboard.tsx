@@ -38,6 +38,13 @@ export const navData = [
   //   path: '/dashboard/blog',
   //   icon: icon('ic-blog'),
   // },
+  
+  {
+    title: 'Reclamos',
+    path: '/dashboard/Reclamos',
+    icon: icon('ic-user'),
+  },
+
   {
     title: 'Sign in',
     path: '/sign-in',

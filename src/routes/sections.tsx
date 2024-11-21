@@ -10,6 +10,8 @@ import { DashboardLayout } from 'src/layouts/dashboard';
 import RoleProtectedRoute from 'src/components/RoleProtectedRoute'; // Importar el componente
 import { UserProvider } from 'src/context/UserProvider';
 import { ProyectosProvider } from 'src/context/ProyectosProvider';
+import { ReclamosProvider } from 'src/context/reclamosProvider';
+import { MensajeReclamosProvider } from 'src/context/mensajeReclamosProvider';
 
 // ----------------------------------------------------------------------
 
@@ -22,6 +24,8 @@ export const Page404 = lazy(() => import('src/pages/page-not-found'));
 export const LandingPage = lazy(() => import('src/pages/landingPage'));
 export const ProyectoPage = lazy(() => import('src/pages/proyectos'));
 export const ProyectosVistaDetalle = lazy(() => import('src/pages/proyectosVistaDetalle')); // Importar el nuevo componente
+export const ReclamosView = lazy(() => import('src/pages/reclamosView'));
+export const ReclamosVistaDetalle = lazy(() => import('src/pages/reclamosVistaDetalle'));
 
 
 // ----------------------------------------------------------------------
@@ -99,6 +103,34 @@ export function Router() {
                   <ProyectosVistaDetalle />  {/* Componente para mostrar detalles del proyecto */}
                 </Suspense>
               </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'reclamos', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador', 'usuario']}>
+              <ReclamosProvider>
+                <ReclamosView /> 
+              </ReclamosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'reclamos/detalle/:id',  // Ruta para los detalles del proyecto
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador', 'usuario']}>
+              
+              <ReclamosProvider>
+                <UserProvider>
+                  <MensajeReclamosProvider>
+                    <Suspense fallback={renderFallback}>
+                      <ReclamosVistaDetalle />  {/* Componente para mostrar detalles del proyecto */}
+                    </Suspense>
+                  </MensajeReclamosProvider>
+                </UserProvider>
+              </ReclamosProvider>
+              
             </RoleProtectedRoute>
           )
         },
