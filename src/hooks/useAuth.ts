@@ -48,6 +48,7 @@ export const useAuth = () => {
       firstName: decodedToken.firstName, 
       lastName: decodedToken.lastName,
       email: decodedToken.email,
+      id: decodedToken.id,
       logout 
     }; // Extraer los datos del token decodificado
   } catch (error) {

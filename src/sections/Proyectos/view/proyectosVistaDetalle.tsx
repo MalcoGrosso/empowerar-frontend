@@ -294,6 +294,10 @@ export const ProyectosVistaDetalle: React.FC = () => {
           <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
             <CircularProgress />
           </Box>
+        ) : usuariosAsignados.length === 0 ? (
+          <Typography variant="h6" sx={{ textAlign: 'center', py: 2 }}>
+            No hay usuarios asignados.
+          </Typography>
         ) : (
           <>
             <TableContainer>
@@ -364,6 +368,10 @@ export const ProyectosVistaDetalle: React.FC = () => {
           <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
             <CircularProgress />
           </Box>
+        ) : electricistasAsignados.length === 0 ? (
+          <Typography variant="h6" sx={{ textAlign: 'center', py: 2 }}>
+            No hay electricistas asignados.
+          </Typography>
         ) : (
           <>
             <TableContainer>
