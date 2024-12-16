@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   Card, Typography, Table, TableBody, TableCell, TableHead, TableRow, CircularProgress,
   Divider, Box, Button, TextField, TablePagination, Menu, MenuItem, TableContainer,
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
   Snackbar, Alert
 } from '@mui/material';
-
 import { useProyectos, ProyectoProps } from '../../../context/ProyectosProvider';
 import { AgregarUsuarioModal, AgregarElectricistaModal } from './proyectosVistaDetalleModal';
 import EditarMontoModal from './EditarMontoModal';
@@ -66,6 +65,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
   const [selectedElec, setSelectedElec] = useState<ElectricistaAsignado | null>(null);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false); 
   const [confirmDeleteOpenElec, setConfirmDeleteOpenElec] = useState(false); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadProyecto = async () => {
@@ -260,7 +260,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
   }
 
   return (
-    <Box sx={{ width: '100%', padding: 2 }}>
+    <><Box sx={{ width: '100%', padding: 2 }}>
       {/* Proyecto info card */}
       <Card sx={{ padding: 3, boxShadow: 3, width: '100%' }}>
         <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>{proyecto.nombre}</Typography>
@@ -287,8 +287,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
           fullWidth
           value={searchDniUsuarios}
           onChange={handleSearchChangeUsuarios}
-          sx={{ marginBottom: 2 }}
-        />
+          sx={{ marginBottom: 2 }} />
 
         {loadingUsuarios ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
@@ -341,8 +340,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+              onRowsPerPageChange={handleChangeRowsPerPage} />
           </>
         )}
       </Card>
@@ -361,8 +359,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
           fullWidth
           value={searchDniElectricistas}
           onChange={handleSearchChangeElectricistas}
-          sx={{ marginBottom: 2 }}
-        />
+          sx={{ marginBottom: 2 }} />
 
         {loadingElectricistas ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
@@ -405,8 +402,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+              onRowsPerPageChange={handleChangeRowsPerPage} />
           </>
         )}
       </Card>
@@ -415,15 +411,13 @@ export const ProyectosVistaDetalle: React.FC = () => {
       <AgregarUsuarioModal
         open={modalOpenUsuario}
         onClose={handleCloseModalUsuario}
-        onAgregar={handleAgregarUsuario}
-      />
+        onAgregar={handleAgregarUsuario} />
 
       {/* Modal para agregar Electricista */}
       <AgregarElectricistaModal
         open={modalOpenElectricista}
         onClose={handleCloseModalElectricista}
-        onAgregar={handleAgregarElectricista}
-      />
+        onAgregar={handleAgregarElectricista} />
 
       {/* Modal para editar monto */}
       <EditarMontoModal
@@ -432,8 +426,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
         onSave={handleSaveEdit}
         montoPago={selectedUser?.montoPago ? parseFloat(selectedUser.montoPago) : 0}
         nombre={`${selectedUser?.usuario.firstName} ${selectedUser?.usuario.lastName}`}
-        dni={selectedUser?.usuario.dni || ''}
-      />
+        dni={selectedUser?.usuario.dni || ''} />
 
       {/* Dialogo de confirmación de eliminación para usuarios */}
       <Dialog open={confirmDeleteOpen} onClose={handleCancelDelete}>
@@ -474,7 +467,15 @@ export const ProyectosVistaDetalle: React.FC = () => {
           {success}
         </Alert>
       </Snackbar>
-    </Box>
+    </Box><Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => navigate(-1)}
+        >
+          Volver
+        </Button>
+      </Box></>
   );
 };
 

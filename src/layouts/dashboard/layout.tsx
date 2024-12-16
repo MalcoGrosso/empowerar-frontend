@@ -35,13 +35,48 @@ export function DashboardLayout({ sx, children, header }: DashboardLayoutProps) 
 
   const layoutQuery: Breakpoint = 'lg';
 
-  // Filtrar navData según el rol del usuario
   const navData = navDataConfig.filter((item) => {
-    if (role === 'usuario' && (item.title === 'Proyectos' || item.title === 'Ver Reclamos' || item.title === 'Usuarios')) {
-      return false; // Si el rol es "usuario", no mostrar Proyectos ni Reclamos
+    // Ocultar ciertas rutas basadas en el rol
+    if (role === 'usuario' && (item.title === 'Proyectos' || item.title === 'Usuarios' || item.title === 'Mantenimientos' || item.title === 'MantenimientoAdmin')) {
+      return false; // No mostrar estas rutas si el rol es 'usuario'
     }
+  
+    if (role === 'electricista' && (item.title === 'Mantenimiento' || item.title === 'MantenimientoAdmin' || item.title === 'Proyectos' || item.title === 'Usuarios' || item.title === 'Reclamos' )) {
+      return false; // No mostrar la ruta de 'Mantenimiento' si el rol es 'electricista'
+    }
+
+    if (role === 'administrador' && (item.title === 'Mantenimiento' || item.title === 'Mantenimientos' )) {
+      return false; // No mostrar la ruta de 'Mantenimiento' si el rol es 'electricista'
+    }
+  
     return true;
+  }).map((item) => {
+    // Cambiar dinámicamente el path de acuerdo al rol
+    if (role === 'administrador' && item.title === 'MantenimientoAdmin') {
+      return { ...item, title: 'Mantenimientos' };
+    }
+
+    if (role === 'usuario' && item.title === 'Mantenimiento') {
+      return { ...item, title: 'Mantenimientos' };
+    }
+
+    if (role === 'usuario' && item.title === 'Mantenimiento') {
+      return { ...item, path: '/dashboard/mantenimientos/usuarioLogueado' };
+    }
+  
+    if (role === 'electricista' && item.title === 'Mantenimientos') {
+      return { ...item, path: '/dashboard/Mantenimientos' };
+    }
+
+    if (role === 'administrador' && item.title === 'MantenimientosAdmin') {
+      return { ...item, path: '/dashboard/mantenimientosAdmin' };
+    }
+  
+  
+    return item; // Retornar el ítem sin cambios si no se aplica ningún ajuste
   });
+
+  console.log('sdsdds',navData);
 
   return (
     <LayoutSection

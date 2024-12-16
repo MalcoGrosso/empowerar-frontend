@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Typography, Box, CircularProgress, Divider, TextField, Button, Menu, MenuItem } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useReclamos } from '../../../context/reclamosProvider';
 import { useMensajeReclamos } from '../../../context/mensajeReclamosProvider';
 import { useAuth } from '../../../hooks/useAuth'; // Importamos useAuth
@@ -15,6 +15,7 @@ export function ReclamosVistaDetalle() {
   const [nuevoMensaje, setNuevoMensaje] = useState<string>('');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [nuevoEstado, setNuevoEstado] = useState<string>(reclamo?.estado || ''); 
+  const navigate = useNavigate();
 
   const open = Boolean(anchorEl);
 
@@ -87,7 +88,7 @@ export function ReclamosVistaDetalle() {
   }
 
   return (
-    <Box sx={{ margin: '20px' }}>
+    <><Box sx={{ margin: '20px' }}>
       <Card sx={{ maxWidth: '100%', marginBottom: '20px', padding: 3 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px' }}>
           <Typography variant="h4" gutterBottom>
@@ -117,22 +118,22 @@ export function ReclamosVistaDetalle() {
             <Box>
               {/* Menú de selección de estado */}
               <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleClickMenu}
-                      sx={{ marginTop: '20px' }}
-                    >
-                      Cambiar Estado
-                    </Button>
-                    <Menu
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleCloseMenu}
-                    >
-                      <MenuItem onClick={() => handleActualizarEstado('pendiente')}>Pendiente</MenuItem>
-                      <MenuItem onClick={() => handleActualizarEstado('en proceso')}>En Proceso</MenuItem>
-                      <MenuItem onClick={() => handleActualizarEstado('resuelto')}>Resuelto</MenuItem>
-                    </Menu>
+                variant="contained"
+                color="primary"
+                onClick={handleClickMenu}
+                sx={{ marginTop: '20px' }}
+              >
+                Cambiar Estado
+              </Button>
+              <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleCloseMenu}
+              >
+                <MenuItem onClick={() => handleActualizarEstado('pendiente')}>Pendiente</MenuItem>
+                <MenuItem onClick={() => handleActualizarEstado('en proceso')}>En Proceso</MenuItem>
+                <MenuItem onClick={() => handleActualizarEstado('resuelto')}>Resuelto</MenuItem>
+              </Menu>
             </Box>
           )}
         </Box>
@@ -197,15 +198,22 @@ export function ReclamosVistaDetalle() {
             onChange={(e) => setNuevoMensaje(e.target.value)}
             multiline
             rows={4}
-            variant="outlined"
-          />
+            variant="outlined" />
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
-            <Button variant="contained" color="primary" onClick={handleEnviarMensaje} disabled={reclamo.estado === 'resuelto'} >
+            <Button variant="contained" color="primary" onClick={handleEnviarMensaje} disabled={reclamo.estado === 'resuelto'}>
               Enviar Mensaje
             </Button>
           </Box>
         </Box>
       </Card>
-    </Box>
+    </Box><Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => navigate(-1)}
+        >
+          Volver
+        </Button>
+      </Box></>
   );
 }

@@ -8,10 +8,24 @@ import { varAlpha } from 'src/theme/styles';
 import { AuthLayout } from 'src/layouts/auth';
 import { DashboardLayout } from 'src/layouts/dashboard';
 import RoleProtectedRoute from 'src/components/RoleProtectedRoute'; // Importar el componente
+import { AlertProvider } from 'src/context/AlertProvider';
 import { UserProvider } from 'src/context/UserProvider';
 import { ProyectosProvider } from 'src/context/ProyectosProvider';
 import { ReclamosProvider } from 'src/context/reclamosProvider';
 import { MensajeReclamosProvider } from 'src/context/mensajeReclamosProvider';
+import { MantenimientosProvider } from 'src/context/mantenimientoProvider';
+import { MantenimientoFormulario, MantenimientosUsuarios } from 'src/sections/mantenimientos/views';
+import { MantenimientosTabla } from 'src/sections/mantenimientos/views/mantenimientoTabla';
+import { MantenimientosMiUsuarioTabla } from 'src/sections/mantenimientos/views/mantenimientosMiUsuarioTabla';
+import { MantenimientoAdmin } from 'src/sections/mantenimientos/views/mantenimientosAdmin/mantenimientosProyectosAdmin';
+import { MantenimientosUsuariosAdmin } from 'src/sections/mantenimientos/views/mantenimientosAdmin/mantenimientosUsuariosAdmin';
+import { MantenimientosTablaAdmin } from 'src/sections/mantenimientos/views/mantenimientosAdmin/mantenimientoTablaAdmin';
+import { MantenimientoFormularioAdmin } from 'src/sections/mantenimientos/views/mantenimientosAdmin/mantenimientosAdmin';
+import { MantenimientoVista } from '../sections/mantenimientos/views/mantenimientosVistaUsuario';
+
+
+
+
 
 // ----------------------------------------------------------------------
 
@@ -26,6 +40,7 @@ export const ProyectoPage = lazy(() => import('src/pages/proyectos'));
 export const ProyectosVistaDetalle = lazy(() => import('src/pages/proyectosVistaDetalle')); // Importar el nuevo componente
 export const ReclamosView = lazy(() => import('src/pages/reclamosView'));
 export const ReclamosVistaDetalle = lazy(() => import('src/pages/reclamosVistaDetalle'));
+export const MantenimientosProyectos = lazy(() => import('src/pages/mantenimientosProyectos'));
 
 
 // ----------------------------------------------------------------------
@@ -64,7 +79,7 @@ export function Router() {
     {
       path: 'dashboard',
       element: (
-        <RoleProtectedRoute allowedRoles={['administrador', 'usuario']}> {/* Roles permitidos */}
+        <RoleProtectedRoute allowedRoles={['administrador', 'usuario', 'electricista']}> {/* Roles permitidos */}
           <DashboardLayout>
             <Suspense fallback={renderFallback}>
               <Outlet />
@@ -131,6 +146,154 @@ export function Router() {
                 </UserProvider>
               </ReclamosProvider>
               
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientos', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador','usuario','electricista']}>
+              <MantenimientosProvider>
+                <MantenimientosProyectos /> 
+              </MantenimientosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientos/detalles/:id', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador','usuario','electricista']}>
+              <ProyectosProvider>
+                <MantenimientosUsuarios /> 
+              </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientos/detalles/:id/tabla/:id', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador','usuario','electricista']}>
+              <ProyectosProvider>
+                <MantenimientosProvider>
+                  <AlertProvider>
+                  <MantenimientosTabla />
+                  </AlertProvider> 
+                </MantenimientosProvider>
+              </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientos/detalles/:id/tabla/:id/crearMantenimiento', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador','usuario','electricista']}>
+              <ProyectosProvider>
+                <MantenimientosProvider>
+                  <MantenimientoFormulario /> 
+                </MantenimientosProvider>
+              </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientos/detalles/:id/tabla/:id/ver/:id/:mantenimientoId', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador','usuario','electricista']}>
+              <ProyectosProvider>
+                <MantenimientosProvider>
+                  <MantenimientoFormulario /> 
+                </MantenimientosProvider>
+              </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientos/detalles/:id/tabla/:id/editarMantenimiento/:id', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador','usuario','electricista']}>
+              <ProyectosProvider>
+                <MantenimientosProvider>
+                  <MantenimientoFormulario /> 
+                </MantenimientosProvider>
+              </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientos/usuarioLogueado', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['usuario']}>
+                <MantenimientosProvider>
+                  <MantenimientosMiUsuarioTabla /> 
+                </MantenimientosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientos/usuarioLogueado/vista/:id', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['usuario']}>
+                <MantenimientosProvider>
+                  <MantenimientoVista /> 
+                </MantenimientosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientosAdmin', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador']}>
+                <ProyectosProvider>
+                  <MantenimientoAdmin /> 
+                </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientosAdmin/detalles/:id', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador']}>
+              <ProyectosProvider>
+                <MantenimientosUsuariosAdmin /> 
+              </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientosAdmin/detalles/:id/tabla/:id', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador']}>
+              <ProyectosProvider>
+                <MantenimientosProvider>
+                  <AlertProvider>
+                  <MantenimientosTablaAdmin />
+                  </AlertProvider> 
+                </MantenimientosProvider>
+              </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientosAdmin/detalles/:id/tabla/:id/verAdmin/:id/:mantenimientoId', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador']}>
+              <ProyectosProvider>
+                <MantenimientosProvider>
+                  <MantenimientoFormularioAdmin /> 
+                </MantenimientosProvider>
+              </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'mantenimientosAdmin/detalles/:id/tabla/:id/editarMantenimientoAdmin/:id', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador']}>
+              <ProyectosProvider>
+                <MantenimientosProvider>
+                  <MantenimientoFormularioAdmin /> 
+                </MantenimientosProvider>
+              </ProyectosProvider>
             </RoleProtectedRoute>
           )
         },

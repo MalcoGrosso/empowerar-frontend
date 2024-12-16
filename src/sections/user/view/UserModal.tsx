@@ -102,46 +102,65 @@ export const UserModal: React.FC<UserModalProps> = ({ open, onClose, userToEdit 
     formValues.direccion.trim() !== '';
 
   return (
-    <Modal open={open} onClose={onClose}>
-      <Box sx={{ p: 3, bgcolor: 'background.paper', borderRadius: 1, width: '400px', mx: 'auto', mt: '10%' }}>
-        <Typography variant="h6" gutterBottom>{userToEdit ? 'Editar Usuario' : 'Nuevo Usuario'}</Typography>
-        <TextField label="Nombre" name="firstName" value={formValues.firstName} onChange={handleChange} fullWidth margin="normal" />
-        <TextField label="Apellido" name="lastName" value={formValues.lastName} onChange={handleChange} fullWidth margin="normal" />
-        <TextField 
-          label="Correo" 
-          name="email" 
-          value={formValues.email} 
-          onChange={handleChange} 
-          fullWidth 
-          margin="normal" 
-          error={!isEmailValid(formValues.email) && formValues.email.length > 0} 
-          helperText={!isEmailValid(formValues.email) && formValues.email.length > 0 ? 'El correo debe contener un @' : ''} 
-        />
-        <TextField label="Contraseña" name="password" type="password" value={formValues.password} onChange={handleChange} fullWidth margin="normal" />
-        <TextField label="DNI" name="dni" value={formValues.dni} onChange={handleChange} fullWidth margin="normal" inputProps={{ inputMode: 'text' }} />
-        <TextField label="Dirección" name="direccion" value={formValues.direccion} onChange={handleChange} fullWidth margin="normal" />
-        
-        <FormControl fullWidth margin="normal">
-          <InputLabel>Rol</InputLabel>
-          <Select name="role" value={formValues.role} onChange={handleSelectChange}>
-            <MenuItem value="usuario">Usuario</MenuItem>
-            <MenuItem value="administrador">Administrador</MenuItem>
-            <MenuItem value="electricista">Electricista</MenuItem>
-          </Select>
-        </FormControl>
-
-        {error && <Typography color="error">{error}</Typography>}
-        
-        <Button 
-          variant="contained" 
-          color="primary" 
-          onClick={handleSubmit} 
-          disabled={!areFieldsValid()} 
-          sx={{ mt: 2 }}
+    <Modal 
+        open={open} 
+        onClose={onClose} // Esto habilita el cierre al hacer clic fuera del modal
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)', // Centra el modal
+            p: 3,
+            bgcolor: 'background.paper',
+            borderRadius: 1,
+            width: '90%', // Ancho relativo para dispositivos móviles
+            maxWidth: '400px', // Límite máximo de ancho
+            boxShadow: 24, // Sombra para destacar el modal
+          }}
         >
-          {userToEdit ? 'Actualizar' : 'Crear'}
-        </Button>
-      </Box>
+          <Typography variant="h6" gutterBottom>
+            {userToEdit ? 'Editar Usuario' : 'Nuevo Usuario'}
+          </Typography>
+          <TextField label="Nombre" name="firstName" value={formValues.firstName} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="Apellido" name="lastName" value={formValues.lastName} onChange={handleChange} fullWidth margin="normal" />
+          <TextField 
+            label="Correo" 
+            name="email" 
+            value={formValues.email} 
+            onChange={handleChange} 
+            fullWidth 
+            margin="normal" 
+            error={!isEmailValid(formValues.email) && formValues.email.length > 0} 
+            helperText={!isEmailValid(formValues.email) && formValues.email.length > 0 ? 'El correo debe contener un @' : ''} 
+          />
+          <TextField label="Contraseña" name="password" type="password" value={formValues.password} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="DNI" name="dni" value={formValues.dni} onChange={handleChange} fullWidth margin="normal" inputProps={{ inputMode: 'text' }} />
+          <TextField label="Dirección" name="direccion" value={formValues.direccion} onChange={handleChange} fullWidth margin="normal" />
+          
+          <FormControl fullWidth margin="normal">
+            <InputLabel>Rol</InputLabel>
+            <Select name="role" value={formValues.role} onChange={handleSelectChange}>
+              <MenuItem value="usuario">Usuario</MenuItem>
+              <MenuItem value="administrador">Administrador</MenuItem>
+              <MenuItem value="electricista">Electricista</MenuItem>
+            </Select>
+          </FormControl>
+
+          {error && <Typography color="error">{error}</Typography>}
+          
+          <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={handleSubmit} 
+            disabled={!areFieldsValid()} 
+            sx={{ mt: 2 }}
+          >
+            {userToEdit ? 'Actualizar' : 'Crear'}
+          </Button>
+        </Box>
     </Modal>
+
   );
 };
