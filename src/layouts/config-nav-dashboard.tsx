@@ -21,7 +21,7 @@ export const navData = [
   {
     title: 'Proyectos',
     path: '/dashboard/Proyectos',
-    icon: icon('ic-user'),
+    icon: icon('ic-folder'),
   },
   // {
   //   title: 'Product',
@@ -42,22 +42,48 @@ export const navData = [
   {
     title: 'Reclamos',
     path: '/dashboard/Reclamos',
-    icon: icon('ic-user'),
+    icon: icon('ic-book'),
   },
 
   {
-    title: 'Sign in',
-    path: '/sign-in',
-    icon: icon('ic-lock'),
+    title: 'Mantenimientos',
+    path: '/dashboard/Mantenimientos',
+    icon: icon('ic-note'),
   },
+
   {
-    title: 'Not found',
-    path: '/404',
-    icon: icon('ic-disabled'),
+    title: 'Mantenimiento',
+    path: '/dashboard/mantenimientos/usuarioLogueado',
+    icon: icon('ic-note'),
   },
+
   {
-    title: 'Landing Page',
-    path: '/landing',
-    icon: icon('ic-disabled'),
+    title: 'MantenimientoAdmin',
+    path: '/dashboard/mantenimientosAdmin',
+    icon: icon('ic-note'),
   },
+
+  {
+    title: 'Pagos',
+    path: '',
+    icon: icon('ic-payment'),
+  },
+  
+  
+
+  // {
+  //   title: 'Sign in',
+  //   path: '/sign-in',
+  //   icon: icon('ic-lock'),
+  // },
+  // {
+  //   title: 'Not found',
+  //   path: '/404',
+  //   icon: icon('ic-disabled'),
+  // },
+  // {
+  //   title: 'Landing Page',
+  //   path: '/landing',
+  //   icon: icon('ic-disabled'),
+  // },
 ];

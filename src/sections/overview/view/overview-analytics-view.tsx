@@ -10,7 +10,6 @@ import { DashboardContent } from 'src/layouts/dashboard';
 export function OverviewAnalyticsView() {
   const navigate = useNavigate();
   const { firstName, lastName, role } = useAuth();
-
   // Estilos para las tarjetas
   const cardStyles = {
     display: 'flex',
@@ -54,7 +53,7 @@ export function OverviewAnalyticsView() {
               <Paper
                 elevation={3}
                 sx={cardStyles}
-                onClick={() => navigate('/dashboard/proyectos')}
+                onClick={() => navigate('/dashboard/Proyectos')}
               >
                 <img
                   alt="icon"
@@ -64,23 +63,109 @@ export function OverviewAnalyticsView() {
                 <Typography variant="subtitle1">Proyectos</Typography>
               </Paper>
             </Grid>
+
+            <Grid xs={12} sm={6} md={3}>
+              <Paper
+                elevation={3}
+                sx={cardStyles}
+                onClick={() => navigate('/dashboard/Reclamos')}
+              >
+                <img
+                  alt="icon"
+                  src="/assets/icons/navbar/ic-book.svg"
+                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                />
+                <Typography variant="subtitle1">Reclamos</Typography>
+              </Paper>
+            </Grid>
+
+            <Grid xs={12} sm={6} md={3}>
+              <Paper
+                elevation={3}
+                sx={cardStyles}
+                onClick={() => navigate('/dashboard/mantenimientosAdmin')}
+              >
+                <img
+                  alt="icon"
+                  src="/assets/icons/navbar/ic-note.svg"
+                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                />
+                <Typography variant="subtitle1">Mantenimientos</Typography>
+              </Paper>
+            </Grid>
+
+            <Grid xs={12} sm={6} md={3}>
+              <Paper
+                elevation={3}
+                sx={cardStyles}
+                onClick={() => navigate('/dashboard/proyectos')}
+              >
+                <img
+                  alt="icon"
+                  src="/assets/icons/navbar/ic-payment.svg"
+                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                />
+                <Typography variant="subtitle1">Pagos</Typography>
+              </Paper>
+            </Grid>
+
           </>
         )}
 
-        <Grid xs={12} sm={6} md={3}>
-          <Paper
-            elevation={3}
-            sx={cardStyles}
-            onClick={() => navigate('/dashboard/reclamos')}
-          >
-            <img
-              alt="icon"
-              src="/assets/icons/glass/report_problem.svg"
-              style={{ width: 48, height: 48, marginBottom: 8 }}
-            />
-            <Typography variant="subtitle1">Reclamos</Typography>
-          </Paper>
-        </Grid>
+        {role === 'electricista' && (
+          <>
+            <Grid xs={12} sm={6} md={3}>
+              <Paper
+                elevation={3}
+                sx={cardStyles}
+                onClick={() => navigate('/dashboard/Mantenimientos')}
+              >
+                <img
+                  alt="icon"
+                  src="/assets/icons/glass/report_problem.svg"
+                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                />
+                <Typography variant="subtitle1">Mantenimientos</Typography>
+              </Paper>
+            </Grid>
+          </>
+        )}
+
+        {role === 'usuario' && (
+          <>
+            <Grid xs={12} sm={6} md={3}>
+              <Paper
+                elevation={3}
+                sx={cardStyles}
+                onClick={() => navigate('/dashboard/reclamos')}
+              >
+                <img
+                  alt="icon"
+                  src="/assets/icons/glass/report_problem.svg"
+                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                />
+                <Typography variant="subtitle1">Reclamos</Typography>
+              </Paper>
+            </Grid>
+            <Grid xs={12} sm={6} md={3}>
+              <Paper
+                elevation={3}
+                sx={cardStyles}
+                onClick={() => navigate('/dashboard/mantenimientos/usuarioLogueado')}
+              >
+                <img
+                  alt="icon"
+                  src="/assets/icons/glass/report_problem.svg"
+                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                />
+                <Typography variant="subtitle1">Mantenimiento</Typography>
+              </Paper>
+            </Grid>
+          </>
+        )}
+
+        
+        
       </Grid>
     </DashboardContent>
   );

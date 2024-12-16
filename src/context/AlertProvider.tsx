@@ -1,4 +1,12 @@
-import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  ReactNode,
+} from 'react';
 import { Alert, AlertColor, Snackbar } from '@mui/material';
 
 interface AlertContextType {
@@ -9,36 +17,46 @@ const AlertContext = createContext<AlertContextType | undefined>(undefined);
 
 export const AlertProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [alert, setAlert] = useState<{ message: string; severity: AlertColor } | null>(null);
-  const [open, setOpen] = useState(false);
 
-  const showAlert = (message: string, severity: AlertColor) => {
-    setAlert({ message, severity });
-    setOpen(true);
-  };
+  const showAlert = useCallback((message: string, severity: AlertColor) => {
+    const alertData = { message, severity };
+    setAlert(alertData);
+    // Guardar en localStorage para persistencia temporal
+    localStorage.setItem('alert', JSON.stringify(alertData));
+  }, []);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = useCallback(() => {
+    setAlert(null);
+    // Eliminar el alert del localStorage al cerrarse
+    localStorage.removeItem('alert');
+  }, []);
 
-  // useMemo para evitar que el valor de contexto cambie en cada render
-  const value = useMemo(() => ({ showAlert }), []);
+  useEffect(() => {
+    // Recuperar alerta desde localStorage al montar el componente
+    const storedAlert = localStorage.getItem('alert');
+    if (storedAlert) {
+      setAlert(JSON.parse(storedAlert));
+      // Eliminar la alerta del localStorage inmediatamente después de cargarla
+      localStorage.removeItem('alert');
+    }
+  }, []);
+
+  const value = useMemo(() => ({ showAlert }), [showAlert]);
 
   return (
     <AlertContext.Provider value={value}>
       {children}
       <Snackbar
-        open={open}
-        autoHideDuration={6000}
+        open={!!alert} // Abierto si hay alerta
+        autoHideDuration={2000}
         onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} // Cambiado a 'right'
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
         {alert ? (
           <Alert onClose={handleClose} severity={alert.severity} sx={{ width: '100%' }}>
             {alert.message}
           </Alert>
-        ) : (
-          <></>
-        )}
+        ) : undefined}
       </Snackbar>
     </AlertContext.Provider>
   );

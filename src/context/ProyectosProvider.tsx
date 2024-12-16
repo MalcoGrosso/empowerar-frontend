@@ -7,7 +7,7 @@ export interface ProyectoProps {
   descripcion: string;
   provincia: string;
   localidad: string;
-  alias_pago: string;
+  alias_pago: string; 
 }
 
 interface UsuarioAsignado {
@@ -266,6 +266,7 @@ export const ProyectosProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     fetchElectricistasPorProyecto,  // Agregar la nueva función aquí
     agregarElectricistaAProyecto,
     eliminarElectricistaAProyecto,
+
   }), [
     proyectos,
     proyectoDetalle,
@@ -281,6 +282,7 @@ export const ProyectosProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     fetchElectricistasPorProyecto,  // Asegúrate de agregarla en la lista de dependencias
     agregarElectricistaAProyecto,
     eliminarElectricistaAProyecto,
+  
   ]);
 
   return (

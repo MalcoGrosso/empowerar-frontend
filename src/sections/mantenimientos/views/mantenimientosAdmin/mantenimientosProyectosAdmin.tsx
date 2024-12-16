@@ -16,66 +16,34 @@ import {
   Alert,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useProyectos, ProyectoProps } from '../../../context/ProyectosProvider';
-import { ProyectosModal } from './proyectosModal';
+import { useProyectos, ProyectoProps } from '../../../../context/ProyectosProvider';
 
-export function ProyectosView() {
+export function MantenimientoAdmin() {
   const { proyectos, fetchProyectos, deleteProyecto } = useProyectos();
   const navigate = useNavigate();
   const [filter, setFilter] = useState('');
   const [filterType, setFilterType] = useState('nombre');
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [selectedProyecto, setSelectedProyecto] = useState<ProyectoProps | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [proyectoToEdit, setProyectoToEdit] = useState<ProyectoProps | null>(null);
   const [alert, setAlert] = useState<{ severity: 'success' | 'error'; message: string } | null>(null);
   const [snackOpen, setSnackOpen] = useState(false);
 
-  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>, proyecto: ProyectoProps) => {
-    event.stopPropagation();
-    setAnchorEl(event.currentTarget);
-    setSelectedProyecto(proyecto);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    setSelectedProyecto(null);
-  };
-
-  const handleEdit = () => {
-    if (selectedProyecto) {
-      setProyectoToEdit(selectedProyecto);
-      setIsModalOpen(true);
-      handleMenuClose();
-    }
-  };
-
-  const handleDelete = async () => {
-    if (selectedProyecto) {
-      await deleteProyecto(selectedProyecto.id);
-      setAlert({ severity: 'success', message: `Proyecto "${selectedProyecto.nombre}" eliminado.` });
-      setSnackOpen(true);
-      fetchProyectos();
-      handleMenuClose();
-    }
-  };
-
-  const handleOpenModal = () => {
-    setProyectoToEdit(null);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setProyectoToEdit(null);
-  };
 
   const handleSnackClose = () => {
     setSnackOpen(false);
   };
 
   const handleProjectClick = (proyecto: ProyectoProps) => {
-    navigate(`detalles/${proyecto.id}`); // Navega a la vista de detalle del proyecto
+    console.log('Navigando con el proyecto:', proyecto); // Verifica los datos
+    navigate(`detalles/${proyecto.id}`, {
+      state: {
+        proyecto: {
+          nombre: proyecto.nombre,
+          descripcion: proyecto.descripcion,
+          provincia: proyecto.provincia,
+          localidad: proyecto.localidad,
+          alias_pago: proyecto.alias_pago,
+        },
+      },
+    });
   };
 
   const filteredProyectos = proyectos.filter(proyecto => {
@@ -137,13 +105,6 @@ export function ProyectosView() {
             value={filter}
             onChange={(event) => setFilter(event.target.value)}
             sx={{ width: { xs: '100%', sm: '200px' } }} />
-          <Button variant="contained" color="primary" onClick={handleOpenModal} sx={{
-            '@media (max-width:600px)': {
-              mb: 2,
-            },
-          }}>
-            Nuevo Proyecto
-          </Button>
         </Box>
       </Toolbar>
 
@@ -163,39 +124,20 @@ export function ProyectosView() {
                   <Typography variant="body2">Localidad: {proyecto.localidad}</Typography>
                   <Typography variant="body2">Alias de Pago: {proyecto.alias_pago}</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-                  <Button
-                    variant="text"
-                    onClick={(event) => handleMenuClick(event, proyecto)}
-                  >
-                    ...
-                  </Button>
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl) && selectedProyecto?.id === proyecto.id}
-                    onClose={handleMenuClose}
-                  >
-                    <MenuItem onClick={handleEdit}>Editar</MenuItem>
-                    <MenuItem onClick={handleDelete}>Eliminar</MenuItem>
-                  </Menu>
-                </Box>
               </Card>
             </Grid>
           ))
         )}
       </Grid>
 
-      <ProyectosModal
-        open={isModalOpen}
-        onClose={handleCloseModal}
-        proyectoToEdit={proyectoToEdit} />
-
       <Snackbar open={snackOpen} autoHideDuration={6000} onClose={handleSnackClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
         <Alert onClose={handleSnackClose} severity={alert?.severity} sx={{ width: '100%' }}>
           {alert?.message}
         </Alert>
       </Snackbar>
-    </Card><Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
+    </Card>
+    
+    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
         <Button
           variant="contained"
           color="secondary"
@@ -204,5 +146,8 @@ export function ProyectosView() {
           Volver
         </Button>
       </Box></>
+
   );
+
+  
 }

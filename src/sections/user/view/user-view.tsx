@@ -21,8 +21,10 @@ import {
   Snackbar,
   Alert,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { useUsers, UserProps } from '../../../context/UserProvider';
 import { UserModal } from './UserModal';
+
 
 export function UserView() {
   const { users, fetchUsers, deleteUser } = useUsers();
@@ -36,6 +38,7 @@ export function UserView() {
   const [userToEdit, setUserToEdit] = useState<UserProps | null>(null);
   const [alert, setAlert] = useState<{ severity: 'success' | 'error'; message: string } | null>(null);
   const [snackOpen, setSnackOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -114,7 +117,7 @@ export function UserView() {
   });
 
   return (
-    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
+    <><Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
       <Toolbar
         sx={{
           flexDirection: { xs: 'column', sm: 'row' },
@@ -152,9 +155,17 @@ export function UserView() {
             placeholder="Buscar..."
             value={filter}
             onChange={(event) => setFilter(event.target.value)}
-            sx={{ width: { xs: '100%', sm: '200px' } }}
-          />
-          <Button variant="contained" color="primary" onClick={handleOpenModal}>
+            sx={{ width: { xs: '100%', sm: '200px' } }} />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpenModal}
+            sx={{
+              '@media (max-width:600px)': {
+                mb: 2,
+              },
+            }}
+          >
             Nuevo usuario
           </Button>
         </Box>
@@ -209,32 +220,37 @@ export function UserView() {
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]} 
+        rowsPerPageOptions={[5, 10, 25]}
         component="div"
         count={filteredUsers.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        labelRowsPerPage={
-          <>
-            Filas por Página:
-            <Button onClick={handleChangeRowsPerPageAll}>Todos</Button>
-          </>
-        }
-      />
+        labelRowsPerPage={<>
+          Filas por Página:
+          <Button onClick={handleChangeRowsPerPageAll}>Todos</Button>
+        </>} />
 
-      <UserModal 
-        open={isModalOpen} 
-        onClose={handleCloseModal} 
-        userToEdit={userToEdit} 
-      />
+      <UserModal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        userToEdit={userToEdit} />
 
-      <Snackbar open={snackOpen} autoHideDuration={6000} onClose={handleSnackClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+      <Snackbar open={snackOpen} autoHideDuration={3000} onClose={handleSnackClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
         <Alert onClose={handleSnackClose} severity={alert?.severity} sx={{ width: '100%' }}>
           {alert?.message}
         </Alert>
       </Snackbar>
-    </Card>
+    </Card><Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => navigate(-1)}
+        >
+          Volver
+        </Button>
+      </Box></>
+
   );
 }

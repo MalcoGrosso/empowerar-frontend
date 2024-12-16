@@ -79,7 +79,7 @@ export function ReclamosUsuario() {
   };
 
   return (
-    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
+    <><Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
       <Toolbar sx={{ flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
         <Box
           sx={{
@@ -99,6 +99,7 @@ export function ReclamosUsuario() {
               variant="contained"
               color="primary"
               onClick={() => setOpenModal(true)} // Abrir el modal
+              sx={{ '@media (max-width:600px)': { mb: 2 }, }}
             >
               Crear Reclamo
             </Button>
@@ -136,8 +137,7 @@ export function ReclamosUsuario() {
                 label={`Filtrar por ${filterType === 'usuario' ? 'Usuario' : 'Proyecto'}`}
                 value={filterValue}
                 onChange={(e) => setFilterValue(e.target.value)}
-                sx={{ minWidth: 200 }}
-              />
+                sx={{ minWidth: 200, '@media (max-width:600px)': { mb: 2 }, }} />
             </>
           )}
         </Box>
@@ -151,53 +151,51 @@ export function ReclamosUsuario() {
         ) : (
           sortedReclamos.map((reclamo) => (
             <Grid item xs={12} sm={6} md={4} key={reclamo.id}>
-                <Card
-                  variant="outlined"
-                  sx={{
-                    p: 3,
-                    position: 'relative',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'left',
-                    justifyContent: 'center',
-                    cursor: 'pointer', // Cambiar el cursor a puntero para indicar que es clickeable
-                    '&:hover': {
-                      backgroundColor: '#f5f5f5', // Cambiar el color de fondo al pasar el mouse
-                      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', // Añadir sombra al pasar el mouse
-                    },
-                  }}
-                  onClick={() => handleCardClick(reclamo.id)} // Llamar a la función al hacer clic, pasando el ID
-                >
-                  <Typography variant="h6">{reclamo.titulo}</Typography>
-                  <Typography>{reclamo.usuariosProyectos.proyecto.nombre}</Typography>
-                  {role === 'administrador' && (
-                    <Typography>
-                      {reclamo.usuariosProyectos.usuario
-                        ? `${reclamo.usuariosProyectos.usuario.firstName} ${reclamo.usuariosProyectos.usuario.lastName}`
-                        : 'Usuario desconocido'}
-                    </Typography>
-                  )}
-
-                  <Typography variant="body2" color="textSecondary">
-                    Estado: {reclamo.estado}
+              <Card
+                variant="outlined"
+                sx={{
+                  p: 3,
+                  position: 'relative',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'left',
+                  justifyContent: 'center',
+                  cursor: 'pointer', // Cambiar el cursor a puntero para indicar que es clickeable
+                  '&:hover': {
+                    backgroundColor: '#f5f5f5', // Cambiar el color de fondo al pasar el mouse
+                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', // Añadir sombra al pasar el mouse
+                  },
+                }}
+                onClick={() => handleCardClick(reclamo.id)} // Llamar a la función al hacer clic, pasando el ID
+              >
+                <Typography variant="h6">{reclamo.titulo}</Typography>
+                <Typography>{reclamo.usuariosProyectos.proyecto.nombre}</Typography>
+                {role === 'administrador' && (
+                  <Typography>
+                    {reclamo.usuariosProyectos.usuario
+                      ? `${reclamo.usuariosProyectos.usuario.firstName} ${reclamo.usuariosProyectos.usuario.lastName}`
+                      : 'Usuario desconocido'}
                   </Typography>
+                )}
 
-                  <Box
-                    sx={{
-                      width: '18px',
-                      height: '100%',
-                      position: 'absolute',
-                      left: 0,
-                      top: 0,
-                      backgroundColor:
-                        reclamo.estado === 'pendiente' ? '#ff0000' :
-                        reclamo.estado === 'en proceso' ? '#FFFF00' :
+                <Typography variant="body2" color="textSecondary">
+                  Estado: {reclamo.estado}
+                </Typography>
+
+                <Box
+                  sx={{
+                    width: '18px',
+                    height: '100%',
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    backgroundColor: reclamo.estado === 'pendiente' ? '#ff0000' :
+                      reclamo.estado === 'en proceso' ? '#FFFF00' :
                         reclamo.estado === 'resuelto' ? '#00FF00' :
-                        '#808080',
-                    }}
-                  />
-                </Card>
-              
+                          '#808080',
+                  }} />
+              </Card>
+
             </Grid>
           ))
         )}
@@ -219,8 +217,7 @@ export function ReclamosUsuario() {
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
             fullWidth
-            sx={{ marginBottom: 2 }}
-          />
+            sx={{ marginBottom: 2 }} />
           <TextField
             minRows={3}
             placeholder="Describe tu problema"
@@ -228,8 +225,7 @@ export function ReclamosUsuario() {
             multiline
             rows={4}
             onChange={(e) => setProblema(e.target.value)}
-            style={{ width: '100%', marginBottom: 16 }}
-          />
+            style={{ width: '100%', marginBottom: 16 }} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleModalClose} color="secondary">
@@ -240,6 +236,15 @@ export function ReclamosUsuario() {
           </Button>
         </DialogActions>
       </Dialog>
-    </Card>
+    </Card><Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => navigate(-1)}
+        >
+          Volver
+        </Button>
+      </Box></>
+
   );
 }
