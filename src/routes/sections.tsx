@@ -21,7 +21,11 @@ import { MantenimientoAdmin } from 'src/sections/mantenimientos/views/mantenimie
 import { MantenimientosUsuariosAdmin } from 'src/sections/mantenimientos/views/mantenimientosAdmin/mantenimientosUsuariosAdmin';
 import { MantenimientosTablaAdmin } from 'src/sections/mantenimientos/views/mantenimientosAdmin/mantenimientoTablaAdmin';
 import { MantenimientoFormularioAdmin } from 'src/sections/mantenimientos/views/mantenimientosAdmin/mantenimientosAdmin';
+import { PagosProvider } from 'src/context/pagosProvider';
+import { Pagos } from 'src/sections/pagos/pagosVistaUsuario';
+import { PagosAdmin } from 'src/sections/pagos/admin/pagosTablaAdmin';
 import { MantenimientoVista } from '../sections/mantenimientos/views/mantenimientosVistaUsuario';
+
 
 
 
@@ -293,6 +297,50 @@ export function Router() {
                 <MantenimientosProvider>
                   <MantenimientoFormularioAdmin /> 
                 </MantenimientosProvider>
+              </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'pagos', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['usuario']}>
+                <PagosProvider>
+                  <Pagos /> 
+                </PagosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'pagosAdmin', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador']}>
+                <ProyectosProvider>
+                  <MantenimientoAdmin /> 
+                </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'pagosAdmin/detalles/:id', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador']}>
+              <ProyectosProvider>
+                <MantenimientosUsuariosAdmin /> 
+              </ProyectosProvider>
+            </RoleProtectedRoute>
+          )
+        },
+        { 
+          path: 'pagosAdmin/detalles/:id/tabla/:id', 
+          element: (
+            <RoleProtectedRoute allowedRoles={['administrador']}>
+              <ProyectosProvider>
+                <PagosProvider>
+                  <AlertProvider>
+                  <PagosAdmin />
+                  </AlertProvider> 
+                </PagosProvider>
               </ProyectosProvider>
             </RoleProtectedRoute>
           )

@@ -37,7 +37,7 @@ export function DashboardLayout({ sx, children, header }: DashboardLayoutProps) 
 
   const navData = navDataConfig.filter((item) => {
     // Ocultar ciertas rutas basadas en el rol
-    if (role === 'usuario' && (item.title === 'Proyectos' || item.title === 'Usuarios' || item.title === 'Mantenimientos' || item.title === 'MantenimientoAdmin')) {
+    if (role === 'usuario' && (item.title === 'Proyectos' || item.title === 'Usuarios' || item.title === 'Mantenimientos' || item.title === 'MantenimientoAdmin' || item.title === 'PagosAdmin')) {
       return false; // No mostrar estas rutas si el rol es 'usuario'
     }
   
@@ -45,7 +45,7 @@ export function DashboardLayout({ sx, children, header }: DashboardLayoutProps) 
       return false; // No mostrar la ruta de 'Mantenimiento' si el rol es 'electricista'
     }
 
-    if (role === 'administrador' && (item.title === 'Mantenimiento' || item.title === 'Mantenimientos' )) {
+    if (role === 'administrador' && (item.title === 'Mantenimiento' || item.title === 'Mantenimientos' || item.title === 'Pagos' )) {
       return false; // No mostrar la ruta de 'Mantenimiento' si el rol es 'electricista'
     }
   
@@ -70,6 +70,10 @@ export function DashboardLayout({ sx, children, header }: DashboardLayoutProps) 
 
     if (role === 'administrador' && item.title === 'MantenimientosAdmin') {
       return { ...item, path: '/dashboard/mantenimientosAdmin' };
+    }
+
+    if (role === 'administrador' && item.title === 'PagosAdmin') {
+      return { ...item, title: 'Pagos' };
     }
   
   

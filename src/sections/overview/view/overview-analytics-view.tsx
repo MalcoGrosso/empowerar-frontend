@@ -98,7 +98,7 @@ export function OverviewAnalyticsView() {
               <Paper
                 elevation={3}
                 sx={cardStyles}
-                onClick={() => navigate('/dashboard/proyectos')}
+                onClick={() => navigate('/dashboard/pagosAdmin')}
               >
                 <img
                   alt="icon"

@@ -65,7 +65,13 @@ export const navData = [
 
   {
     title: 'Pagos',
-    path: '',
+    path: '/dashboard/pagos',
+    icon: icon('ic-payment'),
+  },
+
+  {
+    title: 'PagosAdmin',
+    path: '/dashboard/pagosAdmin',
     icon: icon('ic-payment'),
   },
   
