@@ -202,7 +202,7 @@ export const ProyectosProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const deleteProyecto = useCallback(async (proyectoId: number) => {
     try {
       const token = localStorage.getItem('token');
-      await api.put(`/projects/delete/${proyectoId}`, {}, {
+      await api.delete(`/proyectos/${proyectoId}`,  {
         headers: {
           Authorization: `Bearer ${token}`,
         },

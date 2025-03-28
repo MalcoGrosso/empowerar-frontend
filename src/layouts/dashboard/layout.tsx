@@ -41,7 +41,7 @@ export function DashboardLayout({ sx, children, header }: DashboardLayoutProps) 
       return false; // No mostrar estas rutas si el rol es 'usuario'
     }
   
-    if (role === 'electricista' && (item.title === 'Mantenimiento' || item.title === 'MantenimientoAdmin' || item.title === 'Proyectos' || item.title === 'Usuarios' || item.title === 'Reclamos' )) {
+    if (role === 'electricista' && (item.title === 'Mantenimiento' || item.title === 'MantenimientoAdmin' || item.title === 'Proyectos' || item.title === 'Usuarios' || item.title === 'Reclamos' || item.title === 'Pagos' || item.title === 'PagosAdmin' )) {
       return false; // No mostrar la ruta de 'Mantenimiento' si el rol es 'electricista'
     }
 

@@ -122,7 +122,7 @@ export function OverviewAnalyticsView() {
               >
                 <img
                   alt="icon"
-                  src="/assets/icons/glass/report_problem.svg"
+                  src="/assets/icons/navbar/ic-note.svg"
                   style={{ width: 48, height: 48, marginBottom: 8 }}
                 />
                 <Typography variant="subtitle1">Mantenimientos</Typography>
@@ -141,7 +141,7 @@ export function OverviewAnalyticsView() {
               >
                 <img
                   alt="icon"
-                  src="/assets/icons/glass/report_problem.svg"
+                  src="/assets/icons/navbar/ic-book.svg"
                   style={{ width: 48, height: 48, marginBottom: 8 }}
                 />
                 <Typography variant="subtitle1">Reclamos</Typography>
@@ -155,10 +155,24 @@ export function OverviewAnalyticsView() {
               >
                 <img
                   alt="icon"
-                  src="/assets/icons/glass/report_problem.svg"
+                  src="/assets/icons/navbar/ic-note.svg"
                   style={{ width: 48, height: 48, marginBottom: 8 }}
                 />
                 <Typography variant="subtitle1">Mantenimiento</Typography>
+              </Paper>
+            </Grid>
+            <Grid xs={12} sm={6} md={3}>
+              <Paper
+                elevation={3}
+                sx={cardStyles}
+                onClick={() => navigate('/dashboard/pagos')}
+              >
+                <img
+                  alt="icon"
+                  src="/assets/icons/navbar/ic-payment.svg"
+                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                />
+                <Typography variant="subtitle1">Pagos</Typography>
               </Paper>
             </Grid>
           </>

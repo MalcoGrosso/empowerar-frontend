@@ -31,6 +31,7 @@
     "@fontsource/barlow": "^5.0.14",
     "@formspree/react": "^2.5.1",
     "@iconify/react": "^5.0.2",
+    "@mercadopago/sdk-react": "^0.0.24",
     "@mui/lab": "^5.0.0-alpha.173",
     "@mui/material": "^5.16.7",
     "apexcharts": "^3.52.0",

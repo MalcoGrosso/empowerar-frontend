@@ -11,6 +11,7 @@ interface PagoProps {
   createdAt: Date;
   monto: number;
   estado: string;
+  comprobante: string;
 }
 
 export function PagosAdmin() {
@@ -52,8 +53,10 @@ export function PagosAdmin() {
     }
   };
 
-  const irAComprobante = (pagoId: number) => {
-    navigate(`/dashboard/pagos/comprobante/${pagoId}`);
+  const irAComprobante = (compro: string) => {
+    if (compro) {
+      window.open(compro, '_blank');
+    }
   };
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
@@ -113,7 +116,7 @@ export function PagosAdmin() {
                 <TableCell sx={{ textAlign: 'center' }}>{pago.estado}</TableCell>
                 <TableCell sx={{ textAlign: 'center' }}>
                   {pago.estado === 'pagado' && (
-                    <Button onClick={() => irAComprobante(pago.id)}>Ver Comprobante</Button>
+                    <Button onClick={() => irAComprobante(pago.comprobante)}>Ver Comprobante</Button>
                   )}
                 </TableCell>
               </TableRow>

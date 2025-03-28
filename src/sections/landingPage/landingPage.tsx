@@ -57,7 +57,7 @@ export function LandingPage() {
       mission: "Nuestra Misión",
       missionContent1: (
         <>
-          <strong>empowerar</strong> en el resultado de la integración de la tecnología a la sociedad de una manera sustentable y con acceso universal que respete y promueva el bienestar humano y el progreso social.
+          <strong>empowerar</strong> es el resultado de la integración de la tecnología a la sociedad de una manera sustentable y con acceso universal que respete y promueva el bienestar humano y el progreso social.
         </>
       ),
       missionContent2: "Este producto es un MVP (Producto Mínimo Viable) del LabTA quien viene desarrollando modelos de negocios en comunidades rurales de la Argentina.",
@@ -205,7 +205,7 @@ export function LandingPage() {
         {/* Contenido sobre el video */}
         <Box sx={{ position: 'relative', zIndex: 2, maxWidth: '600px' }}>
           <Typography variant="h2" sx={{ mb: 2 }}>
-            <strong>empowerar</strong>
+            <strong>empowerar 1.0</strong>
           </Typography>
           <Typography variant="body1" sx={{ mb: 3 }}>
             {language === 'es'

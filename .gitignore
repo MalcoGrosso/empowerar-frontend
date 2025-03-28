@@ -30,6 +30,7 @@ build
 .unimportedrc.json
 tsconfig.tsbuildinfo
 .vscode
+pagosVistaUsuario_boton_viejo.tsx
 
 npm-debug.log*
 yarn-debug.log*

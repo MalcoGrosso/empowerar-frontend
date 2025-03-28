@@ -21,6 +21,10 @@ interface TokenPayload {
 export function SignInView() {
   const router = useRouter();
 
+  /*
+  const [dni, setDni] = useState<string>('44589635');  // Cambiar 'email' por 'dni'
+  const [password, setPassword] = useState<string>('123');
+  */
   const [showPassword, setShowPassword] = useState(false);
   const [dni, setDni] = useState<string>('44589635');  // Cambiar 'email' por 'dni'
   const [password, setPassword] = useState<string>('123');
