@@ -6,7 +6,6 @@ import {
   DialogActions,
   TextField,
   Button,
-  Alert,
 } from '@mui/material';
 
 interface AgregarUsuarioModalProps {
@@ -21,44 +20,46 @@ interface AgregarElectricistaModalProps {
   onAgregar: (dni: string) => Promise<void>;
 }
 
-
 export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, onClose, onAgregar }) => {
   const [dni, setDni] = useState('');
-  const [montoPago, setMontoPago] = useState(''); // Mantener como string
-  const [error, setError] = useState<string | null>(null);
+  const [montoPago, setMontoPago] = useState('');
+  const [dniError, setDniError] = useState<string | null>(null);
+  const [montoError, setMontoError] = useState<string | null>(null);
 
   const handleInputChangeDni = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDni(e.target.value);
+    setDniError(null);
   };
 
   const handleInputChangeMonto = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMontoPago(e.target.value); // Mantenerlo como string
+    setMontoPago(e.target.value);
+    setMontoError(null);
   };
 
   const handleAgregarUsuario = async () => {
-    setError(null); // Reiniciar el error antes de intentar agregar el usuario
+    setDniError(null);
+    setMontoError(null);
+
     if (!dni) {
-      setError('El DNI es obligatorio');
+      setDniError('El DNI es obligatorio');
       return;
     }
 
-    // Validar que el monto no esté vacío y sea un número
-    const monto = parseFloat(montoPago); // Convertir a número
+    const monto = parseFloat(montoPago);
     if (montoPago.trim() === '' || Number.isNaN(monto)) {
-      setError('El monto de pago debe ser un número válido y no puede estar vacío');
+      setMontoError('El monto de pago debe ser un número válido y no puede estar vacío');
       return;
     }
 
     try {
-      await onAgregar(dni, monto); // Llamar a la función onAgregar que devuelve una promesa
+      await onAgregar(dni, monto);
       handleCloseModal();
     } catch (err) {
       console.error(err);
-      // Comprobar si el error tiene una respuesta y capturar el mensaje de error
-      if (err.response && err.response.data) {
-        setError(err.response.data.error); // Captura el error devuelto por la API
+      if (err.response?.data?.error) {
+        setDniError(err.response.data.error);
       } else {
-        setError('Error desconocido al agregar el usuario'); // Mensaje de error general
+        setDniError('Error desconocido al agregar el usuario');
       }
     }
   };
@@ -66,19 +67,15 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
   const handleCloseModal = () => {
     onClose();
     setDni('');
-    setMontoPago(''); // Reiniciar a cadena vacía
-    setError(null); // Reiniciar el mensaje de error al cerrar el modal
+    setMontoPago('');
+    setDniError(null);
+    setMontoError(null);
   };
 
   return (
-    <Dialog open={open} onClose={handleCloseModal}>
+    <Dialog open={open} onClose={handleCloseModal} fullWidth maxWidth="sm">
       <DialogTitle>Agregar Nuevo Usuario</DialogTitle>
       <DialogContent>
-        {error && (
-          <Alert severity="error" onClose={() => setError(null)}>
-            {error}
-          </Alert>
-        )}
         <TextField
           autoFocus
           margin="dense"
@@ -88,22 +85,26 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
           variant="outlined"
           value={dni}
           onChange={handleInputChangeDni}
+          error={Boolean(dniError)}
+          helperText={dniError || ''}
         />
         <TextField
           margin="dense"
           label="Monto de Pago"
-          type="text" // Mantener el tipo como texto
+          type="text"
           fullWidth
           variant="outlined"
           value={montoPago}
           onChange={handleInputChangeMonto}
+          error={Boolean(montoError)}
+          helperText={montoError || ''}
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCloseModal} color="primary">
+        <Button onClick={handleCloseModal} color="secondary">
           Cancelar
         </Button>
-        <Button onClick={handleAgregarUsuario} color="primary">
+        <Button onClick={handleAgregarUsuario} color="primary" variant="contained">
           Agregar
         </Button>
       </DialogActions>
@@ -111,34 +112,32 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
   );
 };
 
-
 export const AgregarElectricistaModal: React.FC<AgregarElectricistaModalProps> = ({ open, onClose, onAgregar }) => {
   const [dni, setDni] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const [dniError, setDniError] = useState<string | null>(null);
 
   const handleInputChangeDni = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDni(e.target.value);
+    setDniError(null);
   };
 
-
   const handleAgregarUsuario = async () => {
-    setError(null); // Reiniciar el error antes de intentar agregar el usuario
+    setDniError(null);
+
     if (!dni) {
-      setError('El DNI es obligatorio');
+      setDniError('El DNI es obligatorio');
       return;
     }
 
-
     try {
-      await onAgregar(dni); // Llamar a la función onAgregar que devuelve una promesa
+      await onAgregar(dni);
       handleCloseModal();
     } catch (err) {
       console.error(err);
-      // Comprobar si el error tiene una respuesta y capturar el mensaje de error
-      if (err.response && err.response.data) {
-        setError(err.response.data.error); // Captura el error devuelto por la API
+      if (err.response?.data?.error) {
+        setDniError(err.response.data.error);
       } else {
-        setError('Error desconocido al agregar el usuario'); // Mensaje de error general
+        setDniError('Error desconocido al agregar el usuario');
       }
     }
   };
@@ -146,18 +145,13 @@ export const AgregarElectricistaModal: React.FC<AgregarElectricistaModalProps> =
   const handleCloseModal = () => {
     onClose();
     setDni('');
-    setError(null); // Reiniciar el mensaje de error al cerrar el modal
+    setDniError(null);
   };
 
   return (
-    <Dialog open={open} onClose={handleCloseModal}>
+    <Dialog open={open} onClose={handleCloseModal} fullWidth maxWidth="sm">
       <DialogTitle>Agregar Nuevo Electricista</DialogTitle>
       <DialogContent>
-        {error && (
-          <Alert severity="error" onClose={() => setError(null)}>
-            {error}
-          </Alert>
-        )}
         <TextField
           autoFocus
           margin="dense"
@@ -167,21 +161,18 @@ export const AgregarElectricistaModal: React.FC<AgregarElectricistaModalProps> =
           variant="outlined"
           value={dni}
           onChange={handleInputChangeDni}
+          error={Boolean(dniError)}
+          helperText={dniError || ''}
         />
-
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCloseModal} color="primary">
+        <Button onClick={handleCloseModal} color="secondary">
           Cancelar
         </Button>
-        <Button onClick={handleAgregarUsuario} color="primary">
+        <Button onClick={handleAgregarUsuario} color="primary" variant="contained">
           Agregar
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
-
-
-
-

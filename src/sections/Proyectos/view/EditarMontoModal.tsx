@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Alert, Typography, Box } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Typography, Box } from '@mui/material';
 
 interface EditarMontoModalProps {
   open: boolean;
@@ -39,11 +39,6 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>Editar Monto de Pago</DialogTitle>
       <DialogContent>
-        {error && (
-          <Alert severity="error" onClose={() => setError(null)} sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        )}
         <Box sx={{ mb: 2 }}>
           <Typography variant="body1"><strong>Nombre:</strong> {nombre}</Typography>
           <Typography variant="body1"><strong>DNI:</strong> {dni}</Typography>
@@ -55,6 +50,8 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
           variant="outlined"
           value={monto}
           onChange={handleInputChange}
+          error={Boolean(error)} // Activa el estado de error
+          helperText={error || ''} // Muestra el mensaje debajo del input
         />
       </DialogContent>
       <DialogActions>

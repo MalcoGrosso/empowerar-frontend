@@ -115,6 +115,7 @@ export function ProyectosView() {
             gap: 2,
             width: '100%',
             justifyContent: { xs: 'center', sm: 'flex-end' },
+            padding: 3,
           }}
         >
           <FormControl sx={{ minWidth: 120 }}>
@@ -154,7 +155,7 @@ export function ProyectosView() {
           </Typography>
         ) : (
           filteredProyectos.map((proyecto) => (
-            <Grid item xs={12} sm={6} md={4} key={proyecto.id}>
+            <Grid item xs={12} sm={6} md={4}  key={proyecto.id}>
               <Card sx={{ padding: 2, cursor: 'pointer', '&:hover': { boxShadow: 3 } }}>
                 <Box onClick={() => handleProjectClick(proyecto)} sx={{ cursor: 'pointer' }}>
                   <Typography variant="h6">{proyecto.nombre}</Typography>

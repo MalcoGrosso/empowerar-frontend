@@ -139,9 +139,15 @@ export const UserModal: React.FC<UserModalProps> = ({ open, onClose, userToEdit 
           <TextField label="DNI" name="dni" value={formValues.dni} onChange={handleChange} fullWidth margin="normal" inputProps={{ inputMode: 'text' }} />
           <TextField label="Dirección" name="direccion" value={formValues.direccion} onChange={handleChange} fullWidth margin="normal" />
           
-          <FormControl fullWidth margin="normal">
-            <InputLabel>Rol</InputLabel>
-            <Select name="role" value={formValues.role} onChange={handleSelectChange}>
+          <FormControl fullWidth sx={{ mt: 2 }}>
+            <InputLabel id="rol-label">Rol</InputLabel>
+            <Select
+              labelId="rol-label"
+              name="role"
+              value={formValues.role}
+              onChange={handleSelectChange}
+              label="Rol"
+            >
               <MenuItem value="usuario">Usuario</MenuItem>
               <MenuItem value="administrador">Administrador</MenuItem>
               <MenuItem value="electricista">Electricista</MenuItem>

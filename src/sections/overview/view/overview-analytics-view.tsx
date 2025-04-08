@@ -53,7 +53,7 @@ export function OverviewAnalyticsView() {
               <Paper
                 elevation={3}
                 sx={cardStyles}
-                onClick={() => navigate('/dashboard/Proyectos')}
+                onClick={() => navigate('/dashboard/proyectos')}
               >
                 <img
                   alt="icon"
@@ -68,7 +68,7 @@ export function OverviewAnalyticsView() {
               <Paper
                 elevation={3}
                 sx={cardStyles}
-                onClick={() => navigate('/dashboard/Reclamos')}
+                onClick={() => navigate('/dashboard/reclamos')}
               >
                 <img
                   alt="icon"
@@ -118,7 +118,7 @@ export function OverviewAnalyticsView() {
               <Paper
                 elevation={3}
                 sx={cardStyles}
-                onClick={() => navigate('/dashboard/Mantenimientos')}
+                onClick={() => navigate('/dashboard/mantenimientos')}
               >
                 <img
                   alt="icon"

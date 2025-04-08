@@ -214,7 +214,7 @@ export function MantenimientosTabla() {
               page={page}
               onPageChange={handleChangePage}
               rowsPerPage={rowsPerPage}
-              rowsPerPageOptions={[]} />
+               />
 
           </>
         ) : (

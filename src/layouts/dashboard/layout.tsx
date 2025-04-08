@@ -65,7 +65,7 @@ export function DashboardLayout({ sx, children, header }: DashboardLayoutProps) 
     }
   
     if (role === 'electricista' && item.title === 'Mantenimientos') {
-      return { ...item, path: '/dashboard/Mantenimientos' };
+      return { ...item, path: '/dashboard/mantenimientos' };
     }
 
     if (role === 'administrador' && item.title === 'MantenimientosAdmin') {
@@ -73,7 +73,7 @@ export function DashboardLayout({ sx, children, header }: DashboardLayoutProps) 
     }
 
     if (role === 'administrador' && item.title === 'PagosAdmin') {
-      return { ...item, title: 'Pagos' };
+      return { ...item, title: 'pagos' };
     }
   
   

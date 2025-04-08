@@ -20,6 +20,8 @@ import {
   DialogContent,
   DialogTitle,
   Alert,
+  Card,
+  CardContent,
 } from '@mui/material';
 import { useMantenimientos } from '../../../../context/mantenimientoProvider';
 
@@ -115,39 +117,46 @@ export function MantenimientosTablaAdmin() {
 
   const rowsPerPage = 12;
   const fechasPaginadas = filtradoFechas.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  
 
   return (
     <>
       <Box sx={{ p: 3 }}>
-        <Typography variant="h4" gutterBottom>
-          Datos del Usuario
-        </Typography>
-        {usuario ? (
-          <>
-            <Typography variant="body1">
-              Nombre: {usuario.usuario.firstName} {usuario.usuario.lastName}
+          <Card sx={{ maxWidth: 500, margin: 'left', mt: 4, p: 2 }}>
+          <CardContent>
+            <Typography variant="h4" gutterBottom>
+              Datos del Usuario
             </Typography>
-            <Typography variant="body1">DNI: {usuario.usuario.dni}</Typography>
-            <Typography variant="body1">Email: {usuario.usuario.email}</Typography>
-          </>
-        ) : (
-          <Typography variant="body1">No se encontró información del usuario.</Typography>
-        )}
+            {usuario ? (
+              <>
+                <Typography variant="body1">
+                  Nombre: {usuario.usuario.firstName} {usuario.usuario.lastName}
+                </Typography>
+                <Typography variant="body1">DNI: {usuario.usuario.dni}</Typography>
+                <Typography variant="body1">Email: {usuario.usuario.email}</Typography>
+              </>
+            ) : (
+              <Typography variant="body1">
+                No se encontró información del usuario.
+              </Typography>
+            )}
+          </CardContent>
 
-        {openAlert && alertMessage && (  // Mostrar el alert si hay un mensaje
-          <Alert
-            severity="success"
-            sx={{
-              position: 'fixed',
-              bottom: 16,
-              right: 16,
-              zIndex: 9999,  // Asegurarse de que se muestre encima de otros elementos
-              width: 'auto',  // Ajustar el ancho automáticamente
-            }}
-          >
-            {alertMessage}
-          </Alert>
-        )}
+          {openAlert && alertMessage && (
+            <Alert
+              severity="success"
+              sx={{
+                position: 'fixed',
+                bottom: 16,
+                right: 16,
+                zIndex: 9999,
+                width: 'auto',
+              }}
+            >
+              {alertMessage}
+            </Alert>
+          )}
+        </Card>
 
         <Box sx={{ mt: 4 }}>
           <Box>
@@ -181,8 +190,17 @@ export function MantenimientosTablaAdmin() {
                   <TableBody>
                     {fechasPaginadas.map((fecha) => (
                       <TableRow key={fecha.id}>
-                        <TableCell align="center">{new Date(fecha.fecha).toLocaleDateString()}</TableCell>
+                        <TableCell align="center">{new Date(fecha.fecha).toLocaleString()}</TableCell>
                         <TableCell align="center">
+                        <Box
+                            sx={{
+                              display: 'inline-flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              gap: 1,
+                              whiteSpace: 'nowrap', // fuerza que todo se mantenga en una línea
+                            }}
+                          >
                           <Button
                             onClick={() => irADetalle(fecha.id)}
                             sx={{
@@ -192,6 +210,7 @@ export function MantenimientosTablaAdmin() {
                               alignItems: 'center',
                               backgroundColor: 'transparent',
                               ml: 2,
+                              
                             }}
                           >
                             <svg
@@ -251,6 +270,7 @@ export function MantenimientosTablaAdmin() {
                               <path d="M1 2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v1h-1v11a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3H1V2z" />
                             </svg>
                           </Button>
+                          </Box>
                         </TableCell>
                       </TableRow>
                     ))}

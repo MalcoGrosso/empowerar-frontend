@@ -463,18 +463,20 @@ export function MantenimientoFormulario() {
           </Grid>
 
 
-
+              
           <Grid item xs={12}>
             {!isViewMode && (
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                fullWidth
-                disabled={isViewMode} // Deshabilitar si no está en modo edición
-              >
-                {isCreateMode ? 'Crear' : isEditMode ? 'Editar' : ''}
-              </Button>
+              <Box display="flex" justifyContent="center">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  disabled={isViewMode}
+                  sx={{ width: 'fit-content' }}
+                >
+                  {isCreateMode ? 'Crear' : isEditMode ? 'Editar' : ''}
+                </Button>
+              </Box>
             )}
           </Grid>
 

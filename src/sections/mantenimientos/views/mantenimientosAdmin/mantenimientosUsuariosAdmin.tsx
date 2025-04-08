@@ -64,7 +64,8 @@ export function MantenimientosUsuariosAdmin() {
     setSearchTerm(value);
     const filtered = usuariosAsignados.filter((usuario) =>
       usuario.usuario.firstName.toLowerCase().includes(value) ||
-      usuario.usuario.dni.includes(value)
+      usuario.usuario.dni.includes(value) ||
+      usuario.usuario.lastName.toLowerCase().includes(value)
     );
     setFilteredUsuarios(filtered);
   };
@@ -79,24 +80,28 @@ export function MantenimientosUsuariosAdmin() {
 
   return (
     <><Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Detalles del Proyecto
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        {state?.proyecto?.nombre}
-      </Typography>
-      <Typography variant="body2" gutterBottom>
-        {state?.proyecto?.descripcion}
-      </Typography>
-      <Typography variant="body2" gutterBottom>
-        Provincia: {state?.proyecto?.provincia}, Localidad: {state?.proyecto?.localidad}
-      </Typography>
-      <Typography variant="body2" gutterBottom>
-        Alias de Pago: {state?.proyecto?.alias_pago}
-      </Typography>
-
+     <Card sx={{ mb: 4, borderRadius: 2, boxShadow: 3, width: 'fit-content', minWidth: 500, }}>
+        <CardContent>
+          <Typography variant="h4" gutterBottom>
+            Detalles del Proyecto
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            {state?.proyecto?.nombre}
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            {state?.proyecto?.descripcion}
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            Provincia: {state?.proyecto?.provincia}, Localidad: {state?.proyecto?.localidad}
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            Alias de Pago: {state?.proyecto?.alias_pago}
+          </Typography>
+        </CardContent>
+      </Card>
+      
       <TextField
-        label="Buscar por nombre o DNI"
+        label="Buscar por nombre, apellido o DNI"
         variant="outlined"
         fullWidth
         sx={{ mb: 3 }}

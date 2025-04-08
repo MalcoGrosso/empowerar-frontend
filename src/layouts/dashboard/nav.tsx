@@ -8,6 +8,7 @@ import { useTheme } from '@mui/material/styles';
 import ListItemButton from '@mui/material/ListItemButton';
 import Drawer, { drawerClasses } from '@mui/material/Drawer';
 
+
 import { usePathname } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
@@ -117,7 +118,6 @@ export function NavMobile({
 
 export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
   const pathname = usePathname();
-
   return (
     <>
       <Box display="flex" alignItems="center"> {/* Contenedor flex para el logo y el texto */}
@@ -135,8 +135,7 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
         <Box component="nav" display="flex" flex="1 1 auto" flexDirection="column" sx={sx}>
           <Box component="ul" gap={0.5} display="flex" flexDirection="column">
             {data.map((item) => {
-              const isActived = item.path === pathname;
-
+              const isActived = item.path === pathname || (pathname.startsWith(item.path) && item.path !== "/dashboard");
               return (
                 <ListItem disableGutters disablePadding key={item.title}>
                   <ListItemButton

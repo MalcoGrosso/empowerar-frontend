@@ -83,6 +83,7 @@ export function MantenimientoAdmin() {
             gap: 2,
             width: '100%',
             justifyContent: { xs: 'center', sm: 'flex-end' },
+            padding: 3,
           }}
         >
           <FormControl sx={{ minWidth: 120 }}>

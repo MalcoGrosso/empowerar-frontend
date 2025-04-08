@@ -88,6 +88,7 @@ export function ReclamosUsuario() {
             width: '100%',
             flexDirection: { xs: 'column', sm: 'row' }, // Cambiar a columna en pantallas pequeñas
             justifyContent: 'flex-end',
+            padding: 3,
           }}
         >
           <Typography variant="h4" flexGrow={1}>
@@ -217,7 +218,7 @@ export function ReclamosUsuario() {
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
             fullWidth
-            sx={{ marginBottom: 2 }} />
+            sx={{ marginBottom: 2, marginTop: 1 }} />
           <TextField
             minRows={3}
             placeholder="Describe tu problema"

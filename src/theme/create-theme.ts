@@ -1,6 +1,7 @@
 import type { Theme } from '@mui/material/styles';
 
 import { experimental_extendTheme as extendTheme } from '@mui/material/styles';
+import { esES } from '@mui/material/locale'; // ✅ Importamos el idioma
 
 import { shadows, typography, components, colorSchemes, customShadows } from './core';
 
@@ -12,7 +13,10 @@ export function createTheme(): Theme {
     shadows: shadows(),
     customShadows: customShadows(),
     shape: { borderRadius: 8 },
-    components,
+    components: {
+      ...components,
+      ...esES.components, // ✅ Mezclamos los componentes con idioma español
+    },
     typography,
     cssVarPrefix: '',
     shouldSkipGeneratingVar,

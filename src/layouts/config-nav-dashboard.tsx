@@ -20,7 +20,7 @@ export const navData = [
   },
   {
     title: 'Proyectos',
-    path: '/dashboard/Proyectos',
+    path: '/dashboard/proyectos',
     icon: icon('ic-folder'),
   },
   // {
@@ -41,13 +41,13 @@ export const navData = [
   
   {
     title: 'Reclamos',
-    path: '/dashboard/Reclamos',
+    path: '/dashboard/reclamos',
     icon: icon('ic-book'),
   },
 
   {
     title: 'Mantenimientos',
-    path: '/dashboard/Mantenimientos',
+    path: '/dashboard/mantenimientos',
     icon: icon('ic-note'),
   },
 
