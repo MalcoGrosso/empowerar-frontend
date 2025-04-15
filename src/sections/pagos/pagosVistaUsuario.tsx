@@ -17,7 +17,7 @@ interface PagoProps {
   usuariosProyectosId: number;
 }
 
-const mercadoPago1 = import.meta.env.VITE_MERCADO_P || '';
+const mercadoPago1 = import.meta.env.VITE_MERCADO_PAGO_AT || '';
 
 export function Pagos() {
   initMercadoPago(mercadoPago1);
