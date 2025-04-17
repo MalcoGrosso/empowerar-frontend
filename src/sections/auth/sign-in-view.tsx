@@ -26,8 +26,8 @@ export function SignInView() {
   const [password, setPassword] = useState<string>('123');
   */
   const [showPassword, setShowPassword] = useState(false);
-  const [dni, setDni] = useState<string>('44589635');  // Cambiar 'email' por 'dni'
-  const [password, setPassword] = useState<string>('123');
+  const [dni, setDni] = useState<string>('');  // Cambiar 'email' por 'dni'
+  const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
