@@ -117,7 +117,18 @@ export function MantenimientoAdmin() {
         ) : (
           filteredProyectos.map((proyecto) => (
             <Grid item xs={12} sm={6} md={4} key={proyecto.id}>
-              <Card sx={{ padding: 2, cursor: 'pointer', '&:hover': { boxShadow: 3 } }}>
+              <Card sx={{ display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'left',
+    justifyContent: 'left',
+    padding: 2,
+    height: 200,
+    cursor: 'pointer',
+    transition: 'transform 0.1s',
+    '&:hover': {
+      transform: 'scale(1.02)',
+      boxShadow: '5px 5px 10px rgba(145 158 171 / 0.2)'
+    }, }}>
                 <Box onClick={() => handleProjectClick(proyecto)} sx={{ cursor: 'pointer' }}>
                   <Typography variant="h6">{proyecto.nombre}</Typography>
                   <Typography variant="body2">{proyecto.descripcion}</Typography>

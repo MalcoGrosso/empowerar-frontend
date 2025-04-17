@@ -119,14 +119,18 @@ export function MantenimientosUsuariosAdmin() {
           {filteredUsuarios.map((usuario) => (
             <Grid item xs={12} sm={6} md={4} key={usuario.id}>
               <Card
-                sx={{
-                  height: '100%',
-                  display: 'flex',
+                sx={{ display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  boxShadow: 3,
-                  p: 2,
-                }}
+                  alignItems: 'left',
+                  justifyContent: 'left',
+                  padding: 2,
+                  height: 200,
+                  cursor: 'pointer',
+                  transition: 'transform 0.1s',
+                  '&:hover': {
+                    transform: 'scale(1.02)',
+                    boxShadow: '5px 5px 10px rgba(145 158 171 / 0.2)'
+                  }, }}
                 onClick={() => handleCardClick(usuario)} // Al hacer clic, redirige y pasa el usuario
               >
 

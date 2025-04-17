@@ -154,19 +154,19 @@ export function ReclamosUsuario() {
             <Grid item xs={12} sm={6} md={4} key={reclamo.id}>
               <Card
                 variant="outlined"
-                sx={{
-                  p: 3,
+                sx={{ display: 'flex',
                   position: 'relative',
-                  display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'left',
                   justifyContent: 'center',
-                  cursor: 'pointer', // Cambiar el cursor a puntero para indicar que es clickeable
+                  padding: 3,
+                  height: 200,
+                  cursor: 'pointer',
+                  transition: 'transform 0.1s',
                   '&:hover': {
-                    backgroundColor: '#f5f5f5', // Cambiar el color de fondo al pasar el mouse
-                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', // Añadir sombra al pasar el mouse
-                  },
-                }}
+                    transform: 'scale(1.02)',
+                    boxShadow: '5px 5px 10px rgba(145 158 171 / 0.2)'
+                  }, }}
                 onClick={() => handleCardClick(reclamo.id)} // Llamar a la función al hacer clic, pasando el ID
               >
                 <Typography variant="h6">{reclamo.titulo}</Typography>
