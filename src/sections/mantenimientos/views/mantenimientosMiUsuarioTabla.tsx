@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { 
   Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
-  Paper, CircularProgress, Button, TablePagination, MenuItem, Select, FormControl, InputLabel, SelectChangeEvent 
+  Paper, CircularProgress, Button, TablePagination, MenuItem, Select, FormControl, InputLabel, SelectChangeEvent, 
+  Card
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useMantenimientos } from '../../../context/mantenimientoProvider';
@@ -14,7 +15,7 @@ interface FechaMantenimiento {
 export function MantenimientosMiUsuarioTabla() {
   const { fetchFechasMantenimientosUsuarios, loading } = useMantenimientos();
   const [fechas, setFechas] = useState<FechaMantenimiento[]>([]);
-  const [filteredFechas, setFilteredFechas] = useState<FechaMantenimiento[]>([]);
+  const [filtradoFechas, setFiltradoFechas] = useState<FechaMantenimiento[]>([]);
   const [page, setPage] = useState(0);  // Página actual
   const [rowsPerPage] = useState(12);   // Elementos por página
   const [yearFilter, setYearFilter] = useState<string>(''); // Año seleccionado
@@ -26,7 +27,7 @@ export function MantenimientosMiUsuarioTabla() {
       const fechasObtenidas: { id: number; fecha: Date }[] = await fetchFechasMantenimientosUsuarios();
       const fechasOrdenadas = fechasObtenidas.sort((a, b) => b.fecha.getTime() - a.fecha.getTime());
       setFechas(fechasOrdenadas);
-      setFilteredFechas(fechasOrdenadas);
+      setFiltradoFechas(fechasOrdenadas);
     };
 
     obtenerFechas();
@@ -36,9 +37,9 @@ export function MantenimientosMiUsuarioTabla() {
   useEffect(() => {
     if (yearFilter) {
       const filtered = fechas.filter(fecha => new Date(fecha.fecha).getFullYear().toString() === yearFilter);
-      setFilteredFechas(filtered);
+      setFiltradoFechas(filtered);
     } else {
-      setFilteredFechas(fechas);
+      setFiltradoFechas(fechas);
     }
   }, [yearFilter, fechas]);
 
@@ -59,7 +60,7 @@ export function MantenimientosMiUsuarioTabla() {
   };
 
   // Datos de la página actual
-  const fechasPaginated = filteredFechas.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+  const fechasPaginadas = filtradoFechas.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   if (loading) {
     return (
@@ -73,7 +74,9 @@ export function MantenimientosMiUsuarioTabla() {
   const uniqueYears = Array.from(new Set(fechas.map(fecha => new Date(fecha.fecha).getFullYear())));
 
   return (
-    <><Box sx={{ p: 3 }}>
+    <>
+    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
+    <Box sx={{ p: 3 }}>
       <Typography variant="h4" gutterBottom>
         Mantenimientos del Usuario
       </Typography>
@@ -99,10 +102,19 @@ export function MantenimientosMiUsuarioTabla() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {fechasPaginated.map((fecha) => (
-              <TableRow key={fecha.id}>
-                <TableCell sx={{ textAlign: 'center' }}>{fecha.fecha.toLocaleDateString()}</TableCell>
-                <TableCell sx={{ textAlign: 'center' }}>
+            {fechasPaginadas.map((fecha) => (
+             <TableRow key={fecha.id}>
+              <TableCell align="center">{new Date(fecha.fecha).toLocaleString()}</TableCell>
+               <TableCell align="center">
+                <Box
+                  sx={{
+                        display: 'inline-flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        gap: 1,
+                        whiteSpace: 'nowrap', // fuerza que todo se mantenga en una línea
+                        }}
+                 >
                   <Button
                     onClick={() => irADetalle(fecha.id)}
                     sx={{
@@ -117,19 +129,12 @@ export function MantenimientosMiUsuarioTabla() {
                       },
                     }}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      className="bi bi-eye-fill"
-                      viewBox="0 0 16 16"
-                      style={{ fontSize: '2rem' }}
-                    >
-                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
-                    </svg>
+                    <img
+                            alt="icon"
+                            src="/assets/icons/glass/ic-ver.svg"
+                              />
                   </Button>
+                  </Box>
                 </TableCell>
               </TableRow>
             ))}
@@ -140,12 +145,15 @@ export function MantenimientosMiUsuarioTabla() {
       <TablePagination
         rowsPerPageOptions={[12]}
         component="div"
-        count={filteredFechas.length}
+        count={filtradoFechas.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage} />
         
-      </Box><Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
+      </Box>
+      </Card>
+      
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
         <Button
           variant="contained"
           color="secondary"

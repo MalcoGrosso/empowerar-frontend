@@ -75,7 +75,8 @@ export function UserView() {
   const handleDelete = async () => {
     if (selectedUser) {
       await deleteUser(selectedUser.id);
-      setAlert({ severity: 'success', message: `Usuario ${selectedUser.firstName} ${selectedUser.lastName} eliminado.` });
+      const nuevoEstado = selectedUser.estado ? 'Desactivado' : 'Activado';
+      setAlert({ severity: 'success', message: `Usuario ${selectedUser.firstName} ${selectedUser.lastName} ${nuevoEstado}` });
       setSnackOpen(true);
       handleMenuClose();
       fetchUsers();
@@ -204,7 +205,9 @@ export function UserView() {
                     onClose={handleMenuClose}
                   >
                     <MenuItem onClick={handleEdit}>Editar</MenuItem>
-                    <MenuItem onClick={handleDelete}>Eliminar</MenuItem>
+                    <MenuItem onClick={handleDelete}>
+                      {user.estado ? 'Desactivar' : 'Activar'}
+                    </MenuItem>
                   </Menu>
                 </TableCell>
               </TableRow>

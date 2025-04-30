@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { 
   Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
-  Paper, CircularProgress, Button, TablePagination, MenuItem, Select, FormControl, InputLabel, SelectChangeEvent, TextField 
+  Paper, CircularProgress, Button, TablePagination, MenuItem, Select, FormControl, InputLabel, SelectChangeEvent, TextField, 
+  Card
 } from '@mui/material';
 import {useNavigate } from 'react-router-dom';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
@@ -102,23 +103,25 @@ export function Pagos() {
     
 
   return (
-    <Box sx={{ padding: 2 }}>
+    <>
+    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
+      <Box sx={{ padding: 2 }}>
       <Typography variant="h4" gutterBottom>
         Pagos de Usuario
       </Typography>
 
       {/* Selector de filtro por año */}
-            <FormControl sx={{ minWidth: 200, mb: 3 }}>
-              <Select value={yearFilter} onChange={handleYearChange} displayEmpty>
-                <MenuItem value="">Todos los años</MenuItem>
-                {uniqueYears.map(year => (
-                  <MenuItem key={year} value={year.toString()}>
-                    {year}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-      
+      <FormControl sx={{ minWidth: 200, mb: 3 }}>
+        <Select value={yearFilter} onChange={handleYearChange} displayEmpty>
+          <MenuItem value="">Todos los años</MenuItem>
+          {uniqueYears.map(year => (
+            <MenuItem key={year} value={year.toString()}>
+              {year}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
       {loading ? (
         <CircularProgress />
       ) : (
@@ -129,7 +132,7 @@ export function Pagos() {
                 <TableCell sx={{ textAlign: 'center' }}>Fecha</TableCell>
                 <TableCell sx={{ textAlign: 'center' }}>Monto</TableCell>
                 <TableCell sx={{ textAlign: 'center' }}>Estado</TableCell>
-                <TableCell sx={{ textAlign: 'center' , width: { xs: '150px', sm: '250px' } }}>Acciones</TableCell>
+                <TableCell sx={{ textAlign: 'center', width: { xs: '150px', sm: '250px' } }}>Acciones</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -139,41 +142,41 @@ export function Pagos() {
                   <TableCell sx={{ textAlign: 'center' }}>{pago.monto}</TableCell>
                   <TableCell sx={{ textAlign: 'center' }}>{pago.estado}</TableCell>
                   <TableCell sx={{ textAlign: 'center' }}>
-                  {pago.estado === 'pendiente' ? (
-                    preferenceIds[pago.id] ? (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => window.open(preferenceIds[pago.id], '_blank')}
-                      >
-                        Ir a Mercado Pago
-                      </Button>
+                    {pago.estado === 'pendiente' ? (
+                      preferenceIds[pago.id] ? (
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => window.open(preferenceIds[pago.id], '_blank')}
+                        >
+                          Ir a Mercado Pago
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => handleGenerarPago(pago.id)}
+                        >
+                          Generar Link de Pago
+                        </Button>
+                      )
                     ) : (
                       <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => handleGenerarPago(pago.id)}
+                        onClick={() => irAComprobante(pago.comprobante)}
+                        sx={{
+                          padding: 0,
+                          minWidth: 'unset',
+                          display: 'inline-flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          backgroundColor: 'transparent',
+                          '&:hover': { backgroundColor: 'transparent' },
+                        }}
                       >
-                        Generar Link de Pago
+                        Ver Comprobante
                       </Button>
-                    )
-                  ) : (
-                    <Button
-                      onClick={() => irAComprobante(pago.comprobante)}
-                      sx={{
-                        padding: 0,
-                        minWidth: 'unset',
-                        display: 'inline-flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: 'transparent',
-                        '&:hover': { backgroundColor: 'transparent' },
-                      }}
-                    >
-                      Ver Comprobante
-                    </Button>
-                  )}
-                </TableCell>
+                    )}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -183,14 +186,13 @@ export function Pagos() {
 
       {/* Paginación */}
       <TablePagination
-       rowsPerPageOptions={[12]}
-       component="div"
-       count={filteredPagos.length}
-       rowsPerPage={rowsPerPage}
-       page={page}
-       onPageChange={handleChangePage}
-       />
-    </Box>
+        rowsPerPageOptions={[12]}
+        component="div"
+        count={filteredPagos.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage} />
+    </Box></Card></>
 
     
   );

@@ -26,8 +26,8 @@ export function SignInView() {
   const [password, setPassword] = useState<string>('123');
   */
   const [showPassword, setShowPassword] = useState(false);
-  const [dni, setDni] = useState<string>('');  // Cambiar 'email' por 'dni'
-  const [password, setPassword] = useState<string>('');
+  const [dni, setDni] = useState<string>('44589635');  // Cambiar 'email' por 'dni'
+  const [password, setPassword] = useState<string>('123');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -54,7 +54,9 @@ export function SignInView() {
       // Redirigir al dashboard
       router.push('/dashboard');
     } catch (axiosError: any) {
-      setError('Error al iniciar sesión. Verifica tus credenciales.');
+      const errorMessage =
+        axiosError?.response?.data?.error || 'Error al iniciar sesión. Verifica tus credenciales.';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

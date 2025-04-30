@@ -79,7 +79,9 @@ export function MantenimientosUsuariosAdmin() {
   };
 
   return (
-    <><Box sx={{ p: 3 }}>
+    <>
+    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
+    <Box sx={{ p: 3 }}>
      <Card sx={{ mb: 4, borderRadius: 2, boxShadow: 3, width: 'fit-content', minWidth: 500, }}>
         <CardContent>
           <Typography variant="h4" gutterBottom>
@@ -155,7 +157,9 @@ export function MantenimientosUsuariosAdmin() {
           No hay usuarios asignados o no coinciden con la búsqueda.
         </Typography>
       )}
-    </Box><Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
+    </Box>
+    </Card>
+    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
         <Button
           variant="contained"
           color="secondary"

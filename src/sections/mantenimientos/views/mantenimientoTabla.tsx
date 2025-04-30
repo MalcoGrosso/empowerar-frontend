@@ -16,8 +16,10 @@ import {
   Select,
   MenuItem,
   TablePagination,
+  Card,
 } from '@mui/material';
 import { useMantenimientos } from '../../../context/mantenimientoProvider';
+
 
 interface FechaMantenimiento {
   id: number;
@@ -91,7 +93,9 @@ export function MantenimientosTabla() {
   const fechasPaginadas = filtradoFechas.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
-    <><Box sx={{ p: 3 }}>
+    <>
+    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
+    <Box sx={{ p: 3 }}>
       <Typography variant="h4" gutterBottom>
         Datos del Usuario
       </Typography>
@@ -153,8 +157,17 @@ export function MantenimientosTabla() {
                 <TableBody>
                   {fechasPaginadas.map((fecha) => (
                     <TableRow key={fecha.id}>
-                      <TableCell align="center">{new Date(fecha.fecha).toLocaleDateString()}</TableCell>
-                      <TableCell align="center">
+                      <TableCell align="center">{new Date(fecha.fecha).toLocaleString()}</TableCell>
+                        <TableCell align="center">
+                          <Box
+                            sx={{
+                                  display: 'inline-flex',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  gap: 1,
+                                  whiteSpace: 'nowrap', // fuerza que todo se mantenga en una línea
+                               }}
+                          >
                         <Button
                           onClick={() => irADetalle(fecha.id)}
                           sx={{
@@ -166,17 +179,10 @@ export function MantenimientosTabla() {
                             ml: 2, // Margen izquierdo
                           }}
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            fill="currentColor"
-                            viewBox="0 0 16 16"
-                            style={{ fontSize: '2rem' }}
-                          >
-                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
-                          </svg>
+                          <img
+                            alt="icon"
+                            src="/assets/icons/glass/ic-ver.svg"
+                              />
                         </Button>
                         <Button
                           onClick={() => irAEditarMantenimiento(fecha.id)}
@@ -189,17 +195,12 @@ export function MantenimientosTabla() {
                             ml: 2, // Margen izquierdo
                           }}
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            fill="currentColor"
-                            viewBox="0 0 16 16"
-                            style={{ fontSize: '2rem' }}
-                          >
-                            <path d="M12.146 1.854a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-.713.293L3 10.5V9a1 1 0 0 1 .293-.707l7-7a1 1 0 0 1 1.414 1.414l-6.293 6.293.586.586 6.293-6.293a1 1 0 0 1 1.414 1.414l-7 7a1 1 0 0 1-.293.713l-7 7a1 1 0 0 1-1.414-1.414l7-7a1 1 0 0 1 .293-.713L9.854 8.146a1 1 0 0 1 0-1.414l7-7a1 1 0 0 1 1.414 1.414z" />
-                          </svg>
+                          <img
+                            alt="icon"
+                            src="/assets/icons/glass/ic-editar.svg"
+                              />
                         </Button>
+                        </Box>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -222,7 +223,9 @@ export function MantenimientosTabla() {
         )}
       </Box>
 
-    </Box><Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
+    </Box>
+    </Card>
+    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
         <Button
           variant="contained"
           color="secondary"

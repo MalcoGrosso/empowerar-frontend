@@ -7,7 +7,8 @@ export interface ProyectoProps {
   descripcion: string;
   provincia: string;
   localidad: string;
-  alias_pago: string; 
+  alias_pago: string;
+  montoInteres: number;
 }
 
 interface UsuarioAsignado {

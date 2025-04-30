@@ -121,6 +121,8 @@ export function MantenimientosTablaAdmin() {
 
   return (
     <>
+    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto', backgroundColor: 'transparent', // Fondo transparente
+    backdropFilter: 'blur(8px)',  }}>
       <Box sx={{ p: 3 }}>
           <Card sx={{ maxWidth: 500, margin: 'left', mt: 4, p: 2 }}>
           <CardContent>
@@ -213,17 +215,11 @@ export function MantenimientosTablaAdmin() {
                               
                             }}
                           >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              fill="currentColor"
-                              viewBox="0 0 16 16"
-                              style={{ fontSize: '2rem' }}
-                            >
-                              <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                              <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
-                            </svg>
+                            <img
+                            alt="icon"
+                            src="/assets/icons/glass/ic-ver.svg"
+                              />
+              
                           </Button>
                           <Button
                             onClick={() => irAEditarMantenimiento(fecha.id)}
@@ -236,16 +232,10 @@ export function MantenimientosTablaAdmin() {
                               ml: 2,
                             }}
                           >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              fill="currentColor"
-                              viewBox="0 0 16 16"
-                              style={{ fontSize: '2rem' }}
-                            >
-                              <path d="M12.146 1.854a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-.713.293L3 10.5V9a1 1 0 0 1 .293-.707l7-7a1 1 0 0 1 1.414 1.414l-6.293 6.293.586.586 6.293-6.293a1 1 0 0 1 1.414 1.414l-7 7a1 1 0 0 1-.293.713l-7 7a1 1 0 0 1-1.414-1.414l7-7a1 1 0 0 1 .293-.713L9.854 8.146a1 1 0 0 1 0-1.414l7-7a1 1 0 0 1 1.414 1.414z" />
-                            </svg>
+                            <img
+                            alt="icon"
+                            src="/assets/icons/glass/ic-editar.svg"
+                              />
                           </Button>
                           <Button
                             onClick={() => handleEliminarMantenimiento(fecha.id)}
@@ -259,16 +249,10 @@ export function MantenimientosTablaAdmin() {
                               ml: 2,
                             }}
                           >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              fill="currentColor"
-                              viewBox="0 0 16 16"
-                              style={{ fontSize: '2rem' }}
-                            >
-                              <path d="M1 2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v1h-1v11a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3H1V2z" />
-                            </svg>
+                            <img
+                            alt="icon"
+                            src="/assets/icons/glass/ic-borrar.svg"
+                              />
                           </Button>
                           </Box>
                         </TableCell>
@@ -292,7 +276,16 @@ export function MantenimientosTablaAdmin() {
           )}
         </Box>
       </Box>
-
+      </Card>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => navigate(-1)}
+              >
+                Volver
+              </Button>
+            </Box>
       <Dialog open={openModal} onClose={cancelarEliminacion}>
         <DialogTitle>Confirmar Eliminación</DialogTitle>
         <DialogContent>

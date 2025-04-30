@@ -1,7 +1,8 @@
 import React, { useEffect, useState, ReactNode } from 'react';
 import { 
   Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
-  Paper, CircularProgress, Button, TablePagination, MenuItem, FormControl, Select, SelectChangeEvent 
+  Paper, CircularProgress, Button, TablePagination, MenuItem, FormControl, Select, SelectChangeEvent, 
+  Card
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { usePagos } from '../../../context/pagosProvider';
@@ -76,7 +77,9 @@ export function PagosAdmin() {
   const uniqueYears = Array.from(new Set(pagos.map(pago => new Date(pago.createdAt).getFullYear())));
 
   return (
-    <Box sx={{ p: 3 }}>
+    <>
+    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
+      <Box sx={{ p: 3 }}>
       <Typography variant="h4" gutterBottom>
         Pagos del Usuario
       </Typography>
@@ -131,8 +134,7 @@ export function PagosAdmin() {
         count={filteredPagos.length}
         rowsPerPage={rowsPerPage}
         page={page}
-        onPageChange={handleChangePage}
-      />
-    </Box>
+        onPageChange={handleChangePage} />
+    </Box></Card></>
   );
 }

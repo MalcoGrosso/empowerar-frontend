@@ -161,7 +161,7 @@ export function ProyectosView() {
                         alignItems: 'left',
                         justifyContent: 'left',
                         padding: 2,
-                        height: 200,
+                        height: 'auto',
                         cursor: 'pointer',
                         transition: 'transform 0.1s',
                         '&:hover': {
@@ -174,6 +174,7 @@ export function ProyectosView() {
                   <Typography variant="body2">Provincia: {proyecto.provincia}</Typography>
                   <Typography variant="body2">Localidad: {proyecto.localidad}</Typography>
                   <Typography variant="body2">Alias de Pago: {proyecto.alias_pago}</Typography>
+                  <Typography variant="body2">Monto Interes: {proyecto.montoInteres}%</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
                   <Button

@@ -18,12 +18,14 @@ export const ProyectosModal: React.FC<ProyectosModalProps> = ({ open, onClose, p
     provincia: string;   // Nuevo campo
     localidad: string;   // Nuevo campo
     alias_pago: string;  // Nuevo campo
+    montoInteres: number;
   }>({
     nombre: '',
     descripcion: '', // Cambiado a 'descripcion'
     provincia: '',   // Inicializado
     localidad: '',   // Inicializado
     alias_pago: '',  // Inicializado
+    montoInteres: 0,
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -37,6 +39,7 @@ export const ProyectosModal: React.FC<ProyectosModalProps> = ({ open, onClose, p
         provincia: proyectoToEdit.provincia,   // Nuevo campo
         localidad: proyectoToEdit.localidad,   // Nuevo campo
         alias_pago: proyectoToEdit.alias_pago,  // Nuevo campo
+        montoInteres: proyectoToEdit.montoInteres ?? 0,
       });
       setError(null); // Reiniciar el error al editar
     } else if (open) {
@@ -52,6 +55,7 @@ export const ProyectosModal: React.FC<ProyectosModalProps> = ({ open, onClose, p
       provincia: '',   // Inicializado
       localidad: '',   // Inicializado
       alias_pago: '',  // Inicializado
+      montoInteres: 0,
     });
     setError(null); // Reiniciar el error
   };
@@ -85,7 +89,8 @@ export const ProyectosModal: React.FC<ProyectosModalProps> = ({ open, onClose, p
     formValues.descripcion.trim() !== '' && // Cambiado a 'descripcion'
     formValues.provincia.trim() !== '' && // Validación para nuevo campo
     formValues.localidad.trim() !== '' && // Validación para nuevo campo
-    formValues.alias_pago.trim() !== '';   // Validación para nuevo campo
+    formValues.alias_pago.trim() !== '' &&   // Validación para nuevo campo
+    formValues.montoInteres >= 0;
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -96,6 +101,7 @@ export const ProyectosModal: React.FC<ProyectosModalProps> = ({ open, onClose, p
         <TextField label="Provincia" name="provincia" value={formValues.provincia} onChange={handleChange} fullWidth margin="normal" /> {/* Nuevo campo */}
         <TextField label="Localidad" name="localidad" value={formValues.localidad} onChange={handleChange} fullWidth margin="normal" /> {/* Nuevo campo */}
         <TextField label="Alias de Pago" name="alias_pago" value={formValues.alias_pago} onChange={handleChange} fullWidth margin="normal" /> {/* Nuevo campo */}
+        <TextField label="Monto Interes" name="montoInteres" value={formValues.montoInteres} onChange={handleChange} fullWidth margin="normal" /> {/* Nuevo campo */}
 
         {error && <Typography color="error">{error}</Typography>}
         

@@ -270,6 +270,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
           <Typography variant="body2"><strong>Provincia:</strong> {proyecto.provincia}</Typography>
           <Typography variant="body2"><strong>Localidad:</strong> {proyecto.localidad}</Typography>
           <Typography variant="body2"><strong>Alias de Pago:</strong> {proyecto.alias_pago}</Typography>
+          <Typography variant="body2"><strong>Monto Interes:</strong> {proyecto.montoInteres}%</Typography>
         </Box>
       </Card>
 

@@ -78,7 +78,9 @@ export function MantenimientosUsuarios() {
   };
 
   return (
-    <><Box sx={{ p: 3 }}>
+    <>
+    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
+    <Box sx={{ p: 3 }}>
       <Typography variant="h4" gutterBottom>
         Detalles del Proyecto
       </Typography>
@@ -114,14 +116,18 @@ export function MantenimientosUsuarios() {
           {filteredUsuarios.map((usuario) => (
             <Grid item xs={12} sm={6} md={4} key={usuario.id}>
               <Card
-                sx={{
-                  height: '100%',
-                  display: 'flex',
+                sx={{ display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  boxShadow: 3,
-                  p: 2,
-                }}
+                  alignItems: 'left',
+                  justifyContent: 'left',
+                  padding: 2,
+                  height: 200,
+                  cursor: 'pointer',
+                  transition: 'transform 0.1s',
+                  '&:hover': {
+                    transform: 'scale(1.02)',
+                    boxShadow: '5px 5px 10px rgba(145 158 171 / 0.2)'
+                  }, }}
                 onClick={() => handleCardClick(usuario)} // Al hacer clic, redirige y pasa el usuario
               >
 
@@ -146,7 +152,9 @@ export function MantenimientosUsuarios() {
           No hay usuarios asignados o no coinciden con la búsqueda.
         </Typography>
       )}
-    </Box><Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
+    </Box>
+    </Card>
+    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
         <Button
           variant="contained"
           color="secondary"
