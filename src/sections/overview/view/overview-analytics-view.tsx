@@ -40,10 +40,22 @@ export function OverviewAnalyticsView() {
                 sx={cardStyles}
                 onClick={() => navigate('/dashboard/user')}
               >
-                <img
-                  alt="icon"
-                  src="/assets/icons/glass/ic-glass-users.svg"
-                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    marginBottom: 8,
+                    backgroundColor: '#FF6B6B',
+                    WebkitMaskImage: 'url(/assets/icons/glass/ic-glass-users.svg)',
+                    WebkitMaskRepeat: 'no-repeat',
+                    WebkitMaskSize: 'contain',
+                    WebkitMaskPosition: 'center',
+                    maskImage: 'url(/assets/icons/glass/ic-glass-users.svg)',
+                    maskRepeat: 'no-repeat',
+                    maskSize: 'contain',
+                    maskPosition: 'center',
+                  }}
+                  aria-label="icon"
                 />
                 <Typography variant="subtitle1">Usuarios</Typography>
               </Paper>
@@ -55,10 +67,22 @@ export function OverviewAnalyticsView() {
                 sx={cardStyles}
                 onClick={() => navigate('/dashboard/proyectos')}
               >
-                <img
-                  alt="icon"
-                  src="/assets/icons/glass/create_new_folder.svg"
-                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    marginBottom: 8,
+                    backgroundColor: '#00D26A',
+                    WebkitMaskImage: 'url(/assets/icons/glass/create_new_folder.svg)',
+                    WebkitMaskRepeat: 'no-repeat',
+                    WebkitMaskSize: 'contain',
+                    WebkitMaskPosition: 'center',
+                    maskImage: 'url(/assets/icons/glass/create_new_folder.svg)',
+                    maskRepeat: 'no-repeat',
+                    maskSize: 'contain',
+                    maskPosition: 'center',
+                  }}
+                  aria-label="icon"
                 />
                 <Typography variant="subtitle1">Proyectos</Typography>
               </Paper>
@@ -70,10 +94,22 @@ export function OverviewAnalyticsView() {
                 sx={cardStyles}
                 onClick={() => navigate('/dashboard/reclamos')}
               >
-                <img
-                  alt="icon"
-                  src="/assets/icons/navbar/ic-book.svg"
-                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    marginBottom: 8,
+                    backgroundColor: '#FFD600',
+                    WebkitMaskImage: 'url(/assets/icons/navbar/ic-book.svg)',
+                    WebkitMaskRepeat: 'no-repeat',
+                    WebkitMaskSize: 'contain',
+                    WebkitMaskPosition: 'center',
+                    maskImage: 'url(/assets/icons/navbar/ic-book.svg)',
+                    maskRepeat: 'no-repeat',
+                    maskSize: 'contain',
+                    maskPosition: 'center',
+                  }}
+                  aria-label="icon"
                 />
                 <Typography variant="subtitle1">Reclamos</Typography>
               </Paper>
@@ -85,10 +121,22 @@ export function OverviewAnalyticsView() {
                 sx={cardStyles}
                 onClick={() => navigate('/dashboard/mantenimientosAdmin')}
               >
-                <img
-                  alt="icon"
-                  src="/assets/icons/navbar/ic-note.svg"
-                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    marginBottom: 8,
+                    backgroundColor: '#FF8A33',
+                    WebkitMaskImage: 'url(/assets/icons/navbar/ic-note.svg)',
+                    WebkitMaskRepeat: 'no-repeat',
+                    WebkitMaskSize: 'contain',
+                    WebkitMaskPosition: 'center',
+                    maskImage: 'url(/assets/icons/navbar/ic-note.svg)',
+                    maskRepeat: 'no-repeat',
+                    maskSize: 'contain',
+                    maskPosition: 'center',
+                  }}
+                  aria-label="icon"
                 />
                 <Typography variant="subtitle1">Mantenimientos</Typography>
               </Paper>
@@ -100,10 +148,22 @@ export function OverviewAnalyticsView() {
                 sx={cardStyles}
                 onClick={() => navigate('/dashboard/pagosAdmin')}
               >
-                <img
-                  alt="icon"
-                  src="/assets/icons/navbar/ic-payment.svg"
-                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    marginBottom: 8,
+                    backgroundColor: '#00C2FF',
+                    WebkitMaskImage: 'url(/assets/icons/navbar/ic-payment.svg)',
+                    WebkitMaskRepeat: 'no-repeat',
+                    WebkitMaskSize: 'contain',
+                    WebkitMaskPosition: 'center',
+                    maskImage: 'url(/assets/icons/navbar/ic-payment.svg)',
+                    maskRepeat: 'no-repeat',
+                    maskSize: 'contain',
+                    maskPosition: 'center',
+                  }}
+                  aria-label="icon"
                 />
                 <Typography variant="subtitle1">Pagos</Typography>
               </Paper>
@@ -120,10 +180,22 @@ export function OverviewAnalyticsView() {
                 sx={cardStyles}
                 onClick={() => navigate('/dashboard/mantenimientos')}
               >
-                <img
-                  alt="icon"
-                  src="/assets/icons/navbar/ic-note.svg"
-                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    marginBottom: 8,
+                    backgroundColor: '#FF8A33',
+                    WebkitMaskImage: 'url(/assets/icons/navbar/ic-note.svg)',
+                    WebkitMaskRepeat: 'no-repeat',
+                    WebkitMaskSize: 'contain',
+                    WebkitMaskPosition: 'center',
+                    maskImage: 'url(/assets/icons/navbar/ic-note.svg)',
+                    maskRepeat: 'no-repeat',
+                    maskSize: 'contain',
+                    maskPosition: 'center',
+                  }}
+                  aria-label="icon"
                 />
                 <Typography variant="subtitle1">Mantenimientos</Typography>
               </Paper>
@@ -139,10 +211,22 @@ export function OverviewAnalyticsView() {
                 sx={cardStyles}
                 onClick={() => navigate('/dashboard/reclamos')}
               >
-                <img
-                  alt="icon"
-                  src="/assets/icons/navbar/ic-book.svg"
-                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    marginBottom: 8,
+                    backgroundColor: '#FFD600',
+                    WebkitMaskImage: 'url(/assets/icons/navbar/ic-book.svg)',
+                    WebkitMaskRepeat: 'no-repeat',
+                    WebkitMaskSize: 'contain',
+                    WebkitMaskPosition: 'center',
+                    maskImage: 'url(/assets/icons/navbar/ic-book.svg)',
+                    maskRepeat: 'no-repeat',
+                    maskSize: 'contain',
+                    maskPosition: 'center',
+                  }}
+                  aria-label="icon"
                 />
                 <Typography variant="subtitle1">Reclamos</Typography>
               </Paper>
@@ -153,10 +237,22 @@ export function OverviewAnalyticsView() {
                 sx={cardStyles}
                 onClick={() => navigate('/dashboard/mantenimientos/usuarioLogueado')}
               >
-                <img
-                  alt="icon"
-                  src="/assets/icons/navbar/ic-note.svg"
-                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    marginBottom: 8,
+                    backgroundColor: '#FF8A33',
+                    WebkitMaskImage: 'url(/assets/icons/navbar/ic-note.svg)',
+                    WebkitMaskRepeat: 'no-repeat',
+                    WebkitMaskSize: 'contain',
+                    WebkitMaskPosition: 'center',
+                    maskImage: 'url(/assets/icons/navbar/ic-note.svg)',
+                    maskRepeat: 'no-repeat',
+                    maskSize: 'contain',
+                    maskPosition: 'center',
+                  }}
+                  aria-label="icon"
                 />
                 <Typography variant="subtitle1">Mantenimiento</Typography>
               </Paper>
@@ -167,10 +263,22 @@ export function OverviewAnalyticsView() {
                 sx={cardStyles}
                 onClick={() => navigate('/dashboard/pagos')}
               >
-                <img
-                  alt="icon"
-                  src="/assets/icons/navbar/ic-payment.svg"
-                  style={{ width: 48, height: 48, marginBottom: 8 }}
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    marginBottom: 8,
+                    backgroundColor: '#00C2FF',
+                    WebkitMaskImage: 'url(/assets/icons/navbar/ic-payment.svg)',
+                    WebkitMaskRepeat: 'no-repeat',
+                    WebkitMaskSize: 'contain',
+                    WebkitMaskPosition: 'center',
+                    maskImage: 'url(/assets/icons/navbar/ic-payment.svg)',
+                    maskRepeat: 'no-repeat',
+                    maskSize: 'contain',
+                    maskPosition: 'center',
+                  }}
+                  aria-label="icon"
                 />
                 <Typography variant="subtitle1">Pagos</Typography>
               </Paper>

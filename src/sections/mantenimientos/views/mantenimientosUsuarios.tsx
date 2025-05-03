@@ -79,24 +79,26 @@ export function MantenimientosUsuarios() {
 
   return (
     <>
-    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Detalles del Proyecto
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        {state?.proyecto?.nombre}
-      </Typography>
-      <Typography variant="body2" gutterBottom>
-        {state?.proyecto?.descripcion}
-      </Typography>
-      <Typography variant="body2" gutterBottom>
-        Provincia: {state?.proyecto?.provincia}, Localidad: {state?.proyecto?.localidad}
-      </Typography>
-      <Typography variant="body2" gutterBottom>
-        Alias de Pago: {state?.proyecto?.alias_pago}
-      </Typography>
+      <Card sx={{ mb: 4, p: { xs: 2, sm: 3 }, borderRadius: 2, boxShadow: 3, minWidth: 500, }}>
+        <Typography variant="h4" gutterBottom>
+          Detalles del Proyecto
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          {state?.proyecto?.nombre}
+        </Typography>
+        <Typography variant="body2" gutterBottom>
+          {state?.proyecto?.descripcion}
+        </Typography>
+        <Typography variant="body2" gutterBottom>
+          Provincia: {state?.proyecto?.provincia}, Localidad: {state?.proyecto?.localidad}
+        </Typography>
+        <Typography variant="body2" gutterBottom>
+          Alias de Pago: {state?.proyecto?.alias_pago}
+        </Typography>
+      </Card>
 
+      <Card sx={{ maxWidth: '100%', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
       <TextField
         label="Buscar por nombre o DNI"
         variant="outlined"
@@ -152,8 +154,8 @@ export function MantenimientosUsuarios() {
           No hay usuarios asignados o no coinciden con la búsqueda.
         </Typography>
       )}
-    </Box>
     </Card>
+    </Box>
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
         <Button
           variant="contained"

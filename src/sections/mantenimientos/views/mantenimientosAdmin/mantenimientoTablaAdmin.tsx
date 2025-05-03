@@ -121,10 +121,8 @@ export function MantenimientosTablaAdmin() {
 
   return (
     <>
-    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto', backgroundColor: 'transparent', // Fondo transparente
-    backdropFilter: 'blur(8px)',  }}>
       <Box sx={{ p: 3 }}>
-          <Card sx={{ maxWidth: 500, margin: 'left', mt: 4, p: 2 }}>
+          <Card sx={{ margin: 'left', mt: 0, p: 2 }}>
           <CardContent>
             <Typography variant="h4" gutterBottom>
               Datos del Usuario
@@ -160,7 +158,7 @@ export function MantenimientosTablaAdmin() {
           )}
         </Card>
 
-        <Box sx={{ mt: 4 }}>
+      <Card sx={{ maxWidth: '100%', mt: 4, p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
           <Box>
             <Select
               value={añoSeleccionado}
@@ -175,7 +173,6 @@ export function MantenimientosTablaAdmin() {
                 </MenuItem>
               ))}
             </Select>
-          </Box>
 
           {loading ? (
             <CircularProgress />
@@ -275,8 +272,8 @@ export function MantenimientosTablaAdmin() {
             </Typography>
           )}
         </Box>
-      </Box>
       </Card>
+      </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
               <Button
                 variant="contained"

@@ -94,8 +94,8 @@ export function MantenimientosTabla() {
 
   return (
     <>
-    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
     <Box sx={{ p: 3 }}>
+      <Card sx={{ margin: 'left', mt: 0, p: 4 }}>
       <Typography variant="h4" gutterBottom>
         Datos del Usuario
       </Typography>
@@ -110,7 +110,6 @@ export function MantenimientosTabla() {
       ) : (
         <Typography variant="body1">No se encontró información del usuario.</Typography>
       )}
-
       <Box sx={{ display: 'flex', justifyContent: 'left', mt: 3 }}>
         <Button
           variant="contained"
@@ -121,11 +120,11 @@ export function MantenimientosTabla() {
           Crear Mantenimiento
         </Button>
       </Box>
+      </Card>
 
-
-
-      <Box sx={{ mt: 4 }}>
-
+      <Card sx={{ margin: 'left', mt: 4, p: 4 }}>
+      
+      <Box>
         <Box>
           <Select
             value={añoSeleccionado}
@@ -222,9 +221,9 @@ export function MantenimientosTabla() {
           <Typography variant="body1">No se encontraron mantenimientos para este usuario.</Typography>
         )}
       </Box>
+      </Card>
 
     </Box>
-    </Card>
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
         <Button
           variant="contained"

@@ -81,6 +81,9 @@ export function ReclamosUsuario() {
   return (
     <><Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
       <Toolbar sx={{ flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+        <Typography variant="h4" flexGrow={1}>
+          Reclamos
+        </Typography>
         <Box
           sx={{
             display: 'flex',
@@ -91,10 +94,6 @@ export function ReclamosUsuario() {
             padding: 3,
           }}
         >
-          <Typography variant="h4" flexGrow={1}>
-            Reclamos
-          </Typography>
-
           {role === 'usuario' && (
             <Button
               variant="contained"
@@ -146,7 +145,7 @@ export function ReclamosUsuario() {
 
       <Grid container spacing={3}>
         {sortedReclamos.length === 0 ? (
-          <Typography variant="body1" align="center" color="textSecondary" sx={{ width: '100%' }}>
+          <Typography variant="body1" align="center" color="textSecondary" sx={{ width: '100%', py: 10 }}>
             No se encontraron reclamos.
           </Typography>
         ) : (
@@ -160,6 +159,7 @@ export function ReclamosUsuario() {
                   alignItems: 'left',
                   justifyContent: 'center',
                   padding: 3,
+                  paddingLeft: 4,
                   height: 200,
                   cursor: 'pointer',
                   transition: 'transform 0.1s',
@@ -185,14 +185,14 @@ export function ReclamosUsuario() {
 
                 <Box
                   sx={{
-                    width: '18px',
+                    width: '12px',
                     height: '100%',
                     position: 'absolute',
                     left: 0,
                     top: 0,
-                    backgroundColor: reclamo.estado === 'pendiente' ? '#ff0000' :
-                      reclamo.estado === 'en proceso' ? '#FFFF00' :
-                        reclamo.estado === 'resuelto' ? '#00FF00' :
+                    backgroundColor: reclamo.estado === 'pendiente' ? '#FF5630' :
+                      reclamo.estado === 'en proceso' ? '#FFAB00' :
+                        reclamo.estado === 'resuelto' ? '#22C55E' :
                           '#808080',
                   }} />
               </Card>
@@ -203,7 +203,7 @@ export function ReclamosUsuario() {
       </Grid>
 
       {/* Snackbar para mostrar alertas */}
-      <Snackbar open={snackOpen} autoHideDuration={6000} onClose={handleSnackClose}>
+      <Snackbar open={snackOpen} autoHideDuration={6000} onClose={handleSnackClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
         <Alert onClose={handleSnackClose} severity={alert?.severity} sx={{ width: '100%' }}>
           {alert?.message}
         </Alert>

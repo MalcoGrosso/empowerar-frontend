@@ -80,9 +80,9 @@ export function MantenimientosUsuariosAdmin() {
 
   return (
     <>
-    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
+    {/* <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}> */}
     <Box sx={{ p: 3 }}>
-     <Card sx={{ mb: 4, borderRadius: 2, boxShadow: 3, width: 'fit-content', minWidth: 500, }}>
+     <Card sx={{ mb: 4, p: { xs: 2, sm: 3 }, borderRadius: 2, boxShadow: 3, minWidth: 500, }}>
         <CardContent>
           <Typography variant="h4" gutterBottom>
             Detalles del Proyecto
@@ -102,6 +102,7 @@ export function MantenimientosUsuariosAdmin() {
         </CardContent>
       </Card>
       
+      <Card sx={{ maxWidth: '100%', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
       <TextField
         label="Buscar por nombre, apellido o DNI"
         variant="outlined"
@@ -153,12 +154,13 @@ export function MantenimientosUsuariosAdmin() {
           ))}
         </Grid>
       ) : (
-        <Typography variant="body2" sx={{ mt: 3 }}>
+        <Typography variant="body2" sx={{ py: 3 }}>
           No hay usuarios asignados o no coinciden con la búsqueda.
         </Typography>
       )}
+      </Card>
     </Box>
-    </Card>
+    {/* </Card> */}
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
         <Button
           variant="contained"
