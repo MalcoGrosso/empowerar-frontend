@@ -4,6 +4,7 @@ import { useAuth } from 'src/hooks/useAuth';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { DashboardContent } from 'src/layouts/dashboard';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -26,8 +27,25 @@ export function OverviewAnalyticsView() {
   };
 
   return (
-    <DashboardContent maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
+    <DashboardContent maxWidth="xl" sx={{ position: 'relative' }}>
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: -1,
+          backgroundImage: 'url(/assets/images/home-cover-empowerar.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: 'rgba(255, 255, 255, 0.75)',
+          backgroundBlendMode: 'lighten',
+          opacity: 1,
+          transition: 'opacity 100ms ease-out',
+          display: { xs: 'none', md: 'block' },
+        }}
+      />
+
+      <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 }, mt: 4 }}>
         Hola, {firstName} {lastName} 👋
       </Typography>
 
