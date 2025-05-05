@@ -7,16 +7,8 @@ import {
 import {useNavigate } from 'react-router-dom';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import api from '../../config/axiosClient';
-import { usePagos } from '../../context/pagosProvider';
+import { usePagos, PagoProps } from '../../context/pagosProvider';
 
-interface PagoProps {
-  id: number;
-  createdAt: Date;
-  monto: number;
-  estado: string;
-  comprobante: string;
-  usuariosProyectosId: number;
-}
 
 const mercadoPago1 = import.meta.env.VITE_MERCADO_PAGO_AT || '';
 
@@ -109,6 +101,16 @@ export function Pagos() {
       <Typography variant="h4" gutterBottom>
         Pagos de Usuario
       </Typography>
+      {pagos.length > 0 && pagos[0].usuarioProyecto && (
+  <>
+    <Typography variant="h6" gutterBottom>
+      Monto de Cuota: {pagos[0].usuarioProyecto.montoCuota}$
+    </Typography>
+    <Typography variant="h6" gutterBottom>
+      Monto Ahorrado: {pagos[0].usuarioProyecto.montoAhorrado}$
+    </Typography>
+  </>
+)}
 
       {/* Selector de filtro por año */}
       <FormControl sx={{ minWidth: 200, mb: 3 }}>

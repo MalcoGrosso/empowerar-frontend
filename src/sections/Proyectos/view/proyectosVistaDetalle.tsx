@@ -11,8 +11,11 @@ import { AgregarUsuarioModal, AgregarElectricistaModal } from './proyectosVistaD
 import EditarMontoModal from './EditarMontoModal';
 
 interface UsuarioAsignado {
+  
   id: number;
   montoPago: string;
+  montoCuota: number;
+  montoAhorrado: number;
   usuario: {
     id: number;
     firstName: string;
@@ -112,9 +115,9 @@ export const ProyectosVistaDetalle: React.FC = () => {
     setModalOpenElectricista(false);
   };
 
-  const handleAgregarUsuario = async (dni: string, montoPago: number) => {
+  const handleAgregarUsuario = async (dni: string, montoPago: number, montoCuota: number, montoAhorrado: number) => {
     try {
-      await agregarUsuarioAProyecto(dni, Number(id), montoPago);
+      await agregarUsuarioAProyecto(dni, Number(id), montoPago, montoCuota, montoAhorrado);
       setSuccess('Usuario agregado correctamente');
       loadUsuariosAsignados();
       handleCloseModalUsuario();
@@ -225,10 +228,10 @@ export const ProyectosVistaDetalle: React.FC = () => {
     setEditModalOpen(false);
   };
 
-  const handleSaveEdit = async (montoPago: number) => {
+  const handleSaveEdit = async (montoPago: number, montoCuota: number, montoAhorrado: number) => {
     if (selectedUser) {
       try {
-        await editarUsuarioAProyecto(selectedUser.id, montoPago);
+        await editarUsuarioAProyecto(selectedUser.id, montoPago, montoCuota, montoAhorrado);
         setSuccess('Monto de pago editado correctamente');
         loadUsuariosAsignados();
         handleCloseEditModal();
@@ -308,6 +311,8 @@ export const ProyectosVistaDetalle: React.FC = () => {
                     <TableCell><strong>Email</strong></TableCell>
                     <TableCell><strong>DNI</strong></TableCell>
                     <TableCell><strong>Monto de Pago</strong></TableCell>
+                    <TableCell><strong>Monto de Cuota</strong></TableCell>
+                    <TableCell><strong>Monto Ahorrado</strong></TableCell>
                     <TableCell><strong>Acciones</strong></TableCell>
                   </TableRow>
                 </TableHead>
@@ -318,6 +323,8 @@ export const ProyectosVistaDetalle: React.FC = () => {
                       <TableCell>{usuario.usuario.email}</TableCell>
                       <TableCell>{usuario.usuario.dni}</TableCell>
                       <TableCell>{usuario.montoPago}</TableCell>
+                      <TableCell>{usuario.montoCuota}</TableCell>
+                      <TableCell>{usuario.montoAhorrado}</TableCell>
                       <TableCell>
                         <Button onClick={(e) => handleMenuClick(e, usuario)}>...</Button>
                         <Menu
@@ -427,7 +434,10 @@ export const ProyectosVistaDetalle: React.FC = () => {
         onSave={handleSaveEdit}
         montoPago={selectedUser?.montoPago ? parseFloat(selectedUser.montoPago) : 0}
         nombre={`${selectedUser?.usuario.firstName} ${selectedUser?.usuario.lastName}`}
-        dni={selectedUser?.usuario.dni || ''} />
+        dni={selectedUser?.usuario.dni || ''} 
+        montoCuota={selectedUser?.montoCuota ?? 0} 
+        montoAhorrado={selectedUser?.montoAhorrado ?? 0}
+         />
 
       {/* Dialogo de confirmación de eliminación para usuarios */}
       <Dialog open={confirmDeleteOpen} onClose={handleCancelDelete}>

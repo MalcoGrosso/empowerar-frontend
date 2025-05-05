@@ -14,6 +14,8 @@ export interface ProyectoProps {
 interface UsuarioAsignado {
   id: number;
   montoPago: string;
+  montoCuota: number;
+  montoAhorrado: number;
   usuario: {
     id: number;
     firstName: string;
@@ -43,8 +45,8 @@ interface ProyectosContextType {
   createProyecto: (proyecto: Omit<ProyectoProps, 'id'>) => Promise<ProyectoProps>;
   updateProyecto: (proyectoId: number, proyecto: Partial<Omit<ProyectoProps, 'id'>>) => Promise<ProyectoProps>;
   fetchUsuariosPorProyecto: (proyectoId: number) => Promise<UsuarioAsignado[]>;
-  agregarUsuarioAProyecto: (dni: string, proyectoId: number, montoPago: number) => Promise<void>;
-  editarUsuarioAProyecto: (usuarioId: number, montoPago: number) => Promise<void>;
+  agregarUsuarioAProyecto: (dni: string, proyectoId: number, montoPago: number, montoCuota: number, montoAhorrado: number) => Promise<void>;
+  editarUsuarioAProyecto: (usuarioId: number, montoPago: number, montoCuota: number, montoAhorrado: number) => Promise<void>;
   eliminarUsuarioAProyecto: (usuarioId: number, proyectoId: number) => Promise<void>;
   fetchElectricistasPorProyecto: (proyectoId: number) => Promise<ElectricistaAsignado[]>;  // Nueva función
   agregarElectricistaAProyecto: (dni: string, proyectoId: number) => Promise<void>;
@@ -119,10 +121,10 @@ export const ProyectosProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   }, []);
 
-  const agregarUsuarioAProyecto = useCallback(async (dni: string, proyectoId: number, montoPago: number = 0) => {
+  const agregarUsuarioAProyecto = useCallback(async (dni: string, proyectoId: number, montoCuota: number, montoAhorrado: number, montoPago: number = 0) => {
     try {
       const token = localStorage.getItem('token');
-      await api.post(`/usuariosProyectos/crear`, { dni, proyectoId, montoPago }, {
+      await api.post(`/usuariosProyectos/crear`, { dni, proyectoId, montoPago, montoCuota, montoAhorrado }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -149,10 +151,10 @@ export const ProyectosProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   }, [fetchElectricistasPorProyecto]);
 
-  const editarUsuarioAProyecto = useCallback(async (usuarioId: number, montoPago: number) => {
+  const editarUsuarioAProyecto = useCallback(async (usuarioId: number, montoPago: number, montoCuota: number, montoAhorrado: number) => {
     try {
       const token = localStorage.getItem('token');
-      await api.put(`/usuariosProyectos/edit/${usuarioId}`, { montoPago }, {
+      await api.put(`/usuariosProyectos/edit/${usuarioId}`, { montoPago, montoCuota, montoAhorrado }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
