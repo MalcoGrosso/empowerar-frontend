@@ -9,6 +9,10 @@ export interface PagoProps {
   estado: string;
   interes: boolean;
   usuariosProyectosId: number;
+  usuarioProyecto?: {
+    montoCuota: number;
+    montoAhorrado: number;
+  }
 }
 
 interface PagosContextType {
@@ -105,9 +109,7 @@ export const PagosProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [fetchPagos]);
 
-  useEffect(() => {
-    fetchPagos(); // Obtén los pagos al cargar el componente
-  }, [fetchPagos]);
+  
 
   const value = useMemo(() => ({
     pagos,

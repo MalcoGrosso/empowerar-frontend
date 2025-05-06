@@ -11,7 +11,7 @@ import {
 interface AgregarUsuarioModalProps {
   open: boolean;
   onClose: () => void;
-  onAgregar: (dni: string, montoPago: number) => Promise<void>;
+  onAgregar: (dni: string, montoPago: number, montoCuota: number, montoAhorrado: number) => Promise<void>;
 }
 
 interface AgregarElectricistaModalProps {
@@ -23,8 +23,12 @@ interface AgregarElectricistaModalProps {
 export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, onClose, onAgregar }) => {
   const [dni, setDni] = useState('');
   const [montoPago, setMontoPago] = useState('');
+  const [montoCuota, setMontoCuota] = useState(0);
+  const [montoAhorrado, setMontoAhorrado] = useState(0);
   const [dniError, setDniError] = useState<string | null>(null);
   const [montoError, setMontoError] = useState<string | null>(null);
+  const [montoCuotaError, setMontoCuotaError] = useState<string | null>(null);
+  const [montoAhorradoError, setMontoAhorradoError] = useState<string | null>(null);
 
   const handleInputChangeDni = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDni(e.target.value);
@@ -36,10 +40,35 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
     setMontoError(null);
   };
 
+  const handleInputChangeMontoCuota = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const numericValue = parseFloat(e.target.value);
+  
+    if (Number.isNaN(numericValue)) {
+      setMontoCuotaError('Ingrese un número válido');
+    } else {
+      setMontoCuota(numericValue);
+      setMontoCuotaError(null);
+    }
+  };
+
+  const handleInputChangeMontoAhorrado = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const numericValue = parseFloat(e.target.value);
+  
+    if (Number.isNaN(numericValue)) {
+      setMontoAhorradoError('Ingrese un número válido');
+    } else {
+      setMontoAhorrado(numericValue);
+      setMontoAhorradoError(null);
+    }
+  };
+
+
   const handleAgregarUsuario = async () => {
     setDniError(null);
     setMontoError(null);
-
+    setMontoCuotaError(null);
+    setMontoAhorradoError(null);
+    console.log('chaschaschas', montoAhorrado, montoCuota)
     if (!dni) {
       setDniError('El DNI es obligatorio');
       return;
@@ -51,8 +80,21 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
       return;
     }
 
+    if (Number.isNaN(montoCuota)) {
+      setMontoCuotaError('El monto de la cuota debe ser un número válido y no puede estar vacío');
+      return;
+    }
+
+    if ( Number.isNaN(montoAhorrado)) {
+      setMontoAhorradoError('El monto ahorrado debe ser un número válido y no puede estar vacío');
+      return;
+    }
+
+    
+
     try {
-      await onAgregar(dni, monto);
+      await onAgregar(dni, monto, montoCuota, montoAhorrado);
+      
       handleCloseModal();
     } catch (err) {
       console.error(err);
@@ -68,6 +110,8 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
     onClose();
     setDni('');
     setMontoPago('');
+    setMontoCuota(0);
+    setMontoAhorrado(0);
     setDniError(null);
     setMontoError(null);
   };
@@ -98,6 +142,28 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
           onChange={handleInputChangeMonto}
           error={Boolean(montoError)}
           helperText={montoError || ''}
+        />
+        <TextField
+          margin="dense"
+          label="Monto de Cuota"
+          type="text"
+          fullWidth
+          variant="outlined"
+          value={montoCuota}
+          onChange={handleInputChangeMontoCuota}
+          error={Boolean(montoCuotaError)}
+          helperText={montoCuotaError}
+        />
+        <TextField
+          margin="dense"
+          label="Monto Ahorrado"
+          type="text"
+          fullWidth
+          variant="outlined"
+          value={montoAhorrado}
+          onChange={handleInputChangeMontoAhorrado}
+          error={Boolean(montoAhorradoError)}
+          helperText={montoAhorradoError}
         />
       </DialogContent>
       <DialogActions>
