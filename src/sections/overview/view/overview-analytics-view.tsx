@@ -27,7 +27,7 @@ export function OverviewAnalyticsView() {
   };
 
   return (
-    <DashboardContent maxWidth="xl" sx={{ position: 'relative' }}>
+    <DashboardContent maxWidth={false} sx={{ position: 'relative' }}>
       <Box
         sx={{
           position: 'absolute',
