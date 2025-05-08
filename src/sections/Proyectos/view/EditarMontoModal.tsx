@@ -77,7 +77,7 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
           helperText={error || ''} // Muestra el mensaje debajo del input
         />
         <TextField
-          label="Monto de Cuota"
+          label="Numero de Cuota"
           type="number"
           fullWidth
           variant="outlined"

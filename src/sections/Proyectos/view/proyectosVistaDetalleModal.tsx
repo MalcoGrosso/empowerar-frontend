@@ -145,7 +145,7 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
         />
         <TextField
           margin="dense"
-          label="Monto de Cuota"
+          label="Numero de Cuota"
           type="text"
           fullWidth
           variant="outlined"

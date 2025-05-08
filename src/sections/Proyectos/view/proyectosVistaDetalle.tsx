@@ -311,7 +311,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
                     <TableCell><strong>Email</strong></TableCell>
                     <TableCell><strong>DNI</strong></TableCell>
                     <TableCell><strong>Monto de Pago</strong></TableCell>
-                    <TableCell><strong>Monto de Cuota</strong></TableCell>
+                    <TableCell><strong>Numero de Cuota</strong></TableCell>
                     <TableCell><strong>Monto Ahorrado</strong></TableCell>
                     <TableCell><strong>Acciones</strong></TableCell>
                   </TableRow>
