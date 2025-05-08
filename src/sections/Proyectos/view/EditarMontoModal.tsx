@@ -4,9 +4,9 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, T
 interface EditarMontoModalProps {
   open: boolean;
   onClose: () => void;
-  onSave: (montoPago: number,montoCuota: number, montoAhorrado: number) => Promise<void>;
+  onSave: (montoPago: number,montoCuota: string, montoAhorrado: number) => Promise<void>;
   montoPago: number;
-  montoCuota: number;
+  montoCuota: string;
   montoAhorrado: number;
   nombre: string;
   dni: string;
@@ -54,7 +54,7 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
       return;
     }
 
-    await onSave(parsedMonto, parsedMontoCuota, parsedMontoAhorrado);
+    await onSave(parsedMonto, montoC, parsedMontoAhorrado);
       };
 
   return (
@@ -77,8 +77,8 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
           helperText={error || ''} // Muestra el mensaje debajo del input
         />
         <TextField
-          label="Numero de Cuota"
-          type="number"
+          label="Cantidad de Cuotas"
+          type="text"
           fullWidth
           variant="outlined"
           sx={{ mb: 2 }}

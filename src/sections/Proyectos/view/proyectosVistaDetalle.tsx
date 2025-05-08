@@ -14,7 +14,7 @@ interface UsuarioAsignado {
   
   id: number;
   montoPago: string;
-  montoCuota: number;
+  montoCuota: string;
   montoAhorrado: number;
   usuario: {
     id: number;
@@ -115,9 +115,9 @@ export const ProyectosVistaDetalle: React.FC = () => {
     setModalOpenElectricista(false);
   };
 
-  const handleAgregarUsuario = async (dni: string, montoPago: number, montoCuota: number, montoAhorrado: number) => {
+  const handleAgregarUsuario = async (dni: string, montoPago: number, montoCuota: string, montoAhorrado: number) => {
     try {
-      await agregarUsuarioAProyecto(dni, Number(id), montoPago, montoCuota, montoAhorrado);
+      await agregarUsuarioAProyecto(dni, Number(id), montoCuota, montoAhorrado, montoPago);
       setSuccess('Usuario agregado correctamente');
       loadUsuariosAsignados();
       handleCloseModalUsuario();
@@ -228,7 +228,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
     setEditModalOpen(false);
   };
 
-  const handleSaveEdit = async (montoPago: number, montoCuota: number, montoAhorrado: number) => {
+  const handleSaveEdit = async (montoPago: number, montoCuota: string, montoAhorrado: number) => {
     if (selectedUser) {
       try {
         await editarUsuarioAProyecto(selectedUser.id, montoPago, montoCuota, montoAhorrado);
@@ -311,7 +311,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
                     <TableCell><strong>Email</strong></TableCell>
                     <TableCell><strong>DNI</strong></TableCell>
                     <TableCell><strong>Monto de Pago</strong></TableCell>
-                    <TableCell><strong>Numero de Cuota</strong></TableCell>
+                    <TableCell><strong>Cantidad de Cuotas</strong></TableCell>
                     <TableCell><strong>Monto Ahorrado</strong></TableCell>
                     <TableCell><strong>Acciones</strong></TableCell>
                   </TableRow>
@@ -435,7 +435,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
         montoPago={selectedUser?.montoPago ? parseFloat(selectedUser.montoPago) : 0}
         nombre={`${selectedUser?.usuario.firstName} ${selectedUser?.usuario.lastName}`}
         dni={selectedUser?.usuario.dni || ''} 
-        montoCuota={selectedUser?.montoCuota ?? 0} 
+        montoCuota={String(selectedUser?.montoCuota ?? 0)}
         montoAhorrado={selectedUser?.montoAhorrado ?? 0}
          />
 

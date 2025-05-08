@@ -10,7 +10,7 @@ export interface PagoProps {
   interes: boolean;
   usuariosProyectosId: number;
   usuarioProyecto?: {
-    montoCuota: number;
+    montoCuota: string;
     montoAhorrado: number;
   }
 }

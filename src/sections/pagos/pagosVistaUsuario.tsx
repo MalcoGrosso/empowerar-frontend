@@ -104,7 +104,7 @@ export function Pagos() {
       {pagos.length > 0 && pagos[0].usuarioProyecto && (
   <>
     <Typography variant="h6" gutterBottom>
-      Numero de Cuota: {pagos[0].usuarioProyecto.montoCuota}
+      Cantidad de Cuotas: {pagos[0].usuarioProyecto.montoCuota}
     </Typography>
     <Typography variant="h6" gutterBottom>
       Monto Ahorrado: ${pagos[0].usuarioProyecto.montoAhorrado}
