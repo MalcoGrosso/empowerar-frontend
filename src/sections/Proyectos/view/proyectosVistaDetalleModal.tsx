@@ -11,7 +11,7 @@ import {
 interface AgregarUsuarioModalProps {
   open: boolean;
   onClose: () => void;
-  onAgregar: (dni: string, montoPago: number, montoCuota: number, montoAhorrado: number) => Promise<void>;
+  onAgregar: (dni: string, montoPago: number, montoCuota: string, montoAhorrado: number) => Promise<void>;
 }
 
 interface AgregarElectricistaModalProps {
@@ -23,7 +23,7 @@ interface AgregarElectricistaModalProps {
 export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, onClose, onAgregar }) => {
   const [dni, setDni] = useState('');
   const [montoPago, setMontoPago] = useState('');
-  const [montoCuota, setMontoCuota] = useState(0);
+  const [montoCuota, setMontoCuota] = useState('');
   const [montoAhorrado, setMontoAhorrado] = useState(0);
   const [dniError, setDniError] = useState<string | null>(null);
   const [montoError, setMontoError] = useState<string | null>(null);
@@ -41,12 +41,13 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
   };
 
   const handleInputChangeMontoCuota = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const numericValue = parseFloat(e.target.value);
+    const value = e.target.value;
+    setMontoCuota(value);  // Guarda siempre el string original
   
-    if (Number.isNaN(numericValue)) {
+    const numericValue = parseFloat(value);
+    if (value.trim() !== '' && Number.isNaN(numericValue)) {
       setMontoCuotaError('Ingrese un número válido');
     } else {
-      setMontoCuota(numericValue);
       setMontoCuotaError(null);
     }
   };
@@ -93,7 +94,7 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
     
 
     try {
-      await onAgregar(dni, monto, montoCuota, montoAhorrado);
+      await onAgregar(dni, monto, montoCuota.toString(), montoAhorrado);
       
       handleCloseModal();
     } catch (err) {
@@ -110,7 +111,7 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
     onClose();
     setDni('');
     setMontoPago('');
-    setMontoCuota(0);
+    setMontoCuota('');
     setMontoAhorrado(0);
     setDniError(null);
     setMontoError(null);
@@ -145,7 +146,7 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
         />
         <TextField
           margin="dense"
-          label="Monto de Cuota"
+          label="Cantidad de Cuotas"
           type="text"
           fullWidth
           variant="outlined"
