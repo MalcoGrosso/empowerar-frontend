@@ -4,18 +4,20 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, T
 interface EditarMontoModalProps {
   open: boolean;
   onClose: () => void;
-  onSave: (montoPago: number,montoCuota: string, montoAhorrado: number) => Promise<void>;
+  onSave: (montoPago: number,montoCuota: string, montoAhorrado: number, equipoAsignado: string) => Promise<void>;
   montoPago: number;
   montoCuota: string;
   montoAhorrado: number;
   nombre: string;
   dni: string;
+  equipoAsignado: string;
 }
 
-const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSave, montoPago, nombre, dni, montoCuota, montoAhorrado }) => {
+const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSave, montoPago, nombre, dni, montoCuota, montoAhorrado, equipoAsignado }) => {
   const [monto, setMonto] = useState<string>(montoPago.toString());
   const [montoC, setMontoCuota] = useState<string>(montoCuota.toString());
   const [montoA, setMontoAhorrado] = useState<string>(montoAhorrado.toString());
+  const [equipoA, setEquipoA] = useState<string>(equipoAsignado);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -23,9 +25,10 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
       setMonto(montoPago.toString());
       setMontoCuota(montoCuota.toString());
       setMontoAhorrado(montoAhorrado.toString());
+      setEquipoA(equipoAsignado);
       setError(null);
     }
-  }, [open, montoPago, montoCuota, montoAhorrado]);
+  }, [open, montoPago, montoCuota, montoAhorrado, equipoAsignado]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMonto(e.target.value);
@@ -38,12 +41,16 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
   const handleInputChangeMontoAhorrado = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMontoAhorrado(e.target.value);
   };
+  const handleInputChangeEquipoA = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEquipoA(e.target.value);
+  };
 
   const handleSave = async () => {
     setError(null);
     const parsedMonto = parseFloat(monto);
     const parsedMontoCuota = parseFloat(montoC);
     const parsedMontoAhorrado = parseFloat(montoA);
+    
 
     if (
       Number.isNaN(parsedMonto) ||
@@ -54,7 +61,7 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
       return;
     }
 
-    await onSave(parsedMonto, montoC, parsedMontoAhorrado);
+    await onSave(parsedMonto, montoC, parsedMontoAhorrado, equipoA);
       };
 
   return (
@@ -92,8 +99,19 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
           type="number"
           fullWidth
           variant="outlined"
+          sx={{ mb: 2 }}
           value={montoA}
           onChange={handleInputChangeMontoAhorrado}
+          error={Boolean(error)} // Activa el estado de error
+          helperText={error || ''} // Muestra el mensaje debajo del input
+        />
+        <TextField
+          label="Sistema Instalado"
+          type="text"
+          fullWidth
+          variant="outlined"
+          value={equipoA}
+          onChange={handleInputChangeEquipoA}
           error={Boolean(error)} // Activa el estado de error
           helperText={error || ''} // Muestra el mensaje debajo del input
         />
