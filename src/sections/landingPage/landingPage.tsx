@@ -57,13 +57,13 @@ export function LandingPage() {
       mission: "Nuestra Misión",
       missionContent1: (
         <>
-          <strong>empowerar</strong> es el resultado de la integración de la tecnología a la sociedad de una manera sustentable y con acceso universal que respete y promueva el bienestar humano y el progreso social.
+          <strong>EmpowerAr</strong> emerge de la integración sostenible y universal de la tecnología en la sociedad, respetando y promoviendo el bienestar humano y el progreso social.
         </>
       ),
-      missionContent2: "Este producto es un MVP (Producto Mínimo Viable) del LabTA quien viene desarrollando modelos de negocios en comunidades rurales de la Argentina.",
+      missionContent2: "Esta plataforma abierta, desarrollada por el LabTA, se concibió para acompañar a las familias en la gestión eficiente y sustentable de servicios esenciales como la electricidad e internet. El LabTA cuenta con experiencia en el desarrollo de modelos de negocio en comunidades rurales de Argentina.",
       missionContent3: (
         <>
-          Sentimos un profundo orgullo del equipo que formamos, cumpliendo un rol más que importante a través de políticas de responsabilidad social.
+          Nos sentimos profundamente orgullosos del equipo que hemos formado, cuyo rol resulta fundamental a través de políticas de responsabilidad social.
         </>
       ),
       stats: [
@@ -80,7 +80,7 @@ export function LandingPage() {
       implementation: "Los fondos se utilizan para compra e instalación del equipamiento, además de crear un fondo de reserva para reparaciones.",
       tokenization: (
         <>
-          La plataforma <strong>empowerar</strong> permite gestionar los pagos mensuales de las familias y el sistema de visitas mensuales de mantenimiento.
+          <strong>EmpowerAr</strong> es una plataforma que permite a las familias gestionar sus pagos mensuales, reclamos y coordinar las visitas de mantenimiento. Adicionalmente, brinda la posibilidad de financiar la renovación de baterías.
         </>
       ),
       aboutUs: (<>De la Academia al Emprendimiento. Somos un equipo que lleva casi 10 años trabajando en electrificación rural desde LabTA, para escalar nuestros proyectos nos dimos cuenta que teníamos que dar el siguiente paso. <strong>empowerar</strong> es nuestra forma de hacerlo.</>),
@@ -90,13 +90,13 @@ export function LandingPage() {
       mission: "Our Mission",
       missionContent1: (
         <>
-          <strong>empowerar</strong> is the result of integrating technology into society in a sustainable way with universal access that respects and promotes human well-being and social progress.
+          <strong>EmpowerAr</strong> emerges from the sustainable and universal integration of technology into society, respecting and promoting human well-being and social progress.
         </>
       ),
-      missionContent2: "This product is an MVP (Minimum Viable Product) of LabTA, which has been developing business models in rural communities in Argentina.",
+      missionContent2: "This open platform, developed by LabTA, was designed to support families in the efficient and sustainable management of essential services such as electricity and internet. LabTA has experience developing business models in rural communities in Argentina.",
       missionContent3: (
         <>
-          We are deeply proud of the team we have formed, playing an important role through social responsibility policies.
+          We are deeply proud of the team we have formed, whose role is fundamental through social responsibility policies.
         </>
       ),
       stats: [
@@ -113,7 +113,7 @@ export function LandingPage() {
       implementation: "The funds are used for the purchase and installation of equipment, in addition to creating a reserve fund for repairs.",
       tokenization: (
         <>
-          The <strong>empowerar</strong> platform allows you to manage families monthly payments and the monthly maintenance visit system.
+          <strong>EmpowerAr</strong> is a platform that allows families to manage their monthly payments, claims, and schedule maintenance visits. It also offers the option to finance battery replacements.
         </>
       ),
       aboutUs: (<>From the Academy to Entrepreneurship. We are a team that has been working on rural electrification for almost 10 years from LabTA. To scale up our projects, we realized that we had to take the next step. <strong>empowerar</strong> is our way of doing it.</>),

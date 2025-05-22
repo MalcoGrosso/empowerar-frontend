@@ -11,7 +11,7 @@ import {
 interface AgregarUsuarioModalProps {
   open: boolean;
   onClose: () => void;
-  onAgregar: (dni: string, montoPago: number, montoCuota: string, montoAhorrado: number) => Promise<void>;
+  onAgregar: (dni: string, montoPago: number, montoCuota: string, equipoAsingado: string , montoAhorrado: number) => Promise<void>;
 }
 
 interface AgregarElectricistaModalProps {
@@ -25,10 +25,12 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
   const [montoPago, setMontoPago] = useState('');
   const [montoCuota, setMontoCuota] = useState('');
   const [montoAhorrado, setMontoAhorrado] = useState(0);
+  const [equipoAsignado, setEquipoAsignado] = useState('');
   const [dniError, setDniError] = useState<string | null>(null);
   const [montoError, setMontoError] = useState<string | null>(null);
   const [montoCuotaError, setMontoCuotaError] = useState<string | null>(null);
   const [montoAhorradoError, setMontoAhorradoError] = useState<string | null>(null);
+  const [equipoAsignadoError, setEquipoAsignadoError] = useState<string | null>(null);
 
   const handleInputChangeDni = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDni(e.target.value);
@@ -37,6 +39,11 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
 
   const handleInputChangeMonto = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMontoPago(e.target.value);
+    setMontoError(null);
+  };
+
+   const handleInputChangeEquipoAsignado = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEquipoAsignado(e.target.value);
     setMontoError(null);
   };
 
@@ -69,6 +76,7 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
     setMontoError(null);
     setMontoCuotaError(null);
     setMontoAhorradoError(null);
+    setEquipoAsignadoError(null);
     console.log('chaschaschas', montoAhorrado, montoCuota)
     if (!dni) {
       setDniError('El DNI es obligatorio');
@@ -94,7 +102,7 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
     
 
     try {
-      await onAgregar(dni, monto, montoCuota.toString(), montoAhorrado);
+      await onAgregar(dni, monto, montoCuota.toString(), equipoAsignado , montoAhorrado);
       
       handleCloseModal();
     } catch (err) {
@@ -165,6 +173,17 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
           onChange={handleInputChangeMontoAhorrado}
           error={Boolean(montoAhorradoError)}
           helperText={montoAhorradoError}
+        />
+        <TextField
+          margin="dense"
+          label="Sistema Instalado"
+          type="text"
+          fullWidth
+          variant="outlined"
+          value={equipoAsignado}
+          onChange={handleInputChangeEquipoAsignado}
+          error={Boolean(equipoAsignadoError)}
+          helperText={equipoAsignadoError}
         />
       </DialogContent>
       <DialogActions>

@@ -16,6 +16,7 @@ interface UsuarioAsignado {
   montoPago: string;
   montoCuota: string;
   montoAhorrado: number;
+  equipoAsignado: string;
   usuario: {
     id: number;
     firstName: string;
@@ -115,9 +116,9 @@ export const ProyectosVistaDetalle: React.FC = () => {
     setModalOpenElectricista(false);
   };
 
-  const handleAgregarUsuario = async (dni: string, montoPago: number, montoCuota: string, montoAhorrado: number) => {
+  const handleAgregarUsuario = async (dni: string, montoPago: number, montoCuota: string, equipoAsignado: string ,montoAhorrado: number) => {
     try {
-      await agregarUsuarioAProyecto(dni, Number(id), montoCuota, montoAhorrado, montoPago);
+      await agregarUsuarioAProyecto(dni, Number(id), montoCuota, montoAhorrado, equipoAsignado ,montoPago);
       setSuccess('Usuario agregado correctamente');
       loadUsuariosAsignados();
       handleCloseModalUsuario();
@@ -228,17 +229,17 @@ export const ProyectosVistaDetalle: React.FC = () => {
     setEditModalOpen(false);
   };
 
-  const handleSaveEdit = async (montoPago: number, montoCuota: string, montoAhorrado: number) => {
+  const handleSaveEdit = async (montoPago: number, montoCuota: string, montoAhorrado: number, equipoAsignado: string) => {
     if (selectedUser) {
       try {
-        await editarUsuarioAProyecto(selectedUser.id, montoPago, montoCuota, montoAhorrado);
-        setSuccess('Monto de pago editado correctamente');
+        await editarUsuarioAProyecto(selectedUser.id, montoPago, montoCuota, montoAhorrado, equipoAsignado);
+        setSuccess('Usuario editado correctamente');
         loadUsuariosAsignados();
         handleCloseEditModal();
         setTimeout(() => setSuccess(null), 5000);
       } catch (error) {
-        console.error('Error al editar el monto de pago:', error);
-        setSuccess('Error al editar el monto de pago');
+        console.error('Error al editar el Usuario:', error);
+        setSuccess('Error al editar el Usuario');
         setTimeout(() => setSuccess(null), 5000);
       }
     }
@@ -310,6 +311,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
                     <TableCell><strong>Nombre</strong></TableCell>
                     <TableCell><strong>Email</strong></TableCell>
                     <TableCell><strong>DNI</strong></TableCell>
+                    <TableCell align="center"><strong>Equipo Asignado</strong></TableCell>
                     <TableCell><strong>Monto de Pago</strong></TableCell>
                     <TableCell><strong>Cantidad de Cuotas</strong></TableCell>
                     <TableCell><strong>Monto Ahorrado</strong></TableCell>
@@ -322,6 +324,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
                       <TableCell>{usuario.usuario.firstName} {usuario.usuario.lastName}</TableCell>
                       <TableCell>{usuario.usuario.email}</TableCell>
                       <TableCell>{usuario.usuario.dni}</TableCell>
+                      <TableCell>{usuario.equipoAsignado}</TableCell>
                       <TableCell>{usuario.montoPago}</TableCell>
                       <TableCell>{usuario.montoCuota}</TableCell>
                       <TableCell>{usuario.montoAhorrado}</TableCell>
@@ -435,6 +438,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
         montoPago={selectedUser?.montoPago ? parseFloat(selectedUser.montoPago) : 0}
         nombre={`${selectedUser?.usuario.firstName} ${selectedUser?.usuario.lastName}`}
         dni={selectedUser?.usuario.dni || ''} 
+        equipoAsignado={selectedUser?.equipoAsignado || ''}
         montoCuota={String(selectedUser?.montoCuota ?? 0)}
         montoAhorrado={selectedUser?.montoAhorrado ?? 0}
          />
