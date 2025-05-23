@@ -39,6 +39,12 @@ export const navData = [
     icon: icon('ic-lock'),
   },
   {
+    titleEn: 'Downloads',
+    titleEs: 'Descargas',
+    path: '#download',
+    icon: icon('ic-lock'),
+  },
+  {
     titleEn: 'Contact',
     titleEs: 'Contacto',
     path: '#contact',

@@ -17,22 +17,27 @@ export function OverviewAnalyticsView() {
   const [equipoAsignado, setEquipoAsignado] = useState('');
   const [fechaAsignacion, setFechaAsignacion] = useState('');
     useEffect(() => {
-    const fetchRelacion = async () => {
-      if (!id) return;
-      try {
-        const data = await obtenerRelacionUsuarioProyecto(id);
-        console.log(data);
-        setEquipoAsignado(data.equipoAsignado);
-        setFechaAsignacion(new Date(data.createdAt).toLocaleDateString());
-      } catch (error) {
-        console.error('Error al obtener la relación usuario-proyecto', error);
-      }
-    };
+  const fetchRelacion = async () => {
+    if (!id) return;
+    try {
+      const data = await obtenerRelacionUsuarioProyecto(id);
+      console.log(data);
 
-    if (role === 'usuario') {
-      fetchRelacion();
+      setEquipoAsignado(data.equipoAsignado);
+
+      const fechaUTC = new Date(data.createdAt);
+      const fechaLocal = new Date(fechaUTC.getTime() + fechaUTC.getTimezoneOffset() * 60000);
+      setFechaAsignacion(fechaLocal.toLocaleDateString('es-ES'));
+
+    } catch (error) {
+      console.error('Error al obtener la relación usuario-proyecto', error);
     }
-  }, [id, role]);
+  };
+
+  if (role === 'usuario') {
+    fetchRelacion();
+  }
+}, [id, role]);
 
   const obtenerRelacionUsuarioProyecto = async (userId: string) => {
   try {

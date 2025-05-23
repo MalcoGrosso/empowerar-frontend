@@ -51,6 +51,7 @@ export function SimpleLandingLayout({ sx, children, header, content }: SimpleLan
     howItWorks: language === 'es' ? 'Cómo Funciona' : 'How it Works',
     aboutUs: language === 'es' ? 'Sobre Nosotros' : 'About Us',
     testimonials: language === 'es' ? 'Testimonios' : 'Testimonials',
+    dowload: language === 'es' ? 'Descargas' : 'Downloads',
     contact: language === 'es' ? 'Contacto' : 'Contact',
   };
 
@@ -165,6 +166,19 @@ export function SimpleLandingLayout({ sx, children, header, content }: SimpleLan
                     }}
                   >
                     {texts.testimonials} 
+                  </a>
+                  <> / </>
+                  <a
+                    href="#download"
+                    onClick={(e) => scrollToSection(e, 'download')}
+                    style={{
+                      color: 'inherit',
+                      textDecoration: 'none',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {texts.dowload} 
                   </a>
                   <> / </>
                   <a

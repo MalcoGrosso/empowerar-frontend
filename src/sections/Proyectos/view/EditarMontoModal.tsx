@@ -4,21 +4,23 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, T
 interface EditarMontoModalProps {
   open: boolean;
   onClose: () => void;
-  onSave: (montoPago: number,montoCuota: string, montoAhorrado: number, equipoAsignado: string) => Promise<void>;
+  onSave: (montoPago: number,montoCuota: string, montoAhorrado: number, equipoAsignado: string, createdAt: Date) => Promise<void>;
   montoPago: number;
   montoCuota: string;
   montoAhorrado: number;
   nombre: string;
   dni: string;
   equipoAsignado: string;
+  createdAt: Date;
 }
 
-const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSave, montoPago, nombre, dni, montoCuota, montoAhorrado, equipoAsignado }) => {
+const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSave, montoPago, nombre, dni, montoCuota, montoAhorrado, equipoAsignado, createdAt }) => {
   const [monto, setMonto] = useState<string>(montoPago.toString());
   const [montoC, setMontoCuota] = useState<string>(montoCuota.toString());
   const [montoA, setMontoAhorrado] = useState<string>(montoAhorrado.toString());
   const [equipoA, setEquipoA] = useState<string>(equipoAsignado);
   const [error, setError] = useState<string | null>(null);
+  const [fechaAsignacion, setFechaAsignacion] = useState<string>('');
 
   useEffect(() => {
     if (open) {
@@ -26,9 +28,10 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
       setMontoCuota(montoCuota.toString());
       setMontoAhorrado(montoAhorrado.toString());
       setEquipoA(equipoAsignado);
+      setFechaAsignacion(createdAt.toISOString().split('T')[0]); // formato YYYY-MM-DD
       setError(null);
     }
-  }, [open, montoPago, montoCuota, montoAhorrado, equipoAsignado]);
+  }, [open, montoPago, montoCuota, montoAhorrado, equipoAsignado, createdAt]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMonto(e.target.value);
@@ -45,11 +48,16 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
     setEquipoA(e.target.value);
   };
 
+  const handleInputChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFechaAsignacion(e.target.value);
+  };
+
   const handleSave = async () => {
     setError(null);
     const parsedMonto = parseFloat(monto);
     const parsedMontoCuota = parseFloat(montoC);
     const parsedMontoAhorrado = parseFloat(montoA);
+    const fechaAsignacionDate = new Date(fechaAsignacion); // Aquí haces la conversión
     
 
     if (
@@ -60,8 +68,8 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
       setError('Todos los montos deben ser números válidos');
       return;
     }
-
-    await onSave(parsedMonto, montoC, parsedMontoAhorrado, equipoA);
+    console.log(fechaAsignacionDate);
+    await onSave(parsedMonto, montoC, parsedMontoAhorrado, equipoA, fechaAsignacionDate);
       };
 
   return (
@@ -80,6 +88,17 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
           sx={{ mb: 2 }}
           value={monto}
           onChange={handleInputChange}
+          error={Boolean(error)} // Activa el estado de error
+          helperText={error || ''} // Muestra el mensaje debajo del input
+        />
+        <TextField
+          label="Fecha de Asignacion"
+          type="date"
+          fullWidth
+          variant="outlined"
+          sx={{ mb: 2 }}
+          value={fechaAsignacion}
+          onChange={handleInputChangeDate}
           error={Boolean(error)} // Activa el estado de error
           helperText={error || ''} // Muestra el mensaje debajo del input
         />

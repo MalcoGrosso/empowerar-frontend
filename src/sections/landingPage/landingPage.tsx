@@ -22,6 +22,8 @@ type LanguageContent = {
   missionContent1: JSX.Element;
   missionContent2: string;
   missionContent3: JSX.Element;
+  download: string;
+  downloadButton: string;
   stats: string[];
   buttonText: string;
   familyNeed: string;
@@ -83,6 +85,8 @@ export function LandingPage() {
           <strong>EmpowerAr</strong> es una plataforma que permite a las familias gestionar sus pagos mensuales, reclamos y coordinar las visitas de mantenimiento. Adicionalmente, brinda la posibilidad de financiar la renovación de baterías.
         </>
       ),
+      download: "Descargar EmpowerAr 1.0 EmpowerAr es una herramienta abierta pensada para acompañar a familias rurales en su camino hacia la energía limpia. Desde acá podés descargar todo el desarrollo: el software, el manual y los sensores que usamos. Si sos parte de una comunidad, una organización o simplemente querés ayudar, te invitamos a usarlo, mejorarlo y compartirlo. ¡La energía es un derecho, y entre todos la hacemos posible!",
+      downloadButton: "Descargar",
       aboutUs: (<>De la Academia al Emprendimiento. Somos un equipo que lleva casi 10 años trabajando en electrificación rural desde LabTA, para escalar nuestros proyectos nos dimos cuenta que teníamos que dar el siguiente paso. <strong>empowerar</strong> es nuestra forma de hacerlo.</>),
       aboutUs1: "El laboratorio de tecnologías Apropiadas (LabTA) trabaja en la búsqueda de nuevas alternativas tecnológicas que resuelvan problemas reales de nuestras comunidades en el territorio. En este sentido, estamos convencidos que la comunidad universitaria puede cumplir un rol más que importante a través de políticas de responsabilidad social asumiendo un liderazgo comprometido, plasmándolo en acciones educativas, de investigación, extensión y transferencia, por medio de la formación de personas que actúan como agentes multiplicadores y desarrollo de tecnologías apropiadas que se puedan difundir entre las comunidades y sus territorios.",
     },
@@ -116,6 +120,8 @@ export function LandingPage() {
           <strong>EmpowerAr</strong> is a platform that allows families to manage their monthly payments, claims, and schedule maintenance visits. It also offers the option to finance battery replacements.
         </>
       ),
+      download: "Download EmpowerAr 1.0 EmpowerAr is an open source tool designed to support rural families on their clean energy journey. You can download the entire development process here: the software, the manual, and the sensors we use. If you're part of a community, an organization, or just want to help, we invite you to use, improve, and share it. Energy is a right, and together we make it possible!",
+      downloadButton: "Download",
       aboutUs: (<>From the Academy to Entrepreneurship. We are a team that has been working on rural electrification for almost 10 years from LabTA. To scale up our projects, we realized that we had to take the next step. <strong>empowerar</strong> is our way of doing it.</>),
       aboutUs1: "The Appropriate Technologies Laboratory (LabTA) works on the search for new technological alternatives that solve real problems of our communities in the territory. In this sense, we are convinced that the university community can play a more than important role through social responsibility policies, assuming a committed leadership, embodying it in educational, research, extension and transfer actions, through the training of people who act as multiplying agents and the development of appropriate technologies that can be disseminated among communities and their territories.",
     }
@@ -436,7 +442,7 @@ export function LandingPage() {
       <Button 
         variant="contained" 
         color="primary" 
-        href="https://labta.site"  // Para enlaces externos
+        href="http://labta.site"  // Para enlaces externos
         target="_blank"  // Opcional: abre el enlace en una nueva pestaña
         rel="noopener noreferrer"
         sx={{
@@ -450,7 +456,8 @@ export function LandingPage() {
           mb: -2,
           mt: 2,
         }}>
-        Pagina Web: LabTA
+          {language === 'es' ? 'Pagina Web: LabTA' : 'Web Page: LabTA'}
+        
       </Button>
     </Typography>
     <br />
@@ -584,6 +591,50 @@ export function LandingPage() {
         </Box>
       </Container>
     </section>
+
+        <section id="download">
+  <Container sx={{ mb: 2, mt: 2 }}>
+    <Typography variant="h1" align="center" sx={{ mb: 2 }}>
+      {language === 'es' ? 'Descargar' : 'Download'}
+    </Typography>
+
+    <Typography sx={{ color: 'text.secondary' }}>{content.download}</Typography>
+    <br />
+    <Box display="flex" justifyContent="center" gap={2} mt={2} mb={-2}>
+  <Button 
+    variant="contained" 
+    color="primary" 
+    href="https://github.com/MalcoGrosso/empowerar-frontend"
+    target="_blank"
+    rel="noopener noreferrer"
+    sx={{
+      width: 200,
+      height: 30,
+      backgroundColor: lightGreen[600],
+    }}
+  >
+    {language === 'es' ? 'Link a Github' : 'Link to Github'}
+    
+  </Button>
+
+  <Button 
+    variant="contained" 
+    color="primary" 
+    href="https://empowerar.gitbook.io/empowerar-1.0"
+    target="_blank"
+    rel="noopener noreferrer"
+    sx={{
+      width: 200,
+      height: 30,
+      backgroundColor: lightGreen[600],
+    }}
+  >
+    {language === 'es' ? 'Link a Gitbook' : 'Link to Gitbook'}
+  </Button>
+</Box>
+    <br />
+  </Container>
+</section>
 
     <section id="contact">
         <Container sx={{ py: 5 }}>

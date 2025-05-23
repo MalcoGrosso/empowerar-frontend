@@ -17,6 +17,7 @@ interface UsuarioAsignado {
   montoCuota: string;
   montoAhorrado: number;
   equipoAsignado: string;
+  createdAt: Date;
   usuario: {
     id: number;
     firstName: string;
@@ -229,10 +230,10 @@ export const ProyectosVistaDetalle: React.FC = () => {
     setEditModalOpen(false);
   };
 
-  const handleSaveEdit = async (montoPago: number, montoCuota: string, montoAhorrado: number, equipoAsignado: string) => {
+  const handleSaveEdit = async (montoPago: number, montoCuota: string, montoAhorrado: number, equipoAsignado: string, createdAt: Date) => {
     if (selectedUser) {
       try {
-        await editarUsuarioAProyecto(selectedUser.id, montoPago, montoCuota, montoAhorrado, equipoAsignado);
+        await editarUsuarioAProyecto(selectedUser.id, montoPago, montoCuota, montoAhorrado, equipoAsignado, createdAt);
         setSuccess('Usuario editado correctamente');
         loadUsuariosAsignados();
         handleCloseEditModal();
@@ -311,6 +312,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
                     <TableCell><strong>Nombre</strong></TableCell>
                     <TableCell><strong>Email</strong></TableCell>
                     <TableCell><strong>DNI</strong></TableCell>
+                    <TableCell><strong>Fecha de Asignacion</strong></TableCell>
                     <TableCell align="center"><strong>Equipo Asignado</strong></TableCell>
                     <TableCell><strong>Monto de Pago</strong></TableCell>
                     <TableCell><strong>Cantidad de Cuotas</strong></TableCell>
@@ -324,6 +326,15 @@ export const ProyectosVistaDetalle: React.FC = () => {
                       <TableCell>{usuario.usuario.firstName} {usuario.usuario.lastName}</TableCell>
                       <TableCell>{usuario.usuario.email}</TableCell>
                       <TableCell>{usuario.usuario.dni}</TableCell>
+                      <TableCell>
+                        {usuario.createdAt
+                          ? new Date(usuario.createdAt).toLocaleDateString('es-AR', {
+                              day: '2-digit',
+                              month: '2-digit',
+                              year: 'numeric',
+                            })
+                          : ''}
+                      </TableCell>
                       <TableCell>{usuario.equipoAsignado}</TableCell>
                       <TableCell>{usuario.montoPago}</TableCell>
                       <TableCell>{usuario.montoCuota}</TableCell>
@@ -441,6 +452,7 @@ export const ProyectosVistaDetalle: React.FC = () => {
         equipoAsignado={selectedUser?.equipoAsignado || ''}
         montoCuota={String(selectedUser?.montoCuota ?? 0)}
         montoAhorrado={selectedUser?.montoAhorrado ?? 0}
+        createdAt={new Date(selectedUser?.createdAt ?? new Date())}
          />
 
       {/* Dialogo de confirmación de eliminación para usuarios */}
