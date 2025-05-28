@@ -21,8 +21,12 @@ export function OverviewAnalyticsView() {
       try {
         const data = await obtenerRelacionUsuarioProyecto(id);
         console.log(data);
+
         setEquipoAsignado(data.equipoAsignado);
-        setFechaAsignacion(new Date(data.createdAt).toLocaleDateString());
+
+        const fechaUTC = new Date(data.createdAt);
+        const fechaLocal = new Date(fechaUTC.getTime() + fechaUTC.getTimezoneOffset() * 60000);
+        setFechaAsignacion(fechaLocal.toLocaleDateString('es-ES'));
       } catch (error) {
         console.error('Error al obtener la relación usuario-proyecto', error);
       }

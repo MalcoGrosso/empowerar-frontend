@@ -17,6 +17,7 @@ interface UsuarioAsignado {
   montoCuota: string;
   montoAhorrado: number;
   equipoAsignado: string;
+  createdAt: Date;
   usuario: {
     id: number;
     firstName: string;
@@ -47,7 +48,7 @@ interface ProyectosContextType {
   updateProyecto: (proyectoId: number, proyecto: Partial<Omit<ProyectoProps, 'id'>>) => Promise<ProyectoProps>;
   fetchUsuariosPorProyecto: (proyectoId: number) => Promise<UsuarioAsignado[]>;
   agregarUsuarioAProyecto: (dni: string, proyectoId: number, montoCuota: string, montoAhorrado: number, equipoAsignado: string , montoPago: number) => Promise<void>;
-  editarUsuarioAProyecto: (usuarioId: number, montoPago: number, montoCuota: string, montoAhorrado: number, equipoAsignado: string) => Promise<void>;
+  editarUsuarioAProyecto: (usuarioId: number, montoPago: number, montoCuota: string, montoAhorrado: number, equipoAsignado: string, createdAt: Date) => Promise<void>;
   eliminarUsuarioAProyecto: (usuarioId: number, proyectoId: number) => Promise<void>;
   fetchElectricistasPorProyecto: (proyectoId: number) => Promise<ElectricistaAsignado[]>;  // Nueva función
   agregarElectricistaAProyecto: (dni: string, proyectoId: number) => Promise<void>;
@@ -152,10 +153,11 @@ export const ProyectosProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   }, [fetchElectricistasPorProyecto]);
 
-  const editarUsuarioAProyecto = useCallback(async (usuarioId: number, montoPago: number, montoCuota: string, montoAhorrado: number, equipoAsignado: string) => {
+  const editarUsuarioAProyecto = useCallback(async (usuarioId: number, montoPago: number, montoCuota: string, montoAhorrado: number, equipoAsignado: string, createdAt: Date) => {
     try {
       const token = localStorage.getItem('token');
-      await api.put(`/usuariosProyectos/edit/${usuarioId}`, { montoPago, montoCuota, montoAhorrado, equipoAsignado }, {
+      console.log(createdAt ,'asdasdasd');
+      await api.put(`/usuariosProyectos/edit/${usuarioId}`, { montoPago, montoCuota, montoAhorrado, equipoAsignado, createdAt }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
