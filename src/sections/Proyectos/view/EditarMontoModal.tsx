@@ -58,6 +58,7 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
     const parsedMontoCuota = parseFloat(montoC);
     const parsedMontoAhorrado = parseFloat(montoA);
     const fechaAsignacionDate = new Date(fechaAsignacion); // Aquí haces la conversión
+    const fechaFormateada = fechaAsignacionDate.toISOString().slice(0, 19).replace('T', ' '); // '2025-05-15 00:00:00'
     
 
     if (
