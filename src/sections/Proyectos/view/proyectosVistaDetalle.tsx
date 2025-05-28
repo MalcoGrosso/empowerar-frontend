@@ -328,7 +328,9 @@ export const ProyectosVistaDetalle: React.FC = () => {
                       <TableCell>{usuario.usuario.dni}</TableCell>
                       <TableCell>
                         {usuario.createdAt
-                          ? new Date(usuario.createdAt).toLocaleDateString('es-AR', {
+                          ? new Date(
+                              new Date(usuario.createdAt).getTime() + 3 * 60 * 60 * 1000 // sumar 3 horas
+                            ).toLocaleDateString('es-AR', {
                               day: '2-digit',
                               month: '2-digit',
                               year: 'numeric',
