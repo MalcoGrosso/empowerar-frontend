@@ -70,6 +70,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [fetchUsers]);
 
+
   const updateUser = useCallback(async (userId: number, user: Partial<Omit<UserProps, 'id'>>): Promise<UserProps> => {
     try {
       const token = localStorage.getItem('token');
@@ -107,3 +108,5 @@ export const useUsers = () => {
   }
   return context;
 };
+
+

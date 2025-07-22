@@ -20,7 +20,6 @@ export function OverviewAnalyticsView() {
       if (!id) return;
       try {
         const data = await obtenerRelacionUsuarioProyecto(id);
-        console.log(data);
 
         setEquipoAsignado(data.equipoAsignado);
 
@@ -40,7 +39,6 @@ export function OverviewAnalyticsView() {
   const obtenerRelacionUsuarioProyecto = async (userId: string) => {
     try {
       const response = await api.get(`/usuariosProyectos/usuario/${userId}`);
-      console.log(response);
       return response.data; // axios ya parsea el JSON automáticamente
     } catch (error) {
       // Manejo simple de error

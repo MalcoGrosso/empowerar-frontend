@@ -152,8 +152,6 @@ const fetchFechasMantenimientos = useCallback(async (usuarioId: string): Promise
         },
       });
 
-      console.log('Mantenimientos del usuario:', response.data);
-
       const mantenimientos = response.data;
       setMantenimientosDelUsuario(mantenimientos);
       setLoading(false);
@@ -169,7 +167,6 @@ const fetchFechasMantenimientos = useCallback(async (usuarioId: string): Promise
   // Obtener un mantenimiento específico por usuario
   const fetchMantenimientoPorUsuario = useCallback(
     async (usuarioId: string, mantenimientoId: string): Promise<Mantenimiento | null> => {
-      console.log('usuarioId, mantenimientoId')
       setLoading(true);
       try {
         const token = localStorage.getItem('token');
@@ -184,8 +181,6 @@ const fetchFechasMantenimientos = useCallback(async (usuarioId: string): Promise
             Authorization: `Bearer ${token}`,
           },
         });
-
-        console.log('Mantenimiento obtenido:', response.data);
 
         setLoading(false);
         return response.data as Mantenimiento;
@@ -221,7 +216,6 @@ const crearMantenimiento = useCallback(
   ): Promise<Mantenimiento | null> => {
     setLoading(true);
     try {
-      console.log('asdasdsd')
       const token = localStorage.getItem('token');
       if (!token) {
         console.error('Token no encontrado');
@@ -237,10 +231,8 @@ const crearMantenimiento = useCallback(
 
       const nuevoMantenimiento = response.data;
       setLoading(false);
-      console.log('Mantenimiento creado:', nuevoMantenimiento);
       return nuevoMantenimiento;
     } catch (error) {
-      console.log(mantenimientoData)
       console.error('Error al crear el mantenimiento:', error);
       setLoading(false);
       return null;
@@ -268,7 +260,6 @@ const editarMantenimiento = useCallback(
       });
 
       setLoading(false);
-      console.log('provider', response.data)
       return response.data; // Retorna el mantenimiento actualizado
     } catch (error) {
       console.error('Error al editar el mantenimiento:', error);
@@ -330,8 +321,6 @@ const fetchMantenimientoPorId = useCallback(
         },
       });
 
-      console.log('Mantenimiento obtenido:', response.data);
-
       setLoading(false);
       return response.data as Mantenimiento;
     } catch (error) {
@@ -363,7 +352,6 @@ const eliminarMantenimiento = useCallback(
 
       // Si la respuesta es exitosa, asumimos que el mantenimiento fue eliminado
       setLoading(false);
-      console.log('Mantenimiento eliminado:', response.data);
       
     } catch (error) {
       console.error('Error al eliminar el mantenimiento:', error);

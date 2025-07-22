@@ -60,7 +60,6 @@ export function Pagos() {
 
   const handleGenerarPago = async (id: number) => {
     try {
-      console.log("Generando pago para ID:", id);
       const response = await api.post('/pagos/generarPago', { id });
   
       if (response.status === 200) {
@@ -70,7 +69,6 @@ export function Pagos() {
         const paymentUrl = `https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${preferenceId}`;
   
         setPreferenceIds(prev => ({ ...prev, [id]: paymentUrl })); // Guarda la URL completa
-        console.log("Link de pago generado:", paymentUrl);
       } else {
         console.error('Error al generar el pago.');
       }

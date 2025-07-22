@@ -80,7 +80,6 @@ export function DashboardLayout({ sx, children, header }: DashboardLayoutProps) 
     return item; // Retornar el ítem sin cambios si no se aplica ningún ajuste
   });
 
-  console.log('sdsdds',navData);
 
   return (
     <LayoutSection

@@ -31,8 +31,6 @@ export function MantenimientoFormulario() {
   const { state } = useLocation();
   const id = useParams().id
   const mantenimientoId = useParams().mantenimientoId
-  console.log('asdasd',useParams());
-  console.log('state', state);
   const electricistaId = state?.electricistaId ? state.electricistaId : mantenimientoId;
   const isCreateMode = location.pathname.includes('/crear');
   const isEditMode = location.pathname.includes('/editar');
@@ -61,7 +59,6 @@ export function MantenimientoFormulario() {
     // Caso para Modo Edición
     if (isEditMode && id && electricistaId) {
       fetchMantenimientoPorUsuario(electricistaId, id).then((mantenimiento) => {
-        console.log('asdasda22222',id, electricistaId, state.usuarioId, state.electricistaId)
         if (mantenimiento) {
           // Actualizamos los datos del formulario con la información obtenida
           setFormData((prev) => ({
@@ -90,7 +87,6 @@ export function MantenimientoFormulario() {
     // Caso para Modo Visualización (Ver)
     if (isViewMode && id && mantenimientoId) {
       fetchMantenimientoPorUsuario(id, mantenimientoId).then((mantenimiento) => {
-        console.log('asdasda22222',id, electricistaId, state.usuarioId, state.electricistaId, mantenimientoId)
         if (mantenimiento) {
           // Actualizamos los datos del formulario con la información obtenida
           setFormData((prev) => ({
@@ -159,7 +155,6 @@ export function MantenimientoFormulario() {
       try {
         const nuevoMantenimiento = await crearMantenimiento(formattedData);
         if (nuevoMantenimiento) {
-          console.log('Mantenimiento creado con éxito:', nuevoMantenimiento);
           showAlert('Mantenimiento creado con éxito', 'success'); 
           navigate(-1);
         } else {
@@ -174,7 +169,6 @@ export function MantenimientoFormulario() {
       try {
         const mantenimientoActualizado = await editarMantenimiento(Number(id), formattedData);
         if (mantenimientoActualizado) {
-          console.log('Mantenimiento editado con éxito:', mantenimientoActualizado);
           showAlert('Mantenimiento editado con éxito', 'success'); 
           navigate(-1);
         } else {

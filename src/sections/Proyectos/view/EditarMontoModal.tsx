@@ -69,7 +69,6 @@ const EditarMontoModal: React.FC<EditarMontoModalProps> = ({ open, onClose, onSa
       setError('Todos los montos deben ser números válidos');
       return;
     }
-    console.log(fechaAsignacionDate);
     await onSave(parsedMonto, montoC, parsedMontoAhorrado, equipoA, fechaAsignacionDate);
       };
 

@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { RouterLink } from 'src/routes/components';
-
+import { useEffect, useState } from 'react';
 import { SimpleLandingLayout } from 'src/layouts/simpleLanding/layout';
 import { Carousel } from 'react-responsive-carousel';
 import List from '@mui/material/List';
@@ -15,6 +15,10 @@ import { Grid, MenuItem, Select, SelectChangeEvent, TextField, Link } from '@mui
 import { useLanguage } from 'src/context/LanguageProvider'; // Importa el hook para acceder al idioma
 import { lightBlue, lightGreen } from '@mui/material/colors';
 import { useForm, ValidationError } from '@formspree/react';
+import { useLandingData } from '../../context/LandingDataProvider'
+
+
+
 
 // Define el tipo LanguageContent
 type LanguageContent = {
@@ -46,6 +50,29 @@ const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#1A2027',
   }),
 }));
+
+const useCounter = (endValue: number, duration = 2000) => {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const step = endValue / (duration / 30);
+
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= endValue) {
+        clearInterval(timer);
+        setValue(endValue);
+      } else {
+        setValue(Math.floor(start));
+      }
+    }, 30);
+
+    return () => clearInterval(timer);
+  }, [endValue, duration]);
+
+  return value;
+};
 
 export function LandingPage() {
   // Usa el hook useLanguage para acceder al idioma y la función para cambiarlo
@@ -164,6 +191,14 @@ export function LandingPage() {
   // Selecciona el contenido según el idioma actual
   const content = textContent[language];
 
+  const { familiasGestionadas, reclamosResueltos, pagosAlDia } = useLandingData();
+
+  const familias = useCounter(familiasGestionadas);
+  const reclamos = useCounter(reclamosResueltos);
+  const pagos = useCounter(pagosAlDia);
+  
+
+
   return (
     <SimpleLandingLayout>
       {/* Selector de idioma */}
@@ -257,6 +292,137 @@ export function LandingPage() {
             </Button>
           </Box>
         </Box>
+      </section>
+
+      <section id="onlineData">
+        <Container sx={{ my: -4, mb: 3 }}>
+          <Typography variant="h1" align="center" sx={{ mb: 3 }}>
+            {language === 'es' ? 'Datos en línea' : 'Live Data'}
+          </Typography>
+
+          <Grid
+            container
+            spacing={2}
+            justifyContent="center"
+            alignItems="stretch"
+            sx={{ textAlign: 'center' }}
+          >
+            {/* Familia gestionadas */}
+            <Grid item xs={12} sm={6} md={3}>
+              <Paper
+                elevation={3}
+                sx={{
+                  backgroundColor: '#7ED957',
+                  color: '#000',
+                  p: 3,
+                  height: '100%',
+                  borderRadius: 2,
+                }}
+              >
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
+                            <img
+                            alt="icon"
+                            src="/assets/icons/glass/ic-home.svg"
+                              />
+                </Box>
+                <Typography variant="h2">{familias}</Typography>
+                <Typography variant="subtitle1">
+                  {language === 'es' ? 'Familias gestionadas' : 'Families managed'}
+                </Typography>
+              </Paper>
+            </Grid>
+
+            {/* Reclamos resueltos */}
+            <Grid item xs={12} sm={6} md={3}>
+              <Paper
+                elevation={3}
+                sx={{
+                  backgroundColor: '#87CEFA',
+                  color: '#000',
+                  p: 3,
+                  height: '100%',
+                  borderRadius: 2,
+                }}
+              >
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
+                            <img
+                            alt="icon"
+                            src="/assets/icons/glass/ic-wrench.svg"
+                              />
+                </Box>
+                <Typography variant="h2">{reclamos}%</Typography>
+                <Typography variant="subtitle1">
+                  {language === 'es' ? 'de reclamos resueltos' : 'of claims resolved'}
+                </Typography>
+              </Paper>
+            </Grid>
+
+            {/* Pagos al día */}
+            <Grid item xs={12} sm={6} md={3}>
+              <Paper
+                elevation={3}
+                sx={{
+                  backgroundColor: '#FFA500',
+                  color: '#000',
+                  p: 3,
+                  height: '100%',
+                  borderRadius: 2,
+                }}
+              >
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
+                            <img
+                            alt="icon"
+                            src="/assets/icons/glass/ic-money.svg"
+                              />
+                </Box>
+                <Typography variant="h2">{pagos}%</Typography>
+                <Typography variant="subtitle1">
+                  {language === 'es' ? '% de pagos al día' : '% of on-time payments'}
+                </Typography>
+              </Paper>
+            </Grid>
+
+            {/* Créditos de carbono */}
+            <Grid item xs={12} sm={6} md={3}>
+              <Paper
+                elevation={3}
+                sx={{
+                  backgroundColor: '#DDA0DD',
+                  color: '#000',
+                  p: 3,
+                  height: '100%',
+                  borderRadius: 2,
+                }}
+              >
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
+                            <img
+                            alt="icon"
+                            src="/assets/icons/glass/ic-co2.svg"
+                              />
+                </Box>
+                <Typography variant="h2">0%</Typography>
+                <Typography variant="subtitle1">
+                  {language === 'es'
+                    ? 'Créditos de carbono (t CO₂)'
+                    : 'Carbon credits (t CO₂)'}
+                </Typography>
+                <Typography variant="subtitle1" sx={{ mt: 1, display: 'block' }}>
+                  ({language === 'es' ? 'En Desarrollo' : 'In Development'})
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+
+          <Typography
+            variant="body2"
+            align="center"
+            sx={{ mt: 3, fontStyle: 'italic', color: 'text.secondary' }}
+          >
+            {language === 'es'
+              ? 'Datos actualizados en tiempo real desde la base de datos'
+              : 'Data updated in real time from the database'}
+          </Typography>
+        </Container>
       </section>
 
       <section id="ourMission">

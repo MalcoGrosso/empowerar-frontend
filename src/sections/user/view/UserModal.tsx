@@ -84,7 +84,6 @@ export const UserModal: React.FC<UserModalProps> = ({ open, onClose, userToEdit 
         showAlert(`Usuario ${formValues.firstName} ${formValues.lastName} creado.`, 'success'); // Mensaje de éxito para creación
         resetForm(); // Reiniciar el formulario después de crear un nuevo usuario
       }
-      console.log('Usuario guardado:', userResponse); // Aquí puedes manejar la respuesta
       onClose(); // Cierra el modal
     } catch (er) {
       setError(er.response?.data?.error || 'Error al guardar el usuario');

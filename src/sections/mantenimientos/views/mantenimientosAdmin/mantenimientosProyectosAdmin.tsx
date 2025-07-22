@@ -32,7 +32,6 @@ export function MantenimientoAdmin() {
   };
 
   const handleProjectClick = (proyecto: ProyectoProps) => {
-    console.log('Navigando con el proyecto:', proyecto); // Verifica los datos
     navigate(`detalles/${proyecto.id}`, {
       state: {
         proyecto: {

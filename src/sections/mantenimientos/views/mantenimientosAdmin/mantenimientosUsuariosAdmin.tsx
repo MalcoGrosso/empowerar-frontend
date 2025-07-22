@@ -54,7 +54,6 @@ export function MantenimientosUsuariosAdmin() {
       setUsuariosAsignados(fetchedUsuarios);
       setFilteredUsuarios(fetchedUsuarios);
       setLoading(false);
-      console.log(state)
     };
     loadUsuarios();
   }, [id, fetchUsuariosPorProyecto, state]);

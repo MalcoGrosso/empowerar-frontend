@@ -7,6 +7,8 @@ import App from './app';
 import { LanguageProvider } from './context/LanguageProvider';
 import { AlertProvider } from './context/AlertProvider';
 
+import { LandingDataProvider } from './context/LandingDataProvider';
+
 // ----------------------------------------------------------------------
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -18,7 +20,9 @@ root.render(
         <Suspense>
           <AlertProvider>
           <LanguageProvider>
+            <LandingDataProvider>
           <App />
+            </LandingDataProvider>
           </LanguageProvider>
           </AlertProvider>
         </Suspense>

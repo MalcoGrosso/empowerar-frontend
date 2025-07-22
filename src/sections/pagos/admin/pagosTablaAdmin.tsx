@@ -77,64 +77,75 @@ export function PagosAdmin() {
   const uniqueYears = Array.from(new Set(pagos.map(pago => new Date(pago.createdAt).getFullYear())));
 
   return (
-    <>
-    <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
-      <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Pagos del Usuario
-      </Typography>
+    <><>
+      <Card sx={{ maxWidth: '100%', margin: '0 20px', p: { xs: 2, sm: 3 }, overflowX: 'auto' }}>
+        <Box sx={{ p: 3 }}>
+          <Typography variant="h4" gutterBottom>
+            Pagos del Usuario
+          </Typography>
 
-      <FormControl sx={{ mb: 3, minWidth: 200 }}>
-        <Select
-          value={yearFilter}
-          onChange={handleYearChange}
-          displayEmpty
+          <FormControl sx={{ mb: 3, minWidth: 200 }}>
+            <Select
+              value={yearFilter}
+              onChange={handleYearChange}
+              displayEmpty
+            >
+              <MenuItem value="">Todos los años</MenuItem>
+              {uniqueYears.map(year => (
+                <MenuItem key={year} value={year.toString()}>
+                  {year}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ textAlign: 'center' }}>Fecha de Pago</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>Monto</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>Estado</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>Acciones</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {pagosPaginated.map((pago) => (
+                  <TableRow key={pago.id}>
+                    <TableCell sx={{ textAlign: 'center' }}>
+                      {new Date(pago.createdAt).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell sx={{ textAlign: 'center' }}>${pago.monto}</TableCell>
+                    <TableCell sx={{ textAlign: 'center' }}>{pago.estado}</TableCell>
+                    <TableCell sx={{ textAlign: 'center' }}>
+                      {pago.estado === 'pagado' && (
+                        <Button onClick={() => irAComprobante(pago.comprobante)}>Ver Comprobante</Button>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+          <TablePagination
+            rowsPerPageOptions={[12]}
+            component="div"
+            count={filteredPagos.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage} />
+        </Box></Card></><Box sx={{ display: 'flex', justifyContent: 'center', mt: 5, mb: 5 }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => navigate(-1)}
         >
-          <MenuItem value="">Todos los años</MenuItem>
-          {uniqueYears.map(year => (
-            <MenuItem key={year} value={year.toString()}>
-              {year}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+          Volver
+        </Button>
+      </Box></>
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ textAlign: 'center' }}>Fecha de Pago</TableCell>
-              <TableCell sx={{ textAlign: 'center' }}>Monto</TableCell>
-              <TableCell sx={{ textAlign: 'center' }}>Estado</TableCell>
-              <TableCell sx={{ textAlign: 'center' }}>Acciones</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {pagosPaginated.map((pago) => (
-              <TableRow key={pago.id}>
-                <TableCell sx={{ textAlign: 'center' }}>
-                  {new Date(pago.createdAt).toLocaleDateString()}
-                </TableCell>
-                <TableCell sx={{ textAlign: 'center' }}>${pago.monto}</TableCell>
-                <TableCell sx={{ textAlign: 'center' }}>{pago.estado}</TableCell>
-                <TableCell sx={{ textAlign: 'center' }}>
-                  {pago.estado === 'pagado' && (
-                    <Button onClick={() => irAComprobante(pago.comprobante)}>Ver Comprobante</Button>
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      <TablePagination
-        rowsPerPageOptions={[12]}
-        component="div"
-        count={filteredPagos.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage} />
-    </Box></Card></>
+    
   );
+  
 }

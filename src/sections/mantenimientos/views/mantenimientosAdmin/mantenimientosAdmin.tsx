@@ -59,7 +59,6 @@ export function MantenimientoFormularioAdmin() {
   useEffect(() => {
     // Caso para Modo Edición
     if (isEditMode && id && mantenimientoId) {
-      console.log('ssssss',mantenimientoId, id)
       fetchMantenimientoPorUsuario(id, mantenimientoId).then((mantenimiento) => {
         
         if (mantenimiento) {
@@ -89,7 +88,6 @@ export function MantenimientoFormularioAdmin() {
   useEffect(() => {
     // Caso para Modo Visualización (Ver)
     if (isViewMode && id && mantenimientoIdVer) {
-      console.log('ssssss',mantenimientoIdVer, id)
       fetchMantenimientoPorUsuario(id, mantenimientoIdVer).then((mantenimiento) => {
         if (mantenimiento) {
           // Actualizamos los datos del formulario con la información obtenida

@@ -24,6 +24,7 @@ import { MantenimientoFormularioAdmin } from 'src/sections/mantenimientos/views/
 import { PagosProvider } from 'src/context/pagosProvider';
 import { Pagos } from 'src/sections/pagos/pagosVistaUsuario';
 import { PagosAdmin } from 'src/sections/pagos/admin/pagosTablaAdmin';
+import { PagosUsuariosAdmin } from 'src/sections/pagos/admin/pagosUsuariosAdmin';
 import { MantenimientoVista } from '../sections/mantenimientos/views/mantenimientosVistaUsuario';
 
 
@@ -326,7 +327,7 @@ export function Router() {
           element: (
             <RoleProtectedRoute allowedRoles={['administrador']}>
               <ProyectosProvider>
-                <MantenimientosUsuariosAdmin /> 
+                <PagosUsuariosAdmin /> 
               </ProyectosProvider>
             </RoleProtectedRoute>
           )

@@ -77,7 +77,6 @@ export const AgregarUsuarioModal: React.FC<AgregarUsuarioModalProps> = ({ open, 
     setMontoCuotaError(null);
     setMontoAhorradoError(null);
     setEquipoAsignadoError(null);
-    console.log('chaschaschas', montoAhorrado, montoCuota)
     if (!dni) {
       setDniError('El DNI es obligatorio');
       return;

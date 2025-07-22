@@ -11,6 +11,15 @@ export interface ProyectoProps {
   montoInteres: number;
 }
 
+interface Pago {
+  id: number;
+  monto: string;
+  estado: 'pendiente' | 'pagado' | 'rechazado';
+  comprobante: string | null;
+  interes: boolean;
+  createdAt: string;
+}
+
 interface UsuarioAsignado {
   id: number;
   montoPago: string;
@@ -25,6 +34,7 @@ interface UsuarioAsignado {
     email: string;
     dni: string;
   };
+  pagos: Pago[];
 }
 
 interface ElectricistaAsignado {
@@ -156,7 +166,6 @@ export const ProyectosProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const editarUsuarioAProyecto = useCallback(async (usuarioId: number, montoPago: number, montoCuota: string, montoAhorrado: number, equipoAsignado: string, createdAt: Date) => {
     try {
       const token = localStorage.getItem('token');
-      console.log(createdAt ,'asdasdasd');
       await api.put(`/usuariosProyectos/edit/${usuarioId}`, { montoPago, montoCuota, montoAhorrado, equipoAsignado, createdAt }, {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -76,7 +76,6 @@ export const ProyectosModal: React.FC<ProyectosModalProps> = ({ open, onClose, p
         showAlert(`Proyecto "${formValues.nombre}" creado.`, 'success'); // Mensaje de éxito para creación
         resetForm(); // Reiniciar el formulario después de crear un nuevo proyecto
       }
-      console.log('Proyecto guardado:', proyectoResponse); // Aquí puedes manejar la respuesta
       onClose(); // Cierra el modal
     } catch (er) {
       setError(er.response?.data?.error || 'Error al guardar el proyecto');
